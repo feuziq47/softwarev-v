@@ -46,6 +46,7 @@ public class RDMSystem {
         for(int i=0; i<allMode.length;i++){
             if(!isAvailable[i]) continue;
             availableMode[index] = allMode[i];
+            index++;
         }
     }
 
@@ -145,7 +146,7 @@ public class RDMSystem {
                     isSettingMode = !isSettingMode;
                 }
             }
-        }
+        } else if
     }
 
     /**
