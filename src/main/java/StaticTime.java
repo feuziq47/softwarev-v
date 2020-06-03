@@ -1,8 +1,9 @@
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
- * 
+ *
  */
 public class StaticTime {
 
@@ -13,12 +14,12 @@ public class StaticTime {
     }
 
     /**
-     * 
+     *
      */
-    private Local Date Time alarmTime;
+    private LocalDateTime alarmTime;
 
     /**
-     * 
+     *
      */
     private Boolean isActivated;
 
@@ -32,12 +33,12 @@ public class StaticTime {
     }
 
     /**
-     * @param time 
+     * @param time
      * @return
      */
-    public void setAlarmTime(void time) {
+    public void setAlarmTime(LocalDateTime time) {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -49,12 +50,12 @@ public class StaticTime {
     }
 
     /**
-     * @param isActivated 
+     * @param isActivated
      * @return
      */
-    public void setIsActivated(void isActivated) {
+    public void setIsActivated(boolean isActivated) {
         // TODO implement here
-        return null;
+
     }
 
 }
