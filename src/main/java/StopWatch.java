@@ -147,6 +147,8 @@ public class StopWatch extends Mode {
             }
             else return lapTime.get(index--);
         }
+
+        assert false;
         return LocalTime.of(4,4,4);
     }
 
