@@ -28,6 +28,7 @@ public class RDMSystem {
     final private String[] timeKeepingAtt = {"YEAR","MONTH", "DAY", "HOUR","MIN"};
 
     private boolean isSettingMode;
+    private boolean isStopwatchStart = false;
     /**
      * Default constructor
      */
@@ -104,10 +105,47 @@ public class RDMSystem {
                     isSettingMode = !isSettingMode;
                 }
             }
+        }else if(currentMode instanceof StopWatch){
+            if(!isSettingMode) {  //세팅모드가 아닐 떄
+                //displayMain(currentMode,isSettingMode)
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "LONG_MO" && isSettingMode == false) { //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                    isSettingMode = !isSettingMode;
+                    return;
+                } else if(buttonInput == "MO") {
+                    modeIndex += 1;
+                    modeIndex %= 4; //4넘을 경우 처리
+                } else if(buttonInput == "ST"){
+                    if(isStopwatchStart){
+                        ((StopWatch) currentMode).pauseStopwatch();
+                        isStopwatchStart = !isStopwatchStart;
+                    } else {
+                        ((StopWatch) currentMode).startStopwatch();
+                        isStopwatchStart = !isStopwatchStart;
+                    }
+                } else if(buttonInput == "RE") {
+                    isStopwatchStart = false;
+                    ((StopWatch) currentMode).clearStopwatch();
+                }
+            }
+            else {//세팅모드인 경우
+
+                //blinkDisplayMain(timeKeepingAtt[attrIndex]
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "AD") {
+                    attrIndex++;
+                    attrIndex = attrIndex % timeKeepingAtt.length; //분 -> year
+                } else if(buttonInput == "RE") {
+                    ((StopWatch) currentMode).getLapTime("UP"));
+                } else if(buttonInput == "ST") {
+                    ((StopWatch) currentMode).getLapTime("DOWN"));
+                } else if(buttonInput == "MO"){
+                    isSettingMode = !isSettingMode;
+                }
+            }
         }
-
-
-
     }
 
     /**
