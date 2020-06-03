@@ -138,9 +138,9 @@ public class RDMSystem {
                     attrIndex++;
                     attrIndex = attrIndex % timeKeepingAtt.length; //분 -> year
                 } else if(buttonInput == "RE") {
-                    ((StopWatch) currentMode).getLapTime("UP"));
+                    ((StopWatch) currentMode).getLapTime("UP");
                 } else if(buttonInput == "ST") {
-                    ((StopWatch) currentMode).getLapTime("DOWN"));
+                    ((StopWatch) currentMode).getLapTime("DOWN");
                 } else if(buttonInput == "MO"){
                     isSettingMode = !isSettingMode;
                 }
