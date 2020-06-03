@@ -1,57 +1,70 @@
 
-import java.util.*;
+import java.time.*;
 
-/**
- * 
- */
 public class TimeKeeping extends Mode {
 
-    /**
-     * Default constructor
-     */
-    public TimeKeeping() {
-    }
-
-    /**
-     * 
-     */
     private LocalDateTime currentTime;
 
-    /**
-     * @return
-     */
-    public void editTimeKeeping() {
-        // TODO implement here
-        return null;
+    public TimeKeeping() {
+        this.currentTime = LocalDateTime.now();
     }
 
-    /**
-     * @return
-     */
-    public void increase() {
-        // TODO implement here
-        return null;
+    //시간이 흐르는 것을 실제로 표현하기 위해 tictok이라는 함수를 새롭게 추가하였습니다.
+    public void tictok() {
+
     }
 
-    /**
-     * @return
-     */
-    public void decrease() {
+    //필요없는 기능이므로 삭제하겠습니다. -이정우
+    /*public void editTimeKeeping() {
         // TODO implement here
         return null;
+    }*/
+
+    public void increase(String unitName) {
+        // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
+        switch(unitName){
+            case "YEAR":
+                this.currentTime = this.currentTime.plusYears(1);
+            case "MONTH":
+                this.currentTime = this.currentTime.plusMonths(1);
+            case "DAY":
+                this.currentTime = this.currentTime.plusDays(1);
+            case "HOUR":
+                this.currentTime = this.currentTime.plusHours(1);
+            case "MIN":
+                this.currentTime = this.currentTime.plusMinutes(1);
+            case "SEC":
+                this.currentTime = this.currentTime.plusSeconds(1);
+            default:
+                System.err.println("Invalid Unit Name");
+        }
     }
 
-    /**
-     * @return
-     */
+    public void decrease(String unitName) {
+        // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
+        switch(unitName){
+            case "YEAR":
+                this.currentTime = this.currentTime.minusYears(1);
+            case "MONTH":
+                this.currentTime = this.currentTime.minusMonths(1);
+            case "DAY":
+                this.currentTime = this.currentTime.minusDays(1);
+            case "HOUR":
+                this.currentTime = this.currentTime.minusHours(1);
+            case "MIN":
+                this.currentTime = this.currentTime.minusMinutes(1);
+            case "SEC":
+                this.currentTime = this.currentTime.minusSeconds(1);
+            default:
+                System.err.println("Invalid Unit Name");
+        }
+    }
+
     public void selectUnitTime() {
         // TODO implement here
         return null;
     }
 
-    /**
-     * @return
-     */
     public void saveCurrentTime() {
         // TODO implement here
         return null;
