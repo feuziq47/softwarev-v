@@ -1,4 +1,7 @@
 
+import jdk.vm.ci.meta.Local;
+
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -10,22 +13,36 @@ public class StopWatch extends Mode {
      * Default constructor
      */
     public StopWatch() {
+        lapTime = new ArrayList<LocalTime>();
+        //lapTime = new LocalTime[10];
+        startTime = LocalTime.of(0,0,0);
+        savedTime = LocalTime.of(0,0,0);
+        index = 0;
+        availTime = LocalTime.of(0,0,0);
+        // 작동중인지 상태변수 추가
+        isRunning = false;
     }
 
     /**
-     * 
+     * 타이머 변수 추가
      */
-    private LocalDateTime lapTime[10];
+
+    private static java.util.Timer timer;
+
+    /**
+     *  LocalDateTime -> LocalTime으로 모두 변경
+     */
+    //private LocalTime[] lapTime;
+    private ArrayList<LocalTime> lapTime;
+    /**
+     * 현재 진행
+     */
+    private LocalTime startTime;
 
     /**
      * 
      */
-    private LocalDateTime startTime;
-
-    /**
-     * 
-     */
-    private LocalDateTime savedTime;
+    private LocalTime savedTime;
 
     /**
      * 
@@ -35,30 +52,38 @@ public class StopWatch extends Mode {
     /**
      * 
      */
-    private LocalDateTime availTime;
+    private LocalTime availTime;
+
+    private boolean isRunning;
 
     /**
      * @return
      */
     public void startStopwatch() {
-        // TODO implement here
-        return null;
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                startTime.plusSeconds(1);
+
+            }
+        }, 0, 1000);
+        isRunning = true;
     }
 
     /**
      * @return
      */
     public void resetStopwatch() {
-        // TODO implement here
-        return null;
+        startTime = LocalTime.of(0,0,0);
     }
 
     /**
      * @return
      */
     public void pauseStopwatch() {
-        // TODO implement here
-        return null;
+        if(isRunning){
+            timer.cancel();
+            isRunning = false;
+        }
     }
 
     /**
@@ -66,24 +91,63 @@ public class StopWatch extends Mode {
      */
     public void activateBeep() {
         // TODO implement here
-        return null;
+        //return null;
     }
 
     /**
      * @param dir 
-     * @return
+     * @return 반환형 변경 : LocalDateTime - > LocalTime
      */
-    public LocalDateTime getLapTime(int dir) {
-        // TODO implement here
-        return null;
+    public LocalTime getLapTime(int dir) {
+        return lapTime.get(dir);
     }
 
     /**
      * @return
      */
     public void clearStopwatch() {
-        // TODO implement here
-        return null;
+        if(!isRunning){
+            startTime = LocalTime.of(0,0,0);
+            lapTime.clear();
+        }
+    }
+
+    public void recordLapTime(){
+        if(lapTime.size() == 10){
+            lapTime.remove(9);
+        }
+        lapTime.add(0,LocalTime.from(startTime));
+    }
+    /**
+     * 인자: 인덱스 로 검색
+     */
+
+    public LocalTime fetchLapTime(int idx){
+        assert idx >= 0 && idx < 10;
+        return lapTime.get(idx);
+    }
+
+    /**
+     * 인자 : up down string으로 검색
+     */
+
+    public LocalTime getLaptime(String dir){
+        assert dir.equals("up") || dir.equals("down");
+        if(dir.equals("up")){
+            if(index == 10){
+                index = 0;
+                return lapTime.get(index);
+            }
+            else return lapTime.get(index++);
+        }
+        else if(dir.equals("down")){
+            if(index == 0){
+                index = 10;
+                return lapTime.get(index);
+            }
+            else return lapTime.get(index--);
+        }
+        return LocalTime.of(4,4,4);
     }
 
 }
