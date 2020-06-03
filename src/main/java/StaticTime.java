@@ -29,7 +29,7 @@ public class StaticTime {
      */
     public LocalDateTime getAlarmTime() {
         // TODO implement here
-        return null;
+        return alarmTime;
     }
 
     /**
@@ -38,7 +38,7 @@ public class StaticTime {
      */
     public void setAlarmTime(LocalDateTime time) {
         // TODO implement here
-
+        this.alarmTime = time;
     }
 
     /**
@@ -46,7 +46,7 @@ public class StaticTime {
      */
     public Boolean getIsActivated() {
         // TODO implement here
-        return null;
+        return isActivated;
     }
 
     /**
@@ -55,7 +55,7 @@ public class StaticTime {
      */
     public void setIsActivated(boolean isActivated) {
         // TODO implement here
-
+        this.isActivated = isActivated;
     }
 
 }

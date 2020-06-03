@@ -14,21 +14,20 @@ public class RDMSystem {
 
     //add
     private Mode[] allMode;
-    /**
-     *
-     */
-    private Mode[] disable;
+   // private Mode[] disable;
 
-    /**
-     *
-     */
     private int modeIndex;
+    private int selectModeIndex = 0;
     private int attrIndex = 0; //각 클래스의 attr인덱스 ex Year,Month
+    private int worldTimeIndex = 0;
 
     final private String[] timeKeepingAtt = {"YEAR","MONTH", "DAY", "HOUR","MIN"};
+    final private String[] alarmAtt = {"HOUR", "MIN", "SEC"};
 
     private boolean isSettingMode;
     private boolean isStopwatchStart = false;
+    private boolean isTimerStart = false;
+    private boolean isSeleteMode = false;
     /**
      * Default constructor
      */
@@ -75,9 +74,19 @@ public class RDMSystem {
      */
 
     public void decodeButtonInput(String buttonInput) {
-        // TODO implement here
         Mode currentMode = availableMode[modeIndex];
-        if(currentMode instanceof TimeKeeping){
+        if(isSeleteMode){
+            if(buttonInput == "AD") {
+                selectModeIndex +=1;
+                selectModeIndex %= allMode.length;
+            } else if(buttonInput == "ST") {
+                isAvailable[selectModeIndex] = !isAvailable[selectModeIndex];
+                selectModeIndex+=1;
+                selectModeIndex %= allMode.length;
+            } else if(buttonInput == "MO" && checkAvailableModeNum()){ //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
+                isSeleteMode = !isSeleteMode;
+            }
+        } else if(currentMode instanceof TimeKeeping){
             if(!isSettingMode) {  //세팅모드가 아닐 떄
                 //displayMain(currentMode,isSettingMode)
                 //displayIcon(currentMode,isSettingMode)
@@ -88,6 +97,8 @@ public class RDMSystem {
                 } else if(buttonInput == "MO") {
                     modeIndex += 1;
                     modeIndex %= 4; //4넘을 경우 처리
+                } else if (buttonInput == "LONG_AD"){
+                    isSeleteMode = !isSeleteMode;
                 }
             }
             else { //세팅모드인 경우
@@ -104,6 +115,7 @@ public class RDMSystem {
                     ((TimeKeeping) currentMode).decrease(timeKeepingAtt[attrIndex]);
                 } else if(buttonInput == "MO"){
                     isSettingMode = !isSettingMode;
+                    attrIndex = 0;
                 }
             }
         }else if(currentMode instanceof StopWatch){
@@ -128,6 +140,47 @@ public class RDMSystem {
                 } else if(buttonInput == "RE") {
                     isStopwatchStart = false;
                     ((StopWatch) currentMode).clearStopwatch();
+                } else if (buttonInput == "LONG_AD"){
+                    isSeleteMode = !isSeleteMode;
+                }
+            }
+            else {//세팅모드인 경우
+
+                //blinkDisplayMain(timeKeepingAtt[attrIndex]
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "RE") {
+                    ((StopWatch) currentMode).getLapTime("UP");
+                } else if(buttonInput == "ST") {
+                    ((StopWatch) currentMode).getLapTime("DOWN");
+                } else if(buttonInput == "MO"){
+                    isSettingMode = !isSettingMode;
+                }
+            }
+        } else if(currentMode instanceof Timer) {
+            if(!isSettingMode) {  //세팅모드가 아닐 떄
+                //displayMain(currentMode,isSettingMode)
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "LONG_MO") { //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                    isSettingMode = !isSettingMode;
+                    return;
+                } else if(buttonInput == "MO") {
+                    modeIndex += 1;
+                    modeIndex %= 4; //4넘을 경우 처리
+                } else if(buttonInput == "ST"){
+                    if(isStopwatchStart){
+                        ((Timer) currentMode).pauseTimer();
+                        isTimerStart = !isTimerStart;
+                    } else {
+                        ((Timer) currentMode).startTimer();
+                        isTimerStart = !isTimerStart;
+                    }
+                } else if(buttonInput == "RE") {
+                    isStopwatchStart = false;
+                    ((Timer) currentMode).resetTimer();
+                } else if (buttonInput == "LONG_AD"){
+                    isSeleteMode = !isSeleteMode;
                 }
             }
             else {//세팅모드인 경우
@@ -137,16 +190,90 @@ public class RDMSystem {
                 //diplayTopRight(currentMode,isSettingMode)
                 if(buttonInput == "AD") {
                     attrIndex++;
-                    attrIndex = attrIndex % timeKeepingAtt.length; //분 -> year
+                    attrIndex = attrIndex % timeKeepingAtt.length; //이부분 TimerAtt로 바꿔야됨 Att는 각 클래스가 가지고 있는게 좋을듯
                 } else if(buttonInput == "RE") {
-                    ((StopWatch) currentMode).getLapTime("UP");
+                    ((Timer) currentMode).increase(); //클래스 내에서 시분 구분해야함
                 } else if(buttonInput == "ST") {
-                    ((StopWatch) currentMode).getLapTime("DOWN");
+                    ((Timer) currentMode).decrease();
+                } else if(buttonInput == "MO"){
+                    isSettingMode = !isSettingMode;
+                    attrIndex = 0;
+                }
+            }
+        } else if(currentMode instanceof Alarm){
+            if(!isSettingMode) {  //세팅모드가 아닐 떄
+                //displayMain(currentMode,isSettingMode)
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "LONG_MO") { //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                    isSettingMode = !isSettingMode;
+                    return;
+                } else if(buttonInput == "MO") {
+                    modeIndex += 1;
+                    modeIndex %= 4; //4넘을 경우 처리
+                } else if(buttonInput == "ST"){
+                    ((Alarm) currentMode).selectAlarm("DOWN");
+                } else if(buttonInput == "RE") {
+                    ((Alarm) currentMode).selectAlarm("UP");
+                } else if (buttonInput == "LONG_AD"){
+                    isSeleteMode = !isSeleteMode;
+                }
+            }
+            else {//세팅모드인 경우
+
+                //blinkDisplayMain(timeKeepingAtt[attrIndex]
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "AD") {
+                    attrIndex++;
+                    attrIndex = attrIndex % alarmAtt.length;
+                } else if(buttonInput == "RE") {
+                    ((Alarm) currentMode).increase(alarmAtt[attrIndex]); //클래스 내에서 시분 구분해야함
+                } else if(buttonInput == "ST") {
+                    ((Alarm) currentMode).decrease(alarmAtt[attrIndex]);
+                } else if(buttonInput == "MO"){
+                    isSettingMode = !isSettingMode;
+                    attrIndex = 0;
+                }
+            }
+
+        } else if(currentMode instanceof DecisionMaker) {
+            if(!isSettingMode) {  //세팅모드가 아닐 떄
+                //displayMain(currentMode,isSettingMode)
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "LONG_MO") { // MO버튼을 길게 눌렀을 때
+                    isSettingMode = !isSettingMode;
+                    return;
+                } else if(buttonInput == "MO") {
+                    modeIndex += 1;
+                    modeIndex %= 4; //4넘을 경우 처리
+                } else if(buttonInput == "ST"){
+                    ((DecisionMaker) currentMode).getCase();
+                } else if (buttonInput == "LONG_AD"){
+                    isSeleteMode = !isSeleteMode;
+                }
+            }
+            else {//세팅모드인 경우
+
+                //blinkDisplayMain(timeKeepingAtt[attrIndex]
+                //displayIcon(currentMode,isSettingMode)
+                //diplayTopRight(currentMode,isSettingMode)
+                if(buttonInput == "RE") {
+                    ((DecisionMaker) currentMode).increase();
+                } else if(buttonInput == "ST") {
+                    ((DecisionMaker) currentMode).decrease();
                 } else if(buttonInput == "MO"){
                     isSettingMode = !isSettingMode;
                 }
             }
-        } else if
+        } else if(currentMode instanceof WorldTime) {
+            if(buttonInput == "RE") {
+                worldTimeIndex++;
+            } else if(buttonInput == "ST") {
+                worldTimeIndex--;
+            }
+        }
     }
 
     /**
