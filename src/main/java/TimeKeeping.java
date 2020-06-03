@@ -1,19 +1,24 @@
 
 import java.time.*;
+import java.util.Timer;
 
 public class TimeKeeping extends Mode {
 
     private LocalDateTime currentTime;
+    private static Timer timer = new java.util.Timer;
 
     public TimeKeeping() {
         this.currentTime = LocalDateTime.now();
     }
 
-    //시간이 흐르는 것을 실제로 표현하기 위해 tictok이라는 함수를 새롭게 추가하였습니다.
+    //시간이 흐르는 것을 실제로 표현하기 위해 tictok()이라는 함수를 새롭게 추가하였습니다.
     public void tictok() {
-
+        timer.scheduleAtFixedRate(new TimerTask() {
+            public void run() {
+                currentTime.plusSeconds(1);
+            }
+        }, 0, 1000);
     }
-
     //필요없는 기능이므로 삭제하겠습니다. -이정우
     /*public void editTimeKeeping() {
         // TODO implement here
@@ -60,14 +65,27 @@ public class TimeKeeping extends Mode {
         }
     }
 
-    public void selectUnitTime() {
-        // TODO implement here
-        return null;
+    public String selectUnitTime(String unitName) {
+        // 수정 시에 커서를 다음 유닛으로 옮겨준다.
+        switch(unitName){
+            case "HOUR":
+                return "MIN";
+            case "MIN":
+                return "SEC";
+            case "SEC":
+                return "HOUR";
+            default:
+                System.err.println("Invalid Unit Name");
+                return null;
+        }
     }
 
+    // 필요 없어서 삭제 하겠습니다 - 이정우
+    /*
     public void saveCurrentTime() {
         // TODO implement here
         return null;
     }
+    */
 
 }
