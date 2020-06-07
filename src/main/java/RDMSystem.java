@@ -204,6 +204,8 @@ public class RDMSystem {
                     ((Alarm) currentMode).selectAlarm("UP");
                 } else if (buttonInput == "LONG_AD"){
                     isSeleteMode = !isSeleteMode;
+                } else if (buttonInput == "AD"){
+                    ((Alarm) currentMode).activateAlarm();
                 }
             }
             else {//세팅모드인 경우
