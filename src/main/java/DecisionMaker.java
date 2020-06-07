@@ -41,6 +41,7 @@ public class DecisionMaker extends Mode {
     public int increase() {
         // TODO implement here
         caseNum++;
+        if( caseNum > 99) caseNum = 2;
         return caseNum;
     }
 
@@ -50,6 +51,7 @@ public class DecisionMaker extends Mode {
     public int decrease() {
         // TODO implement here
         caseNum--;
+        if( caseNum < 2) caseNum = 99;
         return caseNum;
     }
 
