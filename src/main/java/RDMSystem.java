@@ -6,10 +6,7 @@ import java.util.*;
  *
  */
 public class RDMSystem {
-
-
     private Mode[] availableMode;
-
     //add
     private boolean[] isAvailable;
 
@@ -94,7 +91,6 @@ public class RDMSystem {
                 }
             }
             else { //세팅모드인 경우
-
                 //blinkDisplayMain(timeKeepingAtt[attrIndex]
                 //displayIcon(currentMode,isSettingMode)
                 //diplayTopRight(currentMode,isSettingMode)
@@ -154,21 +150,21 @@ public class RDMSystem {
                 //displayMain(currentMode,isSettingMode)
                 //displayIcon(currentMode,isSettingMode)
                 //diplayTopRight(currentMode,isSettingMode)
-                if(buttonInput == "LONG_MO") { //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                if(buttonInput == "LONG_MO") {
                     isSettingMode = !isSettingMode;
                     return;
                 } else if(buttonInput == "MO") {
                     switchCurrentMode();
                 } else if(buttonInput == "ST"){
-                    if(isStopwatchStart){
+                    if(isTimerStart){
                         ((Timer) currentMode).pauseTimer();
                         isTimerStart = !isTimerStart;
                     } else {
                         ((Timer) currentMode).startTimer();
                         isTimerStart = !isTimerStart;
                     }
-                } else if(buttonInput == "RE") {
-                    isStopwatchStart = false;
+                } else if(buttonInput == "RE" && !isTimerStart) { //중지상태에서만 리셋
+                    isTimerStart = false;
                     ((Timer) currentMode).resetTimer();
                 } else if (buttonInput == "LONG_AD"){
                     isSeleteMode = !isSeleteMode;
