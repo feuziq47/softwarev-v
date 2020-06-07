@@ -13,16 +13,18 @@ public class Alarm extends Mode {
         this.index = 0;
     }
 
-    public void activateAlarm() {
+    public void switchAlarmStatus() {
         //현재 알람을 활성화 한다.
-        if(!this.alarmList[this.index].getIsActivated())
+        if(!this.alarmList[this.index].getIsActivated()) {
             this.alarmList[this.index].setIsActivated(true);
+        }else {
+            this.alarmList[this.index].setIsActivated(false);
+        }
     }
-
+    /** switchAlarmStatus로 통합
     public void deactivateAlarm() {
         // 현재 알람을 비활성화 한다.
-        if(this.alarmList[this.index].getIsActivated())
-            this.alarmList[this.index].setIsActivated(false);
+
     }
 
     // 필요 없는 기능이므로 삭제하겠습니다.
@@ -37,12 +39,16 @@ public class Alarm extends Mode {
         switch(unitName){
             case "HOUR":
                 this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusHours(1));
+                break;
             case "MIN":
                 this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusMinutes(1));
+                break;
             case "SEC":
                 this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusSeconds(1));
+                break;
             default:
                 System.err.println("Invalid Unit Name");
+                break;
         }
     }
 
@@ -51,16 +57,20 @@ public class Alarm extends Mode {
         switch(unitName){
             case "HOUR":
                 this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusHours(1));
+                break;
             case "MIN":
                 this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusMinutes(1));
+                break;
             case "SEC":
                 this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusSeconds(1));
+                break;
             default:
                 System.err.println("Invalid Unit Name");
+                break;
         }
     }
 
-
+    /** 일단 selectUnitTime 주석처
     public String selectUnitTime(String unitName) {
         // 수정 시에 다음 유닛으로 커서를 옮긴다.
         switch(unitName){
@@ -75,7 +85,7 @@ public class Alarm extends Mode {
                 return null;
         }
     }
-
+    */
     // 시퀀스 다이어그램 에서 getAlarm과 selectAlarm을 합쳤습니다.(getAlarm삭제) - 이정
     public StaticTime selectAlarm(String upOrDown) {
         // 현재 알람을 바꿔 줍니다.
@@ -86,12 +96,14 @@ public class Alarm extends Mode {
                 } else{
                     this.index = 0;
                 }
+                break;
             case "DOWN":
                 if(this.index > 0){
                     this.index--;
                 } else{
                     this.index = 3;
                 }
+                break;
         }
         return this.alarmList[this.index];
     }

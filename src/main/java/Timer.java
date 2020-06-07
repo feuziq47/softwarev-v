@@ -63,12 +63,16 @@ public class Timer extends Mode {
         switch(unitName){
             case "HOUR":
                 this.currentTime = this.currentTime.plusHours(1);
+                break;
             case "MIN":
                 this.currentTime = this.currentTime.plusMinutes(1);
+                break;
             case "SEC":
                 this.currentTime = this.currentTime.plusSeconds(1);
+                break;
             default:
                 System.err.println("Invalid Unit Name");
+                break;
         }
     }
 
@@ -80,12 +84,16 @@ public class Timer extends Mode {
         switch(unitName){
             case "HOUR":
                 this.currentTime = this.currentTime.minusHours(1);
+                break;
             case "MIN":
                 this.currentTime = this.currentTime.minusMinutes(1);
+                break;
             case "SEC":
                 this.currentTime = this.currentTime.minusSeconds(1);
+                break;
             default:
                 System.err.println("Invalid Unit Name");
+                break;
         }
     }
 
