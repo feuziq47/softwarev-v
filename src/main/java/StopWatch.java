@@ -86,6 +86,7 @@ public class StopWatch extends Mode {
      * @return 반환형 변경 : LocalDateTime - > LocalTime
      */
     public LocalTime getLapTime(int dir) {
+        assert dir >= 0 && dir < 10;
         return lapTime.get(dir);
     }
 
@@ -107,14 +108,11 @@ public class StopWatch extends Mode {
     }
     /**
      * 인자: 인덱스 로 검색
-     */
-
     public LocalTime fetchLapTime(int idx){
-        assert idx >= 0 && idx < 10;
+
         return lapTime.get(idx);
     }
-
-    /**
+     *
      * 인자 : up down string으로 검색
      */
 
