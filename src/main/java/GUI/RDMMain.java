@@ -36,15 +36,16 @@ public class RDMMain extends JFrame{
 
         Color c = new Color(0, 0, 0);
         Color[] iconColors = {c,c,c,c,c,c};
-        String[] iconName = {"timeKeeping.png","stopWatch.png","timer.png","alarm.png","decisionMaker.png","worldTime.png"};
+        //String[] iconName = {"timeKeeping.png","stopWatch.png","timer.png","alarm.png","decisionMaker.png","worldTime.png"};
+        String[] iconName = {"1.png","2.png","3.png","4.png","5.png","6.png"};
         String path = "C:\\Users\\kdje0\\Documents\\Git\\softwarev-v\\src\\main\\java\\GUI\\icon\\";
         //IconLoader il = new IconLoader(path);
         //HashMap<String, BufferedImage> icons = il.getIcons();
 
-        //ModeIcon mi = new ModeIcon(path, iconName, iconColors);
+        ModeIcon mi = new ModeIcon(path, iconName, iconColors);
 
-        //panel.add(mi);
-        //mi.test();
+        panel.add(mi);
+        mi.test();
 
 
 //        try{
