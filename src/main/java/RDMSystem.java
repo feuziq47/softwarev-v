@@ -142,6 +142,8 @@ public class RDMSystem {
                     ((StopWatch) currentMode).getLaptime("down");
                 } else if(buttonInput == "MO"){
                     isSettingMode = !isSettingMode;
+                } else if(buttonInput == "AD" && isStopwatchStart) { //진행 중일 때만 기록
+                    ((StopWatch) currentMode).recordLapTime();
                 }
             }
         } else if(currentMode instanceof Timer) {
