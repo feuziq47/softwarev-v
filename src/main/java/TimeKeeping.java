@@ -65,7 +65,7 @@ public class TimeKeeping extends Mode {
                 System.err.println("Invalid Unit Name");
         }
     }
-
+    /* 일단 빠집니다.
     public String selectUnitTime(String unitName) {
         // 수정 시에 커서를 다음 유닛으로 옮겨준다.
         switch(unitName){
@@ -80,6 +80,7 @@ public class TimeKeeping extends Mode {
                 return null;
         }
     }
+    */
 
     public LocalDateTime getCurrentTime(){
         return this.currentTime;
