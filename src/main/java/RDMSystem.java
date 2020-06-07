@@ -75,6 +75,7 @@ public class RDMSystem {
                 selectModeIndex %= allMode.length;
             } else if(buttonInput == "MO" && checkAvailableModeNum()){ //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
                 isSeleteMode = !isSeleteMode;
+                checkAvailableMode();
             }
         } else if(currentMode instanceof TimeKeeping){
             if(!isSettingMode) {  //세팅모드가 아닐 떄

@@ -129,6 +129,7 @@ public class StopWatch extends Mode {
      * 인자 : up down string으로 검색
      */
 
+
     public LocalTime getLaptime(String dir){
         assert dir.equals("up") || dir.equals("down");
         if(dir.equals("up")){
