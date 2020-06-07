@@ -19,7 +19,6 @@ public class RDMSystem {
     private int modeIndex;
     private int selectModeIndex = 0;
     private int attrIndex = 0; //각 클래스의 attr인덱스 ex Year,Month
-    private int worldTimeIndex = 0;
 
     final private String[] timeKeepingAtt = {"YEAR", "MONTH", "DAY", "HOUR","MIN"};
     final private String[] alarmAtt = {"HOUR", "MIN", "SEC"};
@@ -28,6 +27,7 @@ public class RDMSystem {
     private boolean isStopwatchStart = false;
     private boolean isTimerStart = false;
     private boolean isSelectMode = false;
+    private Beep beep;
     /**
      * Default constructor
      */
@@ -37,6 +37,7 @@ public class RDMSystem {
         checkAvailableMode();
         this.isSettingMode = false;
         this.modeIndex = 0;
+        this.beep = new Beep();
     }
 
     //현재 사용가능한 모드 체크
