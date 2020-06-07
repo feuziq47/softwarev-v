@@ -1,4 +1,5 @@
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -15,6 +16,8 @@ public class RDMSystem {
     //add
     private Mode[] allMode;
    // private Mode[] disable;
+
+    private LocalDateTime currentTime;
 
     private int modeIndex;
     private int selectModeIndex = 0;
@@ -80,6 +83,7 @@ public class RDMSystem {
                 //diplayTopRight(currentMode,isSettingMode)
                 if(buttonInput == "LONG_MO") {
                     isSettingMode = !isSettingMode;
+                    this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
                     return;
                 } else if(buttonInput == "MO") {
                     modeIndex += 1;
@@ -137,9 +141,9 @@ public class RDMSystem {
                 //displayIcon(currentMode,isSettingMode)
                 //diplayTopRight(currentMode,isSettingMode)
                 if(buttonInput == "RE") {
-                    ((StopWatch) currentMode).getLapTime("UP");
+                    ((StopWatch) currentMode).getLaptime("up");
                 } else if(buttonInput == "ST") {
-                    ((StopWatch) currentMode).getLapTime("DOWN");
+                    ((StopWatch) currentMode).getLaptime("down");
                 } else if(buttonInput == "MO"){
                     isSettingMode = !isSettingMode;
                 }
@@ -259,28 +263,16 @@ public class RDMSystem {
             }
         }
     }
-
-    /**
-     * @return
-     */
     public void selectMode() {
         // TODO implement here
 
     }
-
-    /**
-     * @return
-     */
     public void switchCurrentMode() {
         // TODO implement here
         this.modeIndex += 1;
         this.modeIndex %= 4; //4넘을 경우 처리
 
     }
-
-    /**
-     * @return
-     */
     public void callPrevMode() {
         // TODO implement here
 
