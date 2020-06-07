@@ -8,20 +8,6 @@ import java.util.*;
 public class StopWatch extends Mode {
 
     /**
-     * Default constructor
-     */
-    public StopWatch() {
-        lapTime = new ArrayList<LocalTime>();
-        //lapTime = new LocalTime[10];
-        startTime = LocalTime.of(0,0,0);
-        savedTime = LocalTime.of(0,0,0);
-        index = 0;
-        availTime = LocalTime.of(0,0,0);
-        // 작동중인지 상태변수 추가
-        //isRunning = false;
-    }
-
-    /**
      * 타이머 변수 추가
      */
     private static java.util.Timer timer;
@@ -37,15 +23,35 @@ public class StopWatch extends Mode {
     private boolean isRunning;
 
     /**
+     * Default constructor
+     */
+    public StopWatch() {
+        lapTime = new ArrayList<LocalTime>();
+        //lapTime = new LocalTime[10];
+        startTime = LocalTime.of(0,0,0);
+        savedTime = LocalTime.of(0,0,0);
+        availTime = LocalTime.MAX;
+        index = 0;
+        // 작동중인지 상태변수 추가
+        //isRunning = false;
+    }
+
+
+    /**
      * @return
      */
     public void startStopwatch() {
-        timer.scheduleAtFixedRate(new TimerTask() {
-            public void run() {
-                startTime.plusSeconds(1);
+        if(startTime.isBefore(availTime)){
+            timer.scheduleAtFixedRate(new TimerTask() {
+                public void run() {
+                    startTime.plusSeconds(1);
 
-            }
-        }, 0, 1000);
+                }
+            }, 0, 1000);
+        } else{
+            timer.cancel();
+            resetStopwatch();
+        }
         //isRunning = true;
     }
 
