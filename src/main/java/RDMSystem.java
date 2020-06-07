@@ -87,9 +87,7 @@ public class RDMSystem {
                         this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
                         return;
                     case "MO":
-                        modeIndex += 1;
-                        modeIndex %= 4; //4넘을 경우 처리
-
+                        switchCurrentMode();
                         break;
                     case "LONG_AD":
                         isSelectMode = !isSelectMode;
@@ -196,7 +194,6 @@ public class RDMSystem {
                     case "AD":
                         attrIndex++;
                         attrIndex = attrIndex % timeKeepingAtt.length; //이부분 TimerAtt로 바꿔야됨 Att는 각 클래스가 가지고 있는게 좋을듯
-
                         break;
                     case "RE":
                         ((Timer) currentMode).increase(alarmAtt[attrIndex]); //클래스 내에서 시분 구분해야함
@@ -300,10 +297,13 @@ public class RDMSystem {
         } else if(currentMode instanceof WorldTime) {
             switch (buttonInput) {
                 case "RE":
-                    worldTimeIndex++;
+                    ((WorldTime) currentMode).getWorldTime(currentTime,"UP");
                     break;
                 case "ST":
-                    worldTimeIndex--;
+                    ((WorldTime) currentMode).getWorldTime(currentTime,"DOWN");
+                    break;
+                case "LONG_AD":
+                    isSelectMode = !isSelectMode;
                     break;
             }
         }
