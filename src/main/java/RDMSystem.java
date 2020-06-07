@@ -59,19 +59,6 @@ public class RDMSystem {
         return false;
     }
 
-    /**
-     *
-     */
-
-
-
-
-
-
-    /**
-     * @param buttonInput
-     * @return
-     */
 
     public void decodeButtonInput(String buttonInput) {
         Mode currentMode = availableMode[modeIndex];
@@ -127,8 +114,8 @@ public class RDMSystem {
                     isSettingMode = !isSettingMode;
                     return;
                 } else if(buttonInput == "MO") {
-                    modeIndex += 1;
-                    modeIndex %= 4; //4넘을 경우 처리
+                    switchCurrentMode();
+
                 } else if(buttonInput == "ST"){
                     if(isStopwatchStart){
                         ((StopWatch) currentMode).pauseStopwatch();
@@ -166,8 +153,7 @@ public class RDMSystem {
                     isSettingMode = !isSettingMode;
                     return;
                 } else if(buttonInput == "MO") {
-                    modeIndex += 1;
-                    modeIndex %= 4; //4넘을 경우 처리
+                    switchCurrentMode();
                 } else if(buttonInput == "ST"){
                     if(isStopwatchStart){
                         ((Timer) currentMode).pauseTimer();
@@ -209,8 +195,7 @@ public class RDMSystem {
                     isSettingMode = !isSettingMode;
                     return;
                 } else if(buttonInput == "MO") {
-                    modeIndex += 1;
-                    modeIndex %= 4; //4넘을 경우 처리
+                    switchCurrentMode();
                 } else if(buttonInput == "ST"){
                     ((Alarm) currentMode).selectAlarm("DOWN");
                 } else if(buttonInput == "RE") {
@@ -246,8 +231,7 @@ public class RDMSystem {
                     isSettingMode = !isSettingMode;
                     return;
                 } else if(buttonInput == "MO") {
-                    modeIndex += 1;
-                    modeIndex %= 4; //4넘을 경우 처리
+                    switchCurrentMode();
                 } else if(buttonInput == "ST"){
                     ((DecisionMaker) currentMode).getCase();
                 } else if (buttonInput == "LONG_AD"){
@@ -289,6 +273,8 @@ public class RDMSystem {
      */
     public void switchCurrentMode() {
         // TODO implement here
+        this.modeIndex += 1;
+        this.modeIndex %= 4; //4넘을 경우 처리
 
     }
 
