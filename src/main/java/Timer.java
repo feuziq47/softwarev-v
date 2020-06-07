@@ -1,4 +1,5 @@
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -32,7 +33,7 @@ public class Timer extends Mode {
      */
     public void editTimer() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -40,7 +41,7 @@ public class Timer extends Mode {
      */
     public void increase() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -48,7 +49,7 @@ public class Timer extends Mode {
      */
     public void decrease() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -56,7 +57,7 @@ public class Timer extends Mode {
      */
     public void selectUnitTime() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -64,7 +65,7 @@ public class Timer extends Mode {
      */
     public void saveTimer() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -72,7 +73,7 @@ public class Timer extends Mode {
      */
     public void startTimer() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -80,7 +81,7 @@ public class Timer extends Mode {
      */
     public void countDown() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -88,7 +89,7 @@ public class Timer extends Mode {
      */
     public void pauseTimer() {
         // TODO implement here
-        return null;
+
     }
 
     /**
@@ -96,7 +97,7 @@ public class Timer extends Mode {
      */
     public void resetTimer() {
         // TODO implement here
-        return null;
+
     }
 
 }

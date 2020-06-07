@@ -1,4 +1,5 @@
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 /**
@@ -73,7 +74,7 @@ public class StopWatch extends Mode {
      * @param dir 
      * @return
      */
-    public LocalDateTime getLapTime(int dir) {
+    public LocalDateTime getLapTime(String dir) {
         // TODO implement here
         return null;
     }

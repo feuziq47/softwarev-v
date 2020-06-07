@@ -1,8 +1,9 @@
 
+import java.time.LocalDateTime;
 import java.util.*;
 import java.time.*;
 /**
- * 
+ *
  */
 public class StaticTime {
 
@@ -15,22 +16,21 @@ public class StaticTime {
     private LocalDateTime alarmTime;
     private boolean isActivated;
 
-
     /**
      * @return
      */
     public LocalDateTime getAlarmTime() {
         // TODO implement here
-        return null;
+        return alarmTime;
     }
 
     /**
-     * @param time 
+     * @param time
      * @return
      */
     public void setAlarmTime(LocalDateTime time) {
         // TODO implement here
-        return null;
+        this.alarmTime = time;
     }
 
     /**
@@ -38,16 +38,16 @@ public class StaticTime {
      */
     public boolean getIsActivated() {
         // TODO implement here
-        return null;
+        return isActivated;
     }
 
     /**
-     * @param isActivated 
+     * @param isActivated
      * @return
      */
     public void setIsActivated(boolean isActivated) {
         // TODO implement here
-        return null;
+        this.isActivated = isActivated;
     }
 
 }
