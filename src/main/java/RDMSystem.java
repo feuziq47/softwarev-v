@@ -125,8 +125,7 @@ public class RDMSystem {
                         ((StopWatch) currentMode).startStopwatch();
                         isStopwatchStart = !isStopwatchStart;
                     }
-                } else if(buttonInput == "RE") {
-                    isStopwatchStart = false;
+                } else if(buttonInput == "RE" && !isStopwatchStart) {
                     ((StopWatch) currentMode).clearStopwatch();
                 } else if (buttonInput == "LONG_AD"){
                     isSeleteMode = !isSeleteMode;
