@@ -57,17 +57,36 @@ public class Timer extends Mode {
     /**
      * @return
      */
-    public void increase() {
+    public void increase(String unitName) {
         // TODO implement here
-        //return null;
+        // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
+        switch(unitName){
+            case "HOUR":
+                this.currentTime = this.currentTime.plusHours(1);
+            case "MIN":
+                this.currentTime = this.currentTime.plusMinutes(1);
+            case "SEC":
+                this.currentTime = this.currentTime.plusSeconds(1);
+            default:
+                System.err.println("Invalid Unit Name");
+        }
     }
 
     /**
      * @return
      */
-    public void decrease() {
+    public void decrease(String unitName) {
         // TODO implement here
-        //return null;
+        switch(unitName){
+            case "HOUR":
+                this.currentTime = this.currentTime.minusHours(1);
+            case "MIN":
+                this.currentTime = this.currentTime.minusMinutes(1);
+            case "SEC":
+                this.currentTime = this.currentTime.minusSeconds(1);
+            default:
+                System.err.println("Invalid Unit Name");
+        }
     }
 
     /**
