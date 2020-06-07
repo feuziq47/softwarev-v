@@ -40,10 +40,13 @@ public class RDMMain extends JFrame{
         String path = "C:\\Users\\kdje0\\Documents\\Git\\softwarev-v\\src\\main\\java\\GUI\\icon\\";
         //IconLoader il = new IconLoader(path);
         //HashMap<String, BufferedImage> icons = il.getIcons();
-        ModeIcon mi = new ModeIcon(path, iconName, iconColors);
 
-        panel.add(mi);
-        mi.test();
+        //ModeIcon mi = new ModeIcon(path, iconName, iconColors);
+
+        //panel.add(mi);
+        //mi.test();
+
+
 //        try{
 //            Thread.sleep(2000);
 //        }catch(InterruptedException e){
