@@ -18,7 +18,7 @@ public class Beep extends Thread {
     /**
      *  변경사항  : Beep의 Atribute Toolkit이 추가됨.
      */
-    private Boolean activated;
+    private boolean activated;
     private Toolkit beepTool;
 
     /**
@@ -59,7 +59,7 @@ public class Beep extends Thread {
     /**
      * @return
      */
-    public Boolean isActivated() {
+    public boolean isActivated() {
         // TODO implement here
         return activated;
     }
