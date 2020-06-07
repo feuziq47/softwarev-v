@@ -3,12 +3,12 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.TimerTask;
 
 public class ModeIcon extends JLabel {
     private IconLoader il;
-    private boolean selected;
-    private BufferedImage originalImg;
     private BufferedImage img;
     private Color tempColor = Color.black;
     private Color currentColor = Color.BLACK;
@@ -17,27 +17,26 @@ public class ModeIcon extends JLabel {
 
     private HashMap<String, BufferedImage> imgs;
 
-    public void setImg(BufferedImage img) {
-        this.img = img;
-    }
-
     public ModeIcon(String path, String[] in, Color[] c)  {
-        il = new IconLoader(path);
-        colors = c;
-        iconName = in;
+        this.setSize(300, 45);
+        this.setLocation(35,80);
+        this.il = new IconLoader(path);
+        this.colors = c;
+        this.iconName = in;
 //        this.originalImg = IconLoader.getIcons();
 //        this.img = recolorImage(this.originalImg, Color.gray);
         this.setBackground(Color.black);
 
-        imgs = il.getIcons();
+        this.imgs = il.getIcons();
     }
-    public ModeIcon(HashMap<String, BufferedImage> in, Color[] c)  {
-        colors = c;
-        imgs = in;
-//        this.originalImg = IconLoader.getIcons();
-//        this.img = recolorImage(this.originalImg, Color.gray);
-        this.setBackground(Color.black);
-    }
+
+//    public ModeIcon(HashMap<String, BufferedImage> in, Color[] c)  {
+//        colors = c;
+//        imgs = in;
+////        this.originalImg = IconLoader.getIcons();
+////        this.img = recolorImage(this.originalImg, Color.gray);
+//        this.setBackground(Color.black);
+//    }
 //    public ModeIcon(String iconName, Color defaultColor)  {
 //        this(iconName);
 //        this.img = recolorImage(this.originalImg, defaultColor);
@@ -49,6 +48,12 @@ public class ModeIcon extends JLabel {
 //        this.paintComponent(this.getGraphics());
 //    }
 
+    public void setModeColor(Color[] c){
+        assert c.length == 6;
+        this.colors =c;
+        paintComponent(this.getGraphics());
+    }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -58,36 +63,38 @@ public class ModeIcon extends JLabel {
 
         g2.clearRect(0,0,this.getWidth(), this.getHeight());
 
-        //g2.clearRect(0,0,this.getWidth(), this.getHeight());
-//        if(this.img != null)
-//            g2.drawImage(this.img, 0, 0,this.getWidth(),this.getHeight(), this);
-//        else {
-//            g2.drawImage(this.originalImg, 0, 0,this.getWidth(),this.getHeight(), this);
-//        }
-        int i = 0;
-        for (BufferedImage bi:imgs.values()) {
-            System.out.println(bi);
-            //g2.drawImage(bi, 20 + 55 * i, 0, 40,40, this);
-            g2.drawImage(bi, 10 + 50 * i, 0, 40,40, this);
-            i++;
+        for (int i = 0; i < iconName.length; i++) {
+
+            this.img = il.getIcons(iconName[i],colors[i]);
+            assert this.img != null;
+            //System.out.println(this.img);
+
+            g2.drawImage(this.img, 10 + 50 * i, 0, 40,40, this);
+
         }
-//        for (int i = 0; i < iconName.length; i++) {
-//
-////            this.img = il.getIcons(iconName[i],colors[i]);
-////            assert this.img != null;
-////            System.out.println(this.img);
-////            g2.drawImage(this.img, 50 + 45 * i, 80, 400,400, this);
-//
-//            //this.img = imgs.get(iconName[0]);
-//
-////            assert this.img != null;
-////            System.out.println(this.img);
-////            //g2.drawImage(this.img, 50 + 45 * i, 80, 400,400, this);
-////            g2.drawImage(this.img, 0, 0,this.getWidth(),this.getHeight(), this);
-//        }
-//        g2.drawRoundRect(60,60,30, 30,20, 20);
-//
+
     }
+
+    public void test(){
+        java.util.Timer timer = new java.util.Timer();
+        timer.schedule(new TimerTask() {
+            int idx = 0;
+            @Override
+            public void run() {
+
+                for (int i = 0; i < 6; i++) {
+                    if (i == idx){
+                        colors[i] = Color.red;
+                    }
+                    else colors[i] = Color.black;
+                }
+                repaint();
+                idx = (idx + 1) % 6;
+            }
+        },0,1000);
+    }
+
+
 //
 //    public BufferedImage recolorImage(BufferedImage original, Color replaceColor) {
 //        int width = original.getWidth();

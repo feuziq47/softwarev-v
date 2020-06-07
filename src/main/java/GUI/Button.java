@@ -13,6 +13,7 @@ public class Button extends JLabel {
     private ActionListener eventClickHold;
     private int holdTime;
     private boolean shape = true;
+    private String name;
 
     public Button(){
         this.setLayout(null);
@@ -20,6 +21,11 @@ public class Button extends JLabel {
         this.t = this;
         this.holdTime = 1000;
         this.addMouseListener(new ML());
+        this.name = "no name";
+    }
+
+    public void setName(String n){
+        this.name = n;
     }
 
     public void setShape(boolean shape){
@@ -36,7 +42,7 @@ public class Button extends JLabel {
         g2.setStroke(new BasicStroke(4));
 
         int x = 2;
-        if(this.shape == false) {
+        if(!this.shape) {
             x = -2;
         }
         g2.fillRoundRect(x, 2, this.getWidth(), this.getHeight() - 4, 15, 15);
@@ -55,7 +61,7 @@ public class Button extends JLabel {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("Mouse Clicked");
+            //System.out.println("Mouse Clicked");
         }
 
         @Override
@@ -70,28 +76,30 @@ public class Button extends JLabel {
             long timeDifference = System.currentTimeMillis() - this.mousePressedTime;
             int uniqueId = (int) System.currentTimeMillis();
             if(timeDifference >= holdTime) {
-                if(t.eventClickHold != null){
-                    String commandName = "ClickHold";
-                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);
-                    t.eventClickHold.actionPerformed(event);
-                }
+                System.out.println(name + "ClickHold");
+//                if(t.eventClickHold != null){
+//                    String commandName = "ClickHold";
+//                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);
+//                    t.eventClickHold.actionPerformed(event);
+//                }
             } else {
-                if(t.eventClick != null){
-                    String commandName = "Click";
-                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);
-                    t.eventClick.actionPerformed(event);
-                }
+                System.out.println(name + "Click");
+//                if(t.eventClick != null){
+//                    String commandName = "Click";
+//                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);
+//                    t.eventClick.actionPerformed(event);
+//                }
             }
         }
 
         @Override
         public void mouseEntered(MouseEvent e) {
-            System.out.println("Mouse Entered");
+            //System.out.println("Mouse Entered");
         }
 
         @Override
         public void mouseExited(MouseEvent e) {
-            System.out.println("Mouse Exited");
+            //System.out.println("Mouse Exited");
         }
     }
 }

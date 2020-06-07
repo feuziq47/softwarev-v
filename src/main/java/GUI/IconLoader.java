@@ -24,10 +24,8 @@ public class IconLoader {
         assert iconList != null;
         for (File f : iconList) {
             try{
-                System.out.println(f.getName());
-                System.out.println(ImageIO.read(new File(f.getPath())));
-                //System.out.println(f.getPath());
-                //icons.put(f.getName().split(".")[0],ImageIO.read(f));
+                //System.out.println(f.getName());
+                //System.out.println(ImageIO.read(new File(f.getPath())));
                 icons.put(f.getName(),ImageIO.read(new File(f.getPath())));
             } catch (IOException e){
                 e.printStackTrace();
@@ -35,10 +33,10 @@ public class IconLoader {
         }
     }
 
-//    public BufferedImage getIcons(String iName, Color color) {
-//        //return recolorImage(icons.get(iName),color);
-//        return icons.get(iName);
-//    }
+    public BufferedImage getIcons(String iName, Color color) {
+        return recolorImage(icons.get(iName),color);
+        //return icons.get(iName);
+    }
 
     public HashMap<String, BufferedImage> getIcons() {
         //return recolorImage(icons.get(iName),color);
