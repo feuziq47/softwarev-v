@@ -1,11 +1,12 @@
 
 import java.time.*;
 import java.util.Timer;
+import java.util.TimerTask;
 
 public class TimeKeeping extends Mode {
 
     private LocalDateTime currentTime;
-    private static Timer timer = new java.util.Timer;
+    private static Timer timer = new java.util.Timer();
 
     public TimeKeeping() {
         this.currentTime = LocalDateTime.now();
