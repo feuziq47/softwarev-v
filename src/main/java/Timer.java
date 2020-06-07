@@ -91,21 +91,17 @@ public class Timer extends Mode {
 
     /**
      * @return
-     */
+     *빠집니다.ㅎㅎ
     public void selectUnitTime() {
         // TODO implement here
         //return null;
     }
-
-    /**
+ㅎ
      * @return
-     * deep copy
-     */
+     * 빠지세요 -> 지우세요
     public void saveTimer() {
         leftTime = LocalTime.from(currentTime);
     }
-
-    /**
      * @return
      */
     public void startTimer() {

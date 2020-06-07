@@ -18,40 +18,22 @@ public class StopWatch extends Mode {
         index = 0;
         availTime = LocalTime.of(0,0,0);
         // 작동중인지 상태변수 추가
-        isRunning = false;
+        //isRunning = false;
     }
 
     /**
      * 타이머 변수 추가
      */
-
     private static java.util.Timer timer;
 
     /**
      *  LocalDateTime -> LocalTime으로 모두 변경
      */
-    //private LocalTime[] lapTime;
     private ArrayList<LocalTime> lapTime;
-    /**
-     * 현재 진행
-     */
     private LocalTime startTime;
-
-    /**
-     *
-     */
     private LocalTime savedTime;
-
-    /**
-     *
-     */
     private Integer index;
-
-    /**
-     *
-     */
     private LocalTime availTime;
-
     private boolean isRunning;
 
     /**
@@ -64,7 +46,7 @@ public class StopWatch extends Mode {
 
             }
         }, 0, 1000);
-        isRunning = true;
+        //isRunning = true;
     }
 
     /**
@@ -78,19 +60,20 @@ public class StopWatch extends Mode {
      * @return
      */
     public void pauseStopwatch() {
-        if(isRunning){
+        //if(isRunning){
             timer.cancel();
-            isRunning = false;
-        }
+            //isRunning = false;
+        //}
     }
 
     /**
      * @return
-     */
+
     public void activateBeep() {
         // TODO implement here
         //return null;
     }
+    */
 
     /**
      * @param dir
@@ -104,10 +87,10 @@ public class StopWatch extends Mode {
      * @return
      */
     public void clearStopwatch() {
-        if(!isRunning){
+        //if(!isRunning){
             startTime = LocalTime.of(0,0,0);
             lapTime.clear();
-        }
+        //}
     }
 
     public void recordLapTime(){
