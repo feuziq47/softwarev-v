@@ -129,6 +129,8 @@ public class RDMSystem {
                     ((StopWatch) currentMode).clearStopwatch();
                 } else if (buttonInput == "LONG_AD"){
                     isSeleteMode = !isSeleteMode;
+                } else if(buttonInput == "AD" && isStopwatchStart) { //진행 중일 때만 기록
+                    ((StopWatch) currentMode).recordLapTime();
                 }
             }
             else {//세팅모드인 경우
