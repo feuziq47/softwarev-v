@@ -28,12 +28,12 @@ public class DecisionMaker extends Mode {
     /**
      * editCaeNumber는 현재 숫자를 반환해야 할 것 같습니다.
      * 따라서 반환형이 int로 변경되었습니다.
-     */
+
     public int editCaseNumber() {
         // TODO implement here
         return caseNum;
     }
-
+     */
     /**
      * 마찬가지 입니다. 현재 숫자를 반환해야 할것 같아 increase와 decrease의 반환형이 있어야 할 것 같아서
      * 반환형을 int로 변경합니다.
@@ -41,7 +41,7 @@ public class DecisionMaker extends Mode {
     public int increase() {
         // TODO implement here
         caseNum++;
-        if( caseNum > 99) caseNum = 2;
+        if(caseNum > 99) caseNum = 2;
         return caseNum;
     }
 
@@ -51,7 +51,7 @@ public class DecisionMaker extends Mode {
     public int decrease() {
         // TODO implement here
         caseNum--;
-        if( caseNum < 2) caseNum = 99;
+        if(caseNum < 2) caseNum = 99;
         return caseNum;
     }
 
