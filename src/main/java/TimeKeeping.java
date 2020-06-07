@@ -80,6 +80,10 @@ public class TimeKeeping extends Mode {
         }
     }
 
+    public LocalDateTime getCurrentTime(){
+        return this.currentTime;
+    }
+
     // 필요 없어서 삭제 하겠습니다 - 이정우
     /*
     public void saveCurrentTime() {
