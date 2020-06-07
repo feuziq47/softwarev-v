@@ -179,9 +179,9 @@ public class RDMSystem {
                     attrIndex++;
                     attrIndex = attrIndex % timeKeepingAtt.length; //이부분 TimerAtt로 바꿔야됨 Att는 각 클래스가 가지고 있는게 좋을듯
                 } else if(buttonInput == "RE") {
-                    ((Timer) currentMode).increase(); //클래스 내에서 시분 구분해야함
+                    ((Timer) currentMode).increase(alarmAtt[attrIndex]); //클래스 내에서 시분 구분해야함
                 } else if(buttonInput == "ST") {
-                    ((Timer) currentMode).decrease();
+                    ((Timer) currentMode).decrease(alarmAtt[attrIndex]);
                 } else if(buttonInput == "MO"){
                     isSettingMode = !isSettingMode;
                     attrIndex = 0;
