@@ -1,26 +1,25 @@
 
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-//import java.util.Timer;
 import java.util.TimerTask;
-import java.util.*;
+
+//import java.util.Timer;
 // test
 /**
  *
  */
 public class Timer extends Mode {
+    private Callback timer_callback;
 
     /**
      * Default constructor
      */
     public Timer() {
         currentTime = LocalTime.of(0,0,0);
-        leftTime = LocalTime.of(0,0,0);
+        leftTime = LocalTime.of(0,0,10);
         endTime = LocalTime.of(0,0,0);
+        timer_callback = null;
         timer = new java.util.Timer();
-
     }
-
     /**
      * 시간 자료형은 localtime
      * 사용자가 설정한 시간으로 간주
@@ -48,6 +47,10 @@ public class Timer extends Mode {
      */
 
     private static java.util.Timer timer;
+
+    public void setCallback(Callback callback){
+        this.timer_callback = callback;
+    }
 
     public void editTimer() {
         // TODO implement here
@@ -122,10 +125,13 @@ public class Timer extends Mode {
     public void countDown() {
         timer.scheduleAtFixedRate(new TimerTask() {
             public void run() {
-                if(!leftTime.equals(endTime)){
-                    leftTime.minusSeconds(1);
+                if (!leftTime.equals(endTime)) {
+                    leftTime = leftTime.minusSeconds(1);
+                    System.out.println(leftTime);
+                } else {
+                    timer.cancel();
+                    timer_callback.callbackMethod();
                 }
-                else timer.cancel();
             }
         }, 0, 1000);
     }
