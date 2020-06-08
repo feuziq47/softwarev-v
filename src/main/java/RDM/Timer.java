@@ -1,4 +1,4 @@
-package RDM;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 //import java.util.Timer;
@@ -144,6 +144,9 @@ public class Timer extends Mode {
         if(!leftTime.equals(endTime)){
             leftTime = currentTime;
         }
+    }
+    public LocalTime getCurrentTime() {
+        return currentTime;
     }
 
 }
