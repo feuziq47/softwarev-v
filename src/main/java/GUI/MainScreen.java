@@ -17,14 +17,23 @@ public class MainScreen extends JLabel {
     private String mm= "00";
     private String ss= "00";
 
-    public MainScreen(){
-        this.setFont(new Font("궁서", Font.BOLD, 90));
+    private MainScreen(){
+        this.setFont(new Font("궁서", Font.BOLD, 70));
         this.setSize(540,100);
         this.setLocation(30,190);
+        this.setText("XX : XX : XX");
         //this.setBackground(Color.black);
         //this.setOpaque(true);
         this.setHorizontalAlignment(SwingConstants.CENTER);
         this.setVerticalAlignment(SwingConstants.CENTER);
+    }
+
+    private static class InnerInstanceClass {
+        private static final MainScreen instance = new MainScreen();
+    }
+
+    public static MainScreen getInstance() {
+        return MainScreen.InnerInstanceClass.instance;
     }
 
     public void displayTime(LocalTime time){
@@ -35,6 +44,14 @@ public class MainScreen extends JLabel {
 
         this.setText(hh + " : " + mm + " : " + ss);
         //super.update(this.getGraphics());
+    }
+
+    /**
+     * 스트링 객체를 받아 화면에 출력해준다.
+     * @param msg : 화면에 출력할 메시지
+     */
+    public void display(String msg){
+        this.setText(msg);
     }
 
     public void highlight(int mode){

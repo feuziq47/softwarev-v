@@ -10,48 +10,40 @@ import java.util.TimerTask;
 public class ModeIcon extends JLabel {
     private IconLoader il;
     private BufferedImage img;
-    private Color tempColor = Color.black;
-    private Color currentColor = Color.BLACK;
     String[] iconName;
-    private Color[] colors;
+    private Color[] iconColors;
+    String path;
 
     private HashMap<String, BufferedImage> imgs;
 
-    public ModeIcon(String path, String[] in, Color[] c)  {
+    private ModeIcon()  {
         this.setSize(300, 45);
         this.setLocation(35,80);
-        this.il = new IconLoader(path);
-        this.colors = c;
-        this.iconName = in;
-//        this.originalImg = IconLoader.getIcons();
-//        this.img = recolorImage(this.originalImg, Color.gray);
-        this.setBackground(Color.black);
 
+        Color c = new Color(0, 0, 0);
+        this.iconColors = new Color[]{c, c, c, c, c, c};
+        this.iconName = new String[]{"1.png", "2.png", "3.png", "4.png", "5.png", "6.png"};
+        this.path = System.getProperty("user.dir") + "/src/main/java/GUI/icon/";
+        this.il = new IconLoader(path);
         this.imgs = il.getIcons();
     }
 
-//    public ModeIcon(HashMap<String, BufferedImage> in, Color[] c)  {
-//        colors = c;
-//        imgs = in;
-////        this.originalImg = IconLoader.getIcons();
-////        this.img = recolorImage(this.originalImg, Color.gray);
-//        this.setBackground(Color.black);
-//    }
-//    public ModeIcon(String iconName, Color defaultColor)  {
-//        this(iconName);
-//        this.img = recolorImage(this.originalImg, defaultColor);
-//    }
+    private static class InnerInstanceClass {
+        private static final ModeIcon instance = new ModeIcon();
+    }
 
-//    public void setColor(String[] iconName, Color color){
-//        this.currentColor = color;
-//        this.img = il.getIcons(iconName,color);
-//        this.paintComponent(this.getGraphics());
-//    }
+    public static ModeIcon getInstance() {
+        return ModeIcon.InnerInstanceClass.instance;
+    }
 
+    /**
+     * 모드 아이콘 색상을 바꿔준다.
+     * @param c : 길이가 6인 Color 색상 배열
+     */
     public void setModeColor(Color[] c){
         assert c.length == 6;
-        this.colors =c;
-        paintComponent(this.getGraphics());
+        this.iconColors =c;
+        repaint();
     }
 
     public void paintComponent(Graphics g){
@@ -65,7 +57,7 @@ public class ModeIcon extends JLabel {
 
         for (int i = 0; i < iconName.length; i++) {
 
-            this.img = il.getIcons(iconName[i],colors[i]);
+            this.img = il.getIcons(iconName[i],iconColors[i]);
             assert this.img != null;
             //System.out.println(this.img);
 
@@ -84,34 +76,13 @@ public class ModeIcon extends JLabel {
 
                 for (int i = 0; i < 6; i++) {
                     if (i == idx){
-                        colors[i] = Color.red;
+                        iconColors[i] = Color.red;
                     }
-                    else colors[i] = Color.black;
+                    else iconColors[i] = Color.black;
                 }
                 repaint();
                 idx = (idx + 1) % 6;
             }
         },0,1000);
     }
-
-
-//
-//    public BufferedImage recolorImage(BufferedImage original, Color replaceColor) {
-//        int width = original.getWidth();
-//        int findColor = Color.black.getRGB();
-//        int height = original.getHeight();
-//        BufferedImage newImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
-//        Graphics2D g = (Graphics2D)newImage.getGraphics();
-//        for(int w=0;w<width;w++){
-//            for(int h=0;h<height;h++){
-//                if(findColor == original.getRGB(w,h)) {
-//                    g.setColor(replaceColor);
-//                } else {
-//                    g.setColor(Color.white);
-//                }
-//                g.drawLine(w, h, w, h);
-//            }
-//        }
-//        return newImage;
-//    }
 }
