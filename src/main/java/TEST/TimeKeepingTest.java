@@ -15,7 +15,7 @@ public class TimeKeepingTest {//
      */
     @Test
     public void setCurrentTime(){
-
-
+        RDMSystem rdm = new RDMSystem();
+        rdm.decodeButtonInput("Long Mo");
     }
 }

@@ -151,6 +151,7 @@ public class RDMSystem {
     private String mainString;
     private String subString;
     private Mode currentMode;
+    private th3 th = new th3();
     /**
      * Default constructor
      */
