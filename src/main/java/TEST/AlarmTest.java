@@ -1,5 +1,7 @@
 package TEST;
 
+import RDM.Alarm;
+import RDM.RDMSystem;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import RDM.StopWatch;
@@ -26,7 +28,11 @@ public class AlarmTest {
      */
     @Test
     public void activateAlarm() {
-        
+        RDMSystem rdm = new RDMSystem();
+        Alarm al = new Alarm();
+        if(al.getStaticTime().getIsActivated() && al.getStaticTime().getAlarmTime().isBefore(LocalTime.now())){
+            assertTrue(rdm.getBeep().isActivated());
+        }
     }
 
     /**
@@ -37,7 +43,11 @@ public class AlarmTest {
      */
     @Test
     public void deactivateAlarm() {
-
+        RDMSystem rdm = new RDMSystem();
+        Alarm al = new Alarm();
+        if(!al.getStaticTime().getIsActivated() && al.getStaticTime().getAlarmTime().isBefore(LocalTime.now())){
+            assertFalse(rdm.getBeep().isActivated());
+        }
     }
 
     /**
@@ -45,20 +55,39 @@ public class AlarmTest {
      * System에서 Test 하던지 해야 함
      *
      * Alarm시간이 설정된 시간으로 변경되는지 Test한다.
+     *
+     * v2 -> 두 단계로 쪼개갰습니다. increase decrease
      */
     @Test
-    public void setAlarm() {
-
+    public void increase() {
+        RDMSystem rdm = new RDMSystem();
+        if((rdm.getCurrentMode() instanceof Alarm) && rdm.getIsSelectMode()){
+            LocalTime beforeTime = ((Alarm)rdm.getAllMode()[3]).getStaticTime().getAlarmTime();
+            rdm.decodeButtonInput("RE");
+            assertEquals(((Alarm)rdm.getAllMode()[3]).getStaticTime().getAlarmTime(), beforeTime.plusHours(1));
+        }
     }
 
+    @Test
+    public void decrease() {
+        RDMSystem rdm = new RDMSystem();
+        if((rdm.getCurrentMode() instanceof Alarm) && rdm.getIsSelectMode()){
+            LocalTime beforeTime = ((Alarm)rdm.getAllMode()[3]).getStaticTime().getAlarmTime();
+            rdm.decodeButtonInput("ST");
+            assertEquals(((Alarm)rdm.getAllMode()[3]).getStaticTime().getAlarmTime(), beforeTime.minusHours(1));
+        }
+    }
     /**
      * Alarm, StaticTime 이 서로 섞여 있어서, 알람 리스트 활용하는 메소드를 만들던지,
      * System에서 Test 하던지 해야 함
      *
      * 활성화된 Alarm만 울리는지 Test한다.
+     * v2 -> 위에서 체크한 듯 합니다.
+     *
+     * @Test
+     * public void notifyAlarm() {
+     * RDMSystem rdm = new RDMSystem();
+     * if(rdm.get)
+     * }
      */
-    @Test
-    public void notifyAlarm() {
-
-    }
 }
