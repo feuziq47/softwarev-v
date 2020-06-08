@@ -164,7 +164,7 @@ public class RDMSystem {
                             this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
                             return;
                         case "MO":
-                            switchCurrentMode();
+                            changeCurrentMode();
                             break;
                         case "LONG_AD":
                             isSelectMode = !isSelectMode;
@@ -201,7 +201,7 @@ public class RDMSystem {
                         isSettingMode = !isSettingMode;
                         return;
                     } else if (buttonInput.equals("MO")) {
-                        switchCurrentMode();
+                        changeCurrentMode();
                     } else if (buttonInput.equals("ST")) {
                         if (isStopwatchStart) {
                             ((StopWatch) currentMode).pauseStopwatch();
@@ -243,7 +243,7 @@ public class RDMSystem {
                         isSettingMode = !isSettingMode;
                         return;
                     } else if (buttonInput.equals("MO")) {
-                        switchCurrentMode();
+                        changeCurrentMode();
                     } else if (buttonInput.equals("ST")) {
                         if (isTimerStart) {
                             ((Timer) currentMode).pauseTimer();
@@ -291,7 +291,7 @@ public class RDMSystem {
                             isSettingMode = !isSettingMode;
                             return;
                         case "MO":
-                            switchCurrentMode();
+                            changeCurrentMode();
                             break;
                         case "ST":
                             ((Alarm) currentMode).selectAlarm("DOWN");
@@ -339,7 +339,7 @@ public class RDMSystem {
                             isSettingMode = !isSettingMode;
                             return;
                         case "MO":
-                            switchCurrentMode();
+                            changeCurrentMode();
                             break;
                         case "ST":
                             ((DecisionMaker) currentMode).getCase();
@@ -377,7 +377,7 @@ public class RDMSystem {
                         isSelectMode = !isSelectMode;
                         break;
                     case "MO":
-                        switchCurrentMode();
+                        changeCurrentMode();
                         break;
                 }
             }
@@ -389,7 +389,7 @@ public class RDMSystem {
         // TODO implement here
 
     }
-    public void switchCurrentMode() {
+    public void changeCurrentMode() {
         // TODO implement here
         this.modeIndex += 1;
         this.modeIndex %= 4; //4넘을 경우 처리
@@ -743,5 +743,13 @@ public class RDMSystem {
 
     public Mode[] getAllMode() {
         return allMode;
+    }
+
+    public Mode getCurrentMode() {
+        return currentMode;
+    }
+
+    public Beep getBeep() {
+        return beep;
     }
 }
