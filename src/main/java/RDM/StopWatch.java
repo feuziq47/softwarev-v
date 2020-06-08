@@ -1,4 +1,4 @@
-package RDM;
+
 import java.time.LocalTime;
 import java.util.*;
 
@@ -138,4 +138,12 @@ public class StopWatch extends Mode {
         return LocalTime.of(4,4,4);
     }
 
+    public LocalTime getStopwatchTime() {
+        return startTime;
+
+    }
+
+    public LocalTime getNowLapTime(){
+        return lapTime.get(index);
+    }
 }
