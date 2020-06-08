@@ -57,7 +57,16 @@ public class RDMSystem {
             @Override
             public void callbackMethod(){
                 if(currentMode instanceof TimeKeeping){
-                    System.out.println(((TimeKeeping) currentMode).getCurrentTime() + "\n");
+                    System.out.println(((TimeKeeping) currentMode).getCurrentTime());
+                }
+            }
+        };
+
+        Timer_Callback timerCallback = new Timer_Callback(){
+            @Override
+            public void callbackMethod(){
+                if(currentMode instanceof Timer){
+                    System.out.println(((Timer) currentMode).getLeftTime());
                 }
             }
         };
@@ -84,6 +93,7 @@ public class RDMSystem {
         ((TimeKeeping) allMode[0]).setCallback(timeKeepingCallback);
         ((StopWatch) allMode[1]).setCountUpCallback(stopWatchCallback);
         ((StopWatch) allMode[1]).setLapTimeCallback(lapTimeCallback);
+        ((Timer) allMode[2]).setTimerCallback(timerCallback);
         ((TimeKeeping) allMode[0]).tictok();
     }
 

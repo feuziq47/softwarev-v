@@ -10,6 +10,7 @@ import java.util.TimerTask;
  */
 public class Timer extends Mode {
     private Callback timer_callback;
+    private Timer_Callback timerCallback;
 
     /**
      * Default constructor
@@ -21,6 +22,7 @@ public class Timer extends Mode {
         timer_callback = null;
         timer = new java.util.Timer();
         timerTask = null;
+        timerCallback = null;
     }
     /**
      * 시간 자료형은 localtime
@@ -165,4 +167,9 @@ public class Timer extends Mode {
         return currentTime;
     }
 
+    public LocalTime getLeftTime() {
+        return leftTime;
+    }
+
+    public void setTimerCallback(Timer_Callback timerCallback) { this.timerCallback = timerCallback; }
 }
