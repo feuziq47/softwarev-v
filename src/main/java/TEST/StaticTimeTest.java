@@ -1,4 +1,4 @@
 package TEST;
 
-public class StaticTimeTest {
+public class StaticTimeTest {//
 }

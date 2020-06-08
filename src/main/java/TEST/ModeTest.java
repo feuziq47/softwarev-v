@@ -1,4 +1,4 @@
 package TEST;
 
-public class ModeTest {
+public class ModeTest {//
 }

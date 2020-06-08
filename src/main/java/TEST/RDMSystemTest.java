@@ -1,4 +1,4 @@
 package TEST;
 
-public class RDMSystemTest {
+public class RDMSystemTest {//
 }
