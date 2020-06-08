@@ -14,11 +14,12 @@ public class Timer extends Mode {
      * Default constructor
      */
     public Timer() {
-        currentTime = LocalTime.of(0,0,0);
+        currentTime = LocalTime.of(0,0,10);
         leftTime = LocalTime.of(0,0,10);
         endTime = LocalTime.of(0,0,0);
         timer_callback = null;
         timer = new java.util.Timer();
+        timerTask = null;
     }
     /**
      * 시간 자료형은 localtime
@@ -47,11 +48,12 @@ public class Timer extends Mode {
      */
 
     private static java.util.Timer timer;
-
+    private java.util.TimerTask timerTask;
     public void setCallback(Callback callback){
         this.timer_callback = callback;
     }
 
+    /*
     public void editTimer() {
         // TODO implement here
         //return null;
@@ -60,6 +62,7 @@ public class Timer extends Mode {
     /**
      * @return
      */
+
     public void increase(String unitName) {
         // TODO implement here
         // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
@@ -77,6 +80,8 @@ public class Timer extends Mode {
                 System.err.println("Invalid Unit Name");
                 break;
         }
+        leftTime = currentTime;
+        System.out.println(currentTime);
     }
 
     /**
@@ -98,6 +103,8 @@ public class Timer extends Mode {
                 System.err.println("Invalid Unit Name");
                 break;
         }
+        leftTime = currentTime;
+        System.out.println(currentTime);
     }
 
     /**
@@ -123,7 +130,7 @@ public class Timer extends Mode {
      * @return
      */
     public void countDown() {
-        timer.scheduleAtFixedRate(new TimerTask() {
+        timerTask = new TimerTask() {
             public void run() {
                 if (!leftTime.equals(endTime)) {
                     leftTime = leftTime.minusSeconds(1);
@@ -133,14 +140,15 @@ public class Timer extends Mode {
                     timer_callback.callbackMethod();
                 }
             }
-        }, 0, 1000);
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
     /**
      * @return
      */
     public void pauseTimer() {
-        timer.cancel();
+        timerTask.cancel();
     }
 
     /**
