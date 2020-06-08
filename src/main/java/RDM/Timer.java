@@ -1,26 +1,27 @@
 package RDM;
-import java.time.LocalDateTime;
+
 import java.time.LocalTime;
-//import java.util.Timer;
 import java.util.TimerTask;
-import java.util.*;
+
+//import java.util.Timer;
 // test
 /**
  *
  */
 public class Timer extends Mode {
+    private Callback timer_callback;
 
     /**
      * Default constructor
      */
     public Timer() {
-        currentTime = LocalTime.of(0,0,0);
-        leftTime = LocalTime.of(0,0,0);
+        currentTime = LocalTime.of(0,0,10);
+        leftTime = LocalTime.of(0,0,10);
         endTime = LocalTime.of(0,0,0);
+        timer_callback = null;
         timer = new java.util.Timer();
-
+        timerTask = null;
     }
-
     /**
      * 시간 자료형은 localtime
      * 사용자가 설정한 시간으로 간주
@@ -48,7 +49,12 @@ public class Timer extends Mode {
      */
 
     private static java.util.Timer timer;
+    private java.util.TimerTask timerTask;
 
+    public void setCallback(Callback callback){
+        this.timer_callback = callback;
+    }
+    /*
     public void editTimer() {
         // TODO implement here
         //return null;
@@ -57,6 +63,7 @@ public class Timer extends Mode {
     /**
      * @return
      */
+
     public void increase(String unitName) {
         // TODO implement here
         // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
@@ -74,6 +81,8 @@ public class Timer extends Mode {
                 System.err.println("Invalid Unit Name");
                 break;
         }
+        leftTime = currentTime;
+        System.out.println(currentTime);
     }
 
     /**
@@ -95,20 +104,22 @@ public class Timer extends Mode {
                 System.err.println("Invalid Unit Name");
                 break;
         }
+        leftTime = currentTime;
+        System.out.println(currentTime);
     }
 
     /**
      * @return
      *빠집니다.ㅎㅎ
     public void selectUnitTime() {
-        // TODO implement here
-        //return null;
+    // TODO implement here
+    //return null;
     }
-ㅎ
+    ㅎ
      * @return
      * 빠지세요 -> 지우세요
     public void saveTimer() {
-        leftTime = LocalTime.from(currentTime);
+    leftTime = LocalTime.from(currentTime);
     }
      * @return
      */
@@ -120,21 +131,25 @@ public class Timer extends Mode {
      * @return
      */
     public void countDown() {
-        timer.scheduleAtFixedRate(new TimerTask() {
+        timerTask = new TimerTask() {
             public void run() {
-                if(!leftTime.equals(endTime)){
-                    leftTime.minusSeconds(1);
+                if (!leftTime.equals(endTime)) {
+                    leftTime = leftTime.minusSeconds(1);
+                    System.out.println(leftTime);
+                } else {
+                    timer.cancel();
+                    timer_callback.callbackMethod();
                 }
-                else timer.cancel();
             }
-        }, 0, 1000);
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
     /**
      * @return
      */
     public void pauseTimer() {
-        timer.cancel();
+        timerTask.cancel();
     }
 
     /**
@@ -145,6 +160,7 @@ public class Timer extends Mode {
             leftTime = currentTime;
         }
     }
+
     public LocalTime getCurrentTime() {
         return currentTime;
     }

@@ -52,6 +52,14 @@ public class RDMSystem {
         checkAvailableMode();
         this.currentMode = availableMode[modeIndex];
         this.timeKeepingTime = LocalDateTime.now();
+
+        Callback beep_callback = new Callback() {
+            @Override
+            public void callbackMethod() {
+                beep.start();
+            }
+        };
+        ((Timer)allMode[2]).setCallback(beep_callback);
     }
 
     //현재 사용가능한 모드 체크
