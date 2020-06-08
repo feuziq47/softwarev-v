@@ -152,23 +152,7 @@ public class RDMSystem {
         }
         else {
             if (isSelectMode) {
-                if (!buttonInput.equals("AD")) {
-                    if (buttonInput.equals("ST")) {
-                        isAvailable[selectModeIndex] = !isAvailable[selectModeIndex];
-                        selectModeIndex += 1;
-                        selectModeIndex %= allMode.length;
-                    } else if (buttonInput.equals("MO") && checkAvailableModeNum()) { //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
-                        isSelectMode = !isSelectMode;
-                        selectModeIndex = 0;
-                        checkAvailableMode();
-                        modeIndex = 0;
-                        this.currentMode = availableMode[0];
-                        processDisplay();
-                    }
-                } else {
-                    selectModeIndex += 1;
-                    selectModeIndex %= allMode.length;
-                }
+                selectMode(buttonInput);
             } else if (currentMode instanceof TimeKeeping) {
                 if (!isSettingMode) {  //세팅모드가 아닐 떄
                     //displayMain(currentMode,isSettingMode)
@@ -734,5 +718,26 @@ public class RDMSystem {
                 System.out.println();
             }
         }, 0, 5000);
+    }
+
+
+    public void selectMode(String buttonInput){
+        if (!buttonInput.equals("AD")) {
+            if (buttonInput.equals("ST")) {
+                isAvailable[selectModeIndex] = !isAvailable[selectModeIndex];
+                selectModeIndex += 1;
+                selectModeIndex %= allMode.length;
+            } else if (buttonInput.equals("MO") && checkAvailableModeNum()) { //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
+                isSelectMode = !isSelectMode;
+                selectModeIndex = 0;
+                checkAvailableMode();
+                modeIndex = 0;
+                this.currentMode = availableMode[0];
+                processDisplay();
+            }
+        } else {
+            selectModeIndex += 1;
+            selectModeIndex %= allMode.length;
+        }
     }
 }
