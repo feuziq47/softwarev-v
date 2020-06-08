@@ -488,10 +488,7 @@ public class RDMSystem {
 //        System.out.println(currentMode.toString());
         processDisplay();
     }
-    public void selectMode() {
-        // TODO implement here
 
-    }
     public void changeCurrentMode() {
         // TODO implement here
         this.modeIndex += 1;
@@ -855,5 +852,6 @@ public class RDMSystem {
     public Beep getBeep() {
         return beep;
     }
+
 
 }

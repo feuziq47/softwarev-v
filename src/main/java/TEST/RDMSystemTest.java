@@ -1,6 +1,13 @@
 package TEST;
 
+import RDM.RDMSystem;
+import RDM.StopWatch;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalTime;
+import java.util.concurrent.TimeUnit;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class RDMSystemTest {//
 
@@ -9,8 +16,10 @@ public class RDMSystemTest {//
      * 지정된 버튼을 눌렀을 때, 다음 Mode로 변경되는지 Test한다.
      */
     @Test
-    public void changeCurrentMode() {
-
+    public void changeCurrentMode() throws InterruptedException{
+        RDMSystem rdms = new RDMSystem();
+        rdms.changeCurrentMode();
+        assertTrue(rdms.getCurrentMode() instanceof StopWatch);
     }
 
     /**
@@ -20,6 +29,8 @@ public class RDMSystemTest {//
      */
     @Test
     public void selectModes() {
+        RDMSystem rdms = new RDMSystem();
+        rdms.selectMode();
 
     }
 }
