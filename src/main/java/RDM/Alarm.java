@@ -1,5 +1,4 @@
 package RDM;
-
 import java.time.LocalDateTime;
 
 public class Alarm extends Mode {
@@ -110,4 +109,13 @@ public class Alarm extends Mode {
         return this.alarmList[this.index];
     }
 
+
+
+
+    public StaticTime getStaticTime(){
+        return alarmList[index];
+    }
+    public int getIndex(){
+        return index;
+    }
 }

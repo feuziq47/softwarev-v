@@ -31,6 +31,8 @@ public class WorldTime extends Mode {
                     this.index = 3;
                 }
                 break;
+            case "NOW":
+                break;
         }
         return dir.plusHours(timeDifference[index]);
     }

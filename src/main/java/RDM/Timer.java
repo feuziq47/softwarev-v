@@ -145,5 +145,8 @@ public class Timer extends Mode {
             leftTime = currentTime;
         }
     }
+    public LocalTime getCurrentTime() {
+        return currentTime;
+    }
 
 }
