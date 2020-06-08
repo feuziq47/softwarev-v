@@ -1,12 +1,17 @@
 package TEST;
 
-import RDM.Alarm;
-import RDM.RDMSystem;
+import RDM.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import RDM.StopWatch;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 public class AlarmTest {
@@ -80,4 +85,36 @@ public class AlarmTest {
      * if(rdm.get)
      * }
      */
+
+     @Test
+     public void notifyAlarm() throws ParseException, InterruptedException {
+        RDMSystem rdms = new RDMSystem();
+        Alarm alarm = (Alarm)rdms.getAllMode()[3];
+        StaticTime st = alarm.getAlarmList(0);
+        st.setIsActivated(true);
+        st.setAlarmTime(LocalTime.of(22,49,30));
+        Beep beep = rdms.getBeep();
+        assertFalse(beep.isActivated());
+        DateFormat dateFormatter = new SimpleDateFormat("HH:mm:ss");
+        Date date = dateFormatter.parse("22:49:50");
+
+        java.util.Timer timer = new java.util.Timer();
+
+        TimerTask timerTask = new TimerTask() {
+             public void run() {
+                 assertTrue(beep.isActivated());
+                 timer.cancel();
+             }
+        };
+
+        timer.schedule(timerTask , date);
+
+        long currentMillis = System.currentTimeMillis();
+        long givenDateMillis = LocalDateTime.of(2020, 6, 8, 22, 50, 0)
+                 .atZone(ZoneId.systemDefault())
+                 .toInstant()
+                 .toEpochMilli();
+
+        Thread.sleep(givenDateMillis - currentMillis);
+     }
 }

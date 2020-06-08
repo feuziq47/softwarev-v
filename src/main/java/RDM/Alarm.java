@@ -120,7 +120,4 @@ public class Alarm extends Mode {
         System.out.println(this.index + "번째 알람 : "+ this.alarmList[this.index].getAlarmTime());
         return this.alarmList[this.index];
     }
-
-
-
 }
