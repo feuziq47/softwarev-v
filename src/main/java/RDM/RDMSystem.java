@@ -563,7 +563,7 @@ public class RDMSystem {
             for(int i=0; i<timeArr.length; i++){
 
                 returnStr += timeArr[i];
-                returnStr +=" : ";
+                if(i != timeArr.length-1) returnStr +=" : ";
             }
         }
         return makeHtmlFormat(returnStr);
