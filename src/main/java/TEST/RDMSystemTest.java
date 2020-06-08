@@ -30,7 +30,7 @@ public class RDMSystemTest {//
     @Test
     public void selectModes() {
         RDMSystem rdms = new RDMSystem();
-        rdms.selectMode();
+        //rdms.selectMode();
 
     }
 }

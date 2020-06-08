@@ -128,8 +128,9 @@ public class StopWatch extends Mode {
 
     public LocalTime getLaptime(String dir){
         assert dir.equals("up") || dir.equals("down");
+        int size = lapTime.size();
         if(dir.equals("up")){
-            if(index == 10){
+            if(index == size - 1){
                 index = 0;
                 return lapTime.get(index);
             }
@@ -137,7 +138,7 @@ public class StopWatch extends Mode {
         }
         else if(dir.equals("down")){
             if(index == 0){
-                index = 10;
+                index = size - 1;
                 return lapTime.get(index);
             }
             else return lapTime.get(index--);

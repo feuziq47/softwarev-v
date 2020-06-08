@@ -24,8 +24,11 @@ public class StopWatchTest {//
     @Test
     public void startStopwatch() throws InterruptedException {
         RDMSystem rdms = new RDMSystem();
-        StopWatch sw = new StopWatch();
-        sw.startStopwatch();
+        rdms.decodeButtonInput("MO");
+        rdms.decodeButtonInput("ST");
+
+        StopWatch sw = (StopWatch)rdms.getAllMode()[1];
+
         TimeUnit.SECONDS.sleep(3);
         assertTrue(sw.getStartTime().isAfter(LocalTime.of(0,0,0)));
 
@@ -40,8 +43,23 @@ public class StopWatchTest {//
      * Stopwatch에 표시된 현재 시간에서 정지하는지 Test한다.
      */
     @Test
-    public void pauseStopwatch(){
+    public void pauseStopwatch() throws InterruptedException {
+        RDMSystem rdms = new RDMSystem();
+        StopWatch sw = (StopWatch)rdms.getAllMode()[1];
+        rdms.decodeButtonInput("MO");
+        rdms.decodeButtonInput("ST");
 
+        LocalTime start = sw.getStartTime();
+
+        rdms.decodeButtonInput("ST");
+
+        LocalTime stop = sw.getStartTime();
+
+        TimeUnit.SECONDS.sleep(3);
+
+        assertTrue(start.getHour() == stop.getHour() &&
+                start.getMinute() == stop.getMinute() &&
+                start.getSecond() == stop.getSecond());
     }
 
     /**
@@ -53,7 +71,22 @@ public class StopWatchTest {//
      * Stopwatch에 표시된 현재 시간이 기록되는지 test한다.
      */
     @Test
-    public void clearStopwatch(){
+    public void clearStopwatch() throws InterruptedException {
+        RDMSystem rdms = new RDMSystem();
+        StopWatch sw = (StopWatch)rdms.getAllMode()[1];
+        rdms.decodeButtonInput("MO");
+        rdms.decodeButtonInput("ST");
+
+        TimeUnit.SECONDS.sleep(3);
+        rdms.decodeButtonInput("ST");
+        assertTrue(sw.getStartTime().isAfter(LocalTime.of(0,0,0)));
+        rdms.decodeButtonInput("RE");
+
+        LocalTime temp = sw.getStartTime();
+
+        assertTrue(temp.getHour() == 0 &&
+                temp.getMinute() == 0 &&
+                temp.getSecond() == 0);
 
     }
 
@@ -67,7 +100,10 @@ public class StopWatchTest {//
      */
     @Test
     public void recordLapTime(){
-
+        RDMSystem rdms = new RDMSystem();
+        StopWatch sw = (StopWatch)rdms.getAllMode()[1];
+        rdms.decodeButtonInput("MO");
+        rdms.decodeButtonInput("ST");
     }
 
 }
