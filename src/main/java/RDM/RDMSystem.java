@@ -1,6 +1,7 @@
-package RDM;
+
 import java.time.LocalDateTime;
 import java.util.*;
+import java.time.LocalTime;
 
 /**
  *
@@ -14,7 +15,11 @@ public class RDMSystem {
     private Mode[] allMode;
    // private Mode[] disable;
 
+
+
     private LocalDateTime currentTime;
+
+
 
     private int modeIndex;
     private int selectModeIndex = 0;
@@ -28,16 +33,24 @@ public class RDMSystem {
     private boolean isTimerStart = false;
     private boolean isSelectMode = false;
     private Beep beep;
+
+    private LocalDateTime timeKeepingTime;
+    private String mainString;
+    private String subString;
+    private Mode currentMode;
     /**
      * Default constructor
      */
     public RDMSystem() {
         this.allMode = new Mode[]{new TimeKeeping(), new StopWatch(), new Timer(), new Alarm(), new DecisionMaker(), new WorldTime()};
         this.isAvailable = new boolean[]{true,true,true,true,false,false};
-        checkAvailableMode();
         this.isSettingMode = false;
         this.modeIndex = 0;
         this.beep = new Beep();
+        this.availableMode = new Mode[4];
+        checkAvailableMode();
+        this.currentMode = availableMode[modeIndex];
+        this.timeKeepingTime = LocalDateTime.now();
     }
 
     //현재 사용가능한 모드 체크
@@ -62,7 +75,7 @@ public class RDMSystem {
 
 
     public void decodeButtonInput(String buttonInput) {
-        Mode currentMode = availableMode[modeIndex];
+        currentMode = availableMode[modeIndex];
         if(isSelectMode){
             if (!buttonInput.equals("AD")) {
                 if(buttonInput.equals("ST")) {
@@ -71,6 +84,7 @@ public class RDMSystem {
                     selectModeIndex %= allMode.length;
                 } else if(buttonInput.equals("MO") && checkAvailableModeNum()){ //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
                     isSelectMode = !isSelectMode;
+                    selectModeIndex = 0;
                     checkAvailableMode();
                 }
             } else {
@@ -117,6 +131,7 @@ public class RDMSystem {
                         break;
                 }
             }
+            timeKeepingTime = ((TimeKeeping) currentMode).getCurrentTime();
         }else if(currentMode instanceof StopWatch){
             if(!isSettingMode) {  //세팅모드가 아닐 떄
                 //displayMain(currentMode,isSettingMode)
@@ -323,5 +338,172 @@ public class RDMSystem {
         // TODO implement here
 
     }
+
+    private String makeHtmlFormat(String str){
+        return "<html>"+str+"</html>";
+    }
+    //final private String[] timeKeepingAtt = {"YEAR", "MONTH", "DAY", "HOUR","MIN"};
+
+    private String makeMainDateTimeString(LocalDateTime time, int index, boolean isSettingMode){
+        String hour = Integer.toString(time.getHour());
+        String min = Integer.toString(time.getMinute());
+        String sec = Integer.toString(time.getSecond());
+        String[] timeArr = new String[]{hour,min,sec};
+
+        String returnStr = "";
+
+
+        if(isSettingMode && index > 2){
+            for(int i=0; i<timeArr.length; i++){
+                if(i == index-3){ //3 = Hour, 4 = Min
+                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+                }
+                else{
+                    returnStr += timeArr[i];
+                }
+                returnStr +=" : ";
+             }
+        }
+        else{
+            for(int i=0; i<timeArr.length; i++){
+
+                returnStr += timeArr[i];
+                returnStr +=" : ";
+            }
+        }
+        return makeHtmlFormat(returnStr);
+    }
+
+    private String makeSubDateTimeString(LocalDateTime time, int index, boolean isSettingMode){
+        String year = Integer.toString(time.getYear());
+        String month = time.getMonth().toString();
+        String day = time.getDayOfWeek().toString();
+        String[] timeArr = new String[]{year, month, day};
+
+        String returnStr = "";
+
+        if(isSettingMode && index <= 2){
+            for(int i=0; i<timeArr.length; i++){
+                if(i == index){
+                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+                }
+                else{
+                    returnStr += timeArr[i];
+                }
+                returnStr +=" ";
+            }
+        }
+        else{
+            for(int i=0; i<timeArr.length; i++){
+                returnStr += timeArr[i];
+                returnStr +=" ";
+            }
+        }
+        return returnStr;
+    }
+
+    private String makeMainDateTimeString(LocalTime time, int index){
+        String hour = Integer.toString(time.getHour());
+        String min = Integer.toString(time.getMinute());
+        String sec = Integer.toString(time.getSecond());
+        String[] timeArr = new String[]{hour,min,sec};
+
+        String returnStr = "";
+
+
+        if(isSettingMode){
+            for(int i=0; i<timeArr.length; i++){
+                if(i == index){
+                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+                }
+                else{
+                    returnStr += timeArr[i];
+                }
+                returnStr +=" : ";
+            }
+        }
+        else{
+            for(int i=0; i<timeArr.length; i++){
+
+                returnStr += timeArr[i];
+                returnStr +=" : ";
+            }
+        }
+        return makeHtmlFormat(returnStr);
+    }
+
+
+    public String makeAlarmSubString(int alarmIndex, boolean isActivate){
+        if(isActivate){
+            return alarmIndex + " / " + "AC";
+        }
+        return alarmIndex + " / " + "DA";
+    }
+
+
+
+    public void processDisplay(){
+        if(currentMode instanceof TimeKeeping){
+            mainString = makeMainDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
+            subString = makeSubDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
+        }
+        else if(currentMode instanceof  Alarm) {
+            LocalDateTime time = ((Alarm) currentMode).getStaticTime().getAlarmTime();
+            mainString = makeMainDateTimeString(time, attrIndex+3,isSettingMode);
+            subString = makeAlarmSubString(((Alarm) currentMode).getIndex(),((Alarm) currentMode).getStaticTime().getIsActivated());
+        }
+        else if(currentMode instanceof  Timer){
+            subString = makeSubDateTimeString(getTimeKeepingTime(),3,isSettingMode);
+            mainString = makeMainDateTimeString(((Timer) currentMode).getCurrentTime(),attrIndex);
+        }
+        else if(currentMode instanceof  StopWatch){
+            if(isSettingMode){
+                mainString = ((StopWatch) currentMode).getNowLapTime().toString();
+            }
+            else {
+                mainString = makeMainDateTimeString(((StopWatch) currentMode).getStopwatchTime(),100);
+            }
+            subString = makeSubDateTimeString(getTimeKeepingTime(),100,isSettingMode);
+        }
+        else if(currentMode instanceof WorldTime){
+            LocalDateTime curWorldTime = ((WorldTime) currentMode).getWorldTime(getTimeKeepingTime(),"NOW");
+            mainString = ((WorldTime) currentMode).getCity() + makeMainDateTimeString(curWorldTime,100,false);
+            subString = makeSubDateTimeString(getTimeKeepingTime(),100,false);
+        }
+        else if(currentMode instanceof  DecisionMaker){
+            if(isSettingMode){
+                mainString = makeHtmlFormat(Integer.toString(((DecisionMaker) currentMode).getCaseNum()));
+            }
+            else{
+                mainString = makeHtmlFormat(Integer.toString(((DecisionMaker) currentMode).getCase()));
+            }
+            subString = makeSubDateTimeString(getTimeKeepingTime(),100,false);
+        }
+
+    }
+
+    public String getMainString(){
+        return mainString;
+    }
+    public  String getSubString(){
+        return subString;
+    }
+
+    public int getSelectModeIndex() {
+        return selectModeIndex;
+    }
+    public int getModeIndex(){
+        return modeIndex;
+    }
+
+    public LocalDateTime getTimeKeepingTime(){
+        return ((TimeKeeping)allMode[0]).getCurrentTime();
+    }
+
+
+
+
+
+
 
 }
