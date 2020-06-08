@@ -71,4 +71,7 @@ public class DecisionMaker extends Mode {
         return rand.nextInt(caseNum);
     }
 
+    public void setCaseNum(int caseNum) {
+        this.caseNum = caseNum;
+    }
 }

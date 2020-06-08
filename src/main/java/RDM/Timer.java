@@ -171,5 +171,13 @@ public class Timer extends Mode {
         return leftTime;
     }
 
+    public void setCurrentTime(LocalTime currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public void setLeftTime(LocalTime leftTime) {
+        this.leftTime = leftTime;
+    }
+
     public void setTimerCallback(Timer_Callback timerCallback) { this.timerCallback = timerCallback; }
 }

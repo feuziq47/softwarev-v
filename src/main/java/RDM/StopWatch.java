@@ -154,6 +154,10 @@ public class StopWatch extends Mode {
         return lapTime.get(index);
     }
 
+    public LocalTime getStartTime() {
+        return startTime;
+    }
+
     public void setCountUpCallback(StopWatch_Callback stopWatchCallback){ this.stopWatch_Callback = stopWatchCallback; }
 
     public void setLapTimeCallback(LapTime_Callback lapTimeCallback){ this.lapTime_Callback = lapTimeCallback; }
