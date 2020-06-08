@@ -1,6 +1,9 @@
 package TEST;
 
+import RDM.Beep;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BeepTest {
 
@@ -10,6 +13,10 @@ public class BeepTest {
      */
     @Test
     public void activateBeep() {
+        Beep beep = new Beep();
+        beep.beepStart();
+        assertTrue(beep.isActivated());
+        beep.deactivateBeep();
     }
 
     /**
@@ -18,5 +25,11 @@ public class BeepTest {
      */
     @Test
     public void deactivateBeep() {
+        Beep beep = new Beep();
+        boolean tmp = false;
+        beep.beepStart();
+        tmp = beep.isActivated();
+        beep.deactivateBeep();
+        assertTrue(tmp && !beep.isActivated() );
     }
 }

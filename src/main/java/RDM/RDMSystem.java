@@ -744,4 +744,6 @@ public class RDMSystem {
     public Mode[] getAllMode() {
         return allMode;
     }
+
+    public boolean getIsSettingMode(){ return isSettingMode; }
 }
