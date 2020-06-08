@@ -1,14 +1,14 @@
 package TEST;
 
-import RDM.Alarm;
-import RDM.RDMSystem;
-import RDM.StaticTime;
+import RDM.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import RDM.StopWatch;
-
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
@@ -103,6 +103,12 @@ public class AlarmTest {
      * RDMSystem rdm = new RDMSystem();
      * if(rdm.get)
      * }
+     */
+
+
+    /**
+     * 특정시간으로 알람을 설정한 다음,
+     * 해당 시간이 되면, 지정된 알림의 isActivated 가 True인지 확인
      */
 
      @Test
