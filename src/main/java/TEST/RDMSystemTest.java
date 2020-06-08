@@ -10,6 +10,7 @@ public class RDMSystemTest {//
      */
     @Test
     public void changeCurrentMode() {
+
     }
 
     /**
@@ -19,5 +20,6 @@ public class RDMSystemTest {//
      */
     @Test
     public void selectModes() {
+
     }
 }
