@@ -6,9 +6,9 @@ import java.awt.*;
 public class SubScreen extends JLabel {
     private SubScreen() {
         this.setText("YYYY MM DD X");
-        this.setFont(new Font("궁서", Font.BOLD, 20));
-        this.setSize(160,40);
-        this.setLocation(390,80);
+        this.setFont(new Font("맑은고딕", Font.BOLD, 20));
+        this.setSize(200,60);
+        this.setLocation(370,70);
         //this.setBackground(Color.black);
         //this.setOpaque(true);
         this.setHorizontalAlignment(SwingConstants.CENTER);

@@ -18,9 +18,9 @@ public class MainScreen extends JLabel {
     private String ss= "00";
 
     private MainScreen(){
-        this.setFont(new Font("궁서", Font.BOLD, 70));
-        this.setSize(540,100);
-        this.setLocation(30,190);
+        this.setFont(new Font("맑은고딕", Font.BOLD, 60));
+        this.setSize(540,200);
+        this.setLocation(30,150);
         this.setText("XX : XX : XX");
         //this.setBackground(Color.black);
         //this.setOpaque(true);
