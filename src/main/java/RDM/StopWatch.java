@@ -23,6 +23,7 @@ public class StopWatch extends Mode {
     private boolean isRunning;
     private StopWatch_Callback stopWatch_Callback;
     private LapTime_Callback lapTime_Callback;
+    private TimerTask timerTask;
 
     /**
      * Default constructor
@@ -36,6 +37,7 @@ public class StopWatch extends Mode {
         index = 0;
         stopWatch_Callback = null;
         lapTime_Callback = null;
+        timerTask = null;
         timer = new java.util.Timer();
         // 작동중인지 상태변수 추가
         //isRunning = false;
@@ -46,14 +48,14 @@ public class StopWatch extends Mode {
      * @return
      */
     public void startStopwatch() {
-        TimerTask tmp = new TimerTask() {
+        timerTask = new TimerTask() {
             public void run() {
                 startTime = startTime.plusSeconds(1);
                 stopWatch_Callback.callbackMethod();
             }
         };
         if(startTime.isBefore(availTime)){
-            timer.scheduleAtFixedRate(tmp , 0, 1000);
+            timer.scheduleAtFixedRate(timerTask , 0, 1000);
         } else{
             timer.cancel();
             resetStopwatch();
@@ -73,7 +75,7 @@ public class StopWatch extends Mode {
      */
     public void pauseStopwatch() {
         //if(isRunning){
-        timer.cancel();
+        timerTask.cancel();
         //isRunning = false;
         //}
     }
