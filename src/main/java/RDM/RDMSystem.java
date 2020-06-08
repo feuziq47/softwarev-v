@@ -740,4 +740,8 @@ public class RDMSystem {
             selectModeIndex %= allMode.length;
         }
     }
+
+    public Mode[] getAllMode() {
+        return allMode;
+    }
 }
