@@ -1,4 +1,4 @@
-package RDM;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -30,6 +30,8 @@ public class WorldTime extends Mode {
                 } else{
                     this.index = 3;
                 }
+                break;
+            case "NOW":
                 break;
         }
         return dir.plusHours(timeDifference[index]);
