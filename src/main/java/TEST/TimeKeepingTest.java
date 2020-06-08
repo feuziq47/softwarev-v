@@ -19,13 +19,18 @@ public class TimeKeepingTest {//
         RDMSystem rdm = new RDMSystem();
         LocalDateTime testLDT;
         int temp = 0;
-        boolean tmp1 = false;
+        boolean tmp1 = false, tmp2 = false;
         rdm.decodeButtonInput("Long Mo");
         tmp1 = rdm.isSettingMode();
 
         rdm.decodeButtonInput("RE");
         testLDT = LocalDateTime.now();
-        temp = rdm.getTimeKeepingCurrentTime() - testLDT.getYear()
+        temp = rdm.getTimeKeepingCurrentTime().getYear() - testLDT.getYear();
+        tmp2 = (temp == 1);
 
+        rdm.decodeButtonInput("ST");
+        testLDT = LocalDateTime.now();
+        temp = rdm.getTimeKeepingCurrentTime().getYear() - testLDT.getYear();
+        tmp2 = (temp == 0);
     }
 }
