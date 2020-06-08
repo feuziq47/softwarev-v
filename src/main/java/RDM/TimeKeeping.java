@@ -7,18 +7,22 @@ public class TimeKeeping extends Mode {
 
     private LocalDateTime currentTime;
     private static Timer timer = new java.util.Timer();
+    private TimeKeeping_Callback timeKeeping_Callback;
 
     public TimeKeeping() {
         this.currentTime = LocalDateTime.now();
+        this.timeKeeping_Callback = null;
     }
 
     //시간이 흐르는 것을 실제로 표현하기 위해 tictok()이라는 함수를 새롭게 추가하였습니다.
     public void tictok() {
-        timer.scheduleAtFixedRate(new TimerTask() {
+        TimerTask tmp = new TimerTask() {
             public void run() {
-                currentTime.plusSeconds(1);
+                currentTime = currentTime.plusSeconds(1);
+                timeKeeping_Callback.callbackMethod();
             }
-        }, 0, 1000);
+        };
+        timer.scheduleAtFixedRate(tmp , 0, 1000);
     }
     //필요없는 기능이므로 삭제하겠습니다. -이정우
     /*public void editTimeKeeping() {
@@ -108,4 +112,6 @@ public class TimeKeeping extends Mode {
     }
     */
 
+    public void setCallback(TimeKeeping_Callback countUpCallback){ this.timeKeeping_Callback = countUpCallback; }
 }
+

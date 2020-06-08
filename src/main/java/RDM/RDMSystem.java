@@ -61,6 +61,50 @@ public class RDMSystem {
         checkAvailableMode();
         this.currentMode = availableMode[modeIndex];
         this.timeKeepingTime = LocalDateTime.now();
+
+        TimeKeeping_Callback timeKeepingCallback = new TimeKeeping_Callback(){
+            @Override
+            public void callbackMethod(){
+                if(currentMode instanceof TimeKeeping){
+                    System.out.println(((TimeKeeping) currentMode).getCurrentTime());
+                }
+            }
+        };
+
+        Timer_Callback timerCallback = new Timer_Callback(){
+            @Override
+            public void callbackMethod(){
+                if(currentMode instanceof Timer){
+                    System.out.println(((Timer) currentMode).getLeftTime());
+                }
+            }
+        };
+
+        StopWatch_Callback stopWatchCallback = new StopWatch_Callback(){
+            @Override
+            public void callbackMethod(){
+                if(currentMode instanceof StopWatch){
+                    System.out.println(((StopWatch) currentMode).getStopwatchTime());
+                }
+            }
+        };
+
+        LapTime_Callback lapTimeCallback = new LapTime_Callback(){
+            @Override
+            public void callbackMethod(){
+                Mode currentMode = availableMode[modeIndex];
+                if(currentMode instanceof StopWatch){
+                    System.out.println(((StopWatch) currentMode).getStopwatchTime() + "\n");
+                }
+            }
+        };
+
+        ((TimeKeeping) allMode[0]).setCallback(timeKeepingCallback);
+        ((StopWatch) allMode[1]).setCountUpCallback(stopWatchCallback);
+        ((StopWatch) allMode[1]).setLapTimeCallback(lapTimeCallback);
+        ((Timer) allMode[2]).setTimerCallback(timerCallback);
+        ((TimeKeeping) allMode[0]).tictok();
+
         cd();
     }
 
