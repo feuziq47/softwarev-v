@@ -1,5 +1,6 @@
 package RDM;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Alarm extends Mode {
 
@@ -7,8 +8,9 @@ public class Alarm extends Mode {
     private int index;
 
     public Alarm() {
+        this.alarmList = new StaticTime[]{new StaticTime(), new StaticTime(), new StaticTime(), new StaticTime()};
         for(int i = 0; i < 4; i++){
-            this.alarmList[i].setAlarmTime(LocalDateTime.MIN);
+            this.alarmList[i].setAlarmTime(LocalTime.MIN);
             this.alarmList[i].setIsActivated(false);
         }
         this.index = 0;

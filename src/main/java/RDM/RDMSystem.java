@@ -53,13 +53,38 @@ public class RDMSystem {
         this.currentMode = availableMode[modeIndex];
         this.timeKeepingTime = LocalDateTime.now();
 
-        Callback beep_callback = new Callback() {
+        TimeKeeping_Callback timeKeepingCallback = new TimeKeeping_Callback(){
             @Override
-            public void callbackMethod() {
-                beep.start();
+            public void callbackMethod(){
+                if(currentMode instanceof TimeKeeping){
+                    System.out.println(((TimeKeeping) currentMode).getCurrentTime() + "\n");
+                }
             }
         };
-        ((Timer)allMode[2]).setCallback(beep_callback);
+
+        StopWatch_Callback stopWatchCallback = new StopWatch_Callback(){
+            @Override
+            public void callbackMethod(){
+                if(currentMode instanceof StopWatch){
+                    System.out.println(((StopWatch) currentMode).getStopwatchTime());
+                }
+            }
+        };
+
+        LapTime_Callback lapTimeCallback = new LapTime_Callback(){
+            @Override
+            public void callbackMethod(){
+                Mode currentMode = availableMode[modeIndex];
+                if(currentMode instanceof StopWatch){
+                    System.out.println(((StopWatch) currentMode).getStopwatchTime() + "\n");
+                }
+            }
+        };
+
+        ((TimeKeeping) allMode[0]).setCallback(timeKeepingCallback);
+        ((StopWatch) allMode[1]).setCountUpCallback(stopWatchCallback);
+        ((StopWatch) allMode[1]).setLapTimeCallback(lapTimeCallback);
+        ((TimeKeeping) allMode[0]).tictok();
     }
 
     //현재 사용가능한 모드 체크
@@ -383,6 +408,36 @@ public class RDMSystem {
         return makeHtmlFormat(returnStr);
     }
 
+    private String makeMainDateTimeString(LocalTime time, int index, boolean isSettingMode){
+        String hour = Integer.toString(time.getHour());
+        String min = Integer.toString(time.getMinute());
+        String sec = Integer.toString(time.getSecond());
+        String[] timeArr = new String[]{hour,min,sec};
+
+        String returnStr = "";
+
+
+        if(isSettingMode && index > 2){
+            for(int i=0; i<timeArr.length; i++){
+                if(i == index-3){ //3 = Hour, 4 = Min
+                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+                }
+                else{
+                    returnStr += timeArr[i];
+                }
+                returnStr +=" : ";
+            }
+        }
+        else{
+            for(int i=0; i<timeArr.length; i++){
+
+                returnStr += timeArr[i];
+                returnStr +=" : ";
+            }
+        }
+        return makeHtmlFormat(returnStr);
+    }
+
     private String makeSubDateTimeString(LocalDateTime time, int index, boolean isSettingMode){
         String year = Integer.toString(time.getYear());
         String month = time.getMonth().toString();
@@ -457,7 +512,7 @@ public class RDMSystem {
             subString = makeSubDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
         }
         else if(currentMode instanceof  Alarm) {
-            LocalDateTime time = ((Alarm) currentMode).getStaticTime().getAlarmTime();
+            LocalTime time = ((Alarm) currentMode).getStaticTime().getAlarmTime();
             mainString = makeMainDateTimeString(time, attrIndex+3,isSettingMode);
             subString = makeAlarmSubString(((Alarm) currentMode).getIndex(),((Alarm) currentMode).getStaticTime().getIsActivated());
         }

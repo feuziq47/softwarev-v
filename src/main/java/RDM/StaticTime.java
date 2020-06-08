@@ -13,13 +13,13 @@ public class StaticTime {
     public StaticTime() {
     }
 
-    private LocalDateTime alarmTime;
+    private LocalTime alarmTime;
     private boolean isActivated;
 
     /**
      * @return
      */
-    public LocalDateTime getAlarmTime() {
+    public LocalTime getAlarmTime() {
         // TODO implement here
         return alarmTime;
     }
@@ -28,7 +28,7 @@ public class StaticTime {
      * @param time
      * @return
      */
-    public void setAlarmTime(LocalDateTime time) {
+    public void setAlarmTime(LocalTime time) {
         // TODO implement here
         this.alarmTime = time;
     }

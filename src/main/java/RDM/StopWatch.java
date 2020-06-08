@@ -21,6 +21,8 @@ public class StopWatch extends Mode {
     private Integer index;
     private LocalTime availTime;
     private boolean isRunning;
+    private StopWatch_Callback stopWatch_Callback;
+    private LapTime_Callback lapTime_Callback;
 
     /**
      * Default constructor
@@ -32,6 +34,9 @@ public class StopWatch extends Mode {
         savedTime = LocalTime.of(0,0,0);
         availTime = LocalTime.MAX;
         index = 0;
+        stopWatch_Callback = null;
+        lapTime_Callback = null;
+        timer = new java.util.Timer();
         // 작동중인지 상태변수 추가
         //isRunning = false;
     }
@@ -41,13 +46,14 @@ public class StopWatch extends Mode {
      * @return
      */
     public void startStopwatch() {
+        TimerTask tmp = new TimerTask() {
+            public void run() {
+                startTime = startTime.plusSeconds(1);
+                stopWatch_Callback.callbackMethod();
+            }
+        };
         if(startTime.isBefore(availTime)){
-            timer.scheduleAtFixedRate(new TimerTask() {
-                public void run() {
-                    startTime.plusSeconds(1);
-
-                }
-            }, 0, 1000);
+            timer.scheduleAtFixedRate(tmp , 0, 1000);
         } else{
             timer.cancel();
             resetStopwatch();
@@ -101,10 +107,11 @@ public class StopWatch extends Mode {
     }
 
     public void recordLapTime(){
-        if(lapTime.size() == 10){
+        if(lapTime.size() == 10) {
             lapTime.remove(9);
         }
         lapTime.add(0,LocalTime.from(startTime));
+        lapTime_Callback.callbackMethod();
     }
     /**
      * 인자: 인덱스 로 검색
@@ -146,4 +153,8 @@ public class StopWatch extends Mode {
     public LocalTime getNowLapTime(){
         return lapTime.get(index);
     }
+
+    public void setCountUpCallback(StopWatch_Callback stopWatchCallback){ this.stopWatch_Callback = stopWatchCallback; }
+
+    public void setLapTimeCallback(LapTime_Callback lapTimeCallback){ this.lapTime_Callback = lapTimeCallback; }
 }
