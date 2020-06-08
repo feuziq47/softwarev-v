@@ -12,16 +12,6 @@ import java.util.concurrent.TimeUnit;
 public class AlarmTest {
 
     /**
-     * deleteAlarm 케이스는 삭제했으므로, 불필요
-     *
-     * 선택한 알람이 제대로 삭제되었는지 Test한다..
-     */
-    @Test
-    public void deleteAlarm() {
-
-    }
-
-    /**
      * 활성화 비활성화 행위 주체는 System이므로, System에서 Test해야 함
      *
      * 활성화 된 Alarm 시간이 되면 Beep음이 울리는 지 Test한다.
