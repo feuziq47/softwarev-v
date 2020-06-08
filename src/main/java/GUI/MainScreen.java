@@ -51,7 +51,9 @@ public class MainScreen extends JLabel {
      * @param msg : 화면에 출력할 메시지
      */
     public void display(String msg){
+        System.out.println("Main display call : " + msg);
         this.setText(msg);
+        repaint();
     }
 
     public void highlight(int mode){

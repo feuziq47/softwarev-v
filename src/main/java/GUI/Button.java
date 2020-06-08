@@ -16,7 +16,7 @@ public class Button extends JLabel {
     private int holdTime;
     private boolean shape = true;
     private String name;
-    private RDMSystem rdms;
+    static private final RDMSystem rdms = new RDMSystem();
 
     public Button(){
         this.setLayout(null);
@@ -26,7 +26,7 @@ public class Button extends JLabel {
         this.addMouseListener(new ML());
         this.name = "no name";
         //this.setOpaque(true);
-        //rdms = new RDMSystem();
+        System.out.println("butt");
     }
 
     public void setName(String n){
@@ -83,7 +83,7 @@ public class Button extends JLabel {
             //int uniqueId = (int) System.currentTimeMillis();
             if(timeDifference >= holdTime) {
                 System.out.println("LONG_"+name);
-                //rdms.decodeButtonInput("LONG_"+name);
+                rdms.decodeButtonInput("LONG_"+name);
 //                if(t.eventClickHold != null){
 //                    String commandName = "ClickHold";
 //                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);
@@ -91,7 +91,7 @@ public class Button extends JLabel {
 //                }
             } else {
                 System.out.println(name);
-                //rdms.decodeButtonInput(name);
+                rdms.decodeButtonInput(name);
 //                if(t.eventClick != null){
 //                    String commandName = "Click";
 //                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);

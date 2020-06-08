@@ -21,8 +21,10 @@ public class ModeIcon extends JLabel {
         this.setLocation(35,80);
 
         Color c = new Color(0, 0, 0);
+
         this.iconColors = new Color[]{c, c, c, c, c, c};
-        this.iconName = new String[]{"1.png", "2.png", "3.png", "4.png", "5.png", "6.png"};
+
+        this.iconName = new String[]{"0timeKeeping.png", "1stopWatch.png", "2timer.png", "3alarm.png", "4decisionMaker.png", "5worldTime.png"};
         this.path = System.getProperty("user.dir") + "/src/main/java/GUI/icon/";
         this.il = new IconLoader(path);
         this.imgs = il.getIcons();

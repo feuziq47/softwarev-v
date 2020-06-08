@@ -8,7 +8,7 @@ public class WorldTime extends Mode {
 
     private String[] city = {"NYC", "SYD", "LAX", "LON"};
     private int[] timeDifference = {14, 1, 16, 8};
-    private int index = -1;
+    private int index = 0;
 
     public WorldTime() {
     }

@@ -1,8 +1,16 @@
 package RDM;
 
+import GUI.MainScreen;
+import GUI.ModeIcon;
+import GUI.SubScreen;
+
+import java.awt.*;
 import java.time.LocalDateTime;
-import java.util.*;
 import java.time.LocalTime;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -39,6 +47,7 @@ public class RDMSystem {
     private String mainString;
     private String subString;
     private Mode currentMode;
+    private th3 th = new th3();
     /**
      * Default constructor
      */
@@ -52,13 +61,16 @@ public class RDMSystem {
         checkAvailableMode();
         this.currentMode = availableMode[modeIndex];
         this.timeKeepingTime = LocalDateTime.now();
+        cd();
     }
 
     //현재 사용가능한 모드 체크
     public void checkAvailableMode(){
         int index = 0;
         for(int i=0; i<allMode.length;i++){
-            if(!isAvailable[i]) continue;
+            if(!isAvailable[i]) {
+                continue;
+            }
             availableMode[index] = allMode[i];
             index++;
         }
@@ -85,6 +97,7 @@ public class RDMSystem {
                     selectModeIndex %= allMode.length;
                 } else if(buttonInput.equals("MO") && checkAvailableModeNum()){ //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
                     isSelectMode = !isSelectMode;
+                    modeIndex = getFirstAvaIndex();
                     selectModeIndex = 0;
                     checkAvailableMode();
                 }
@@ -210,7 +223,7 @@ public class RDMSystem {
                 switch (buttonInput) {
                     case "AD":
                         attrIndex++;
-                        attrIndex = attrIndex % timeKeepingAtt.length; //이부분 TimerAtt로 바꿔야됨 Att는 각 클래스가 가지고 있는게 좋을듯
+                        attrIndex = attrIndex % alarmAtt.length; //이부분 TimerAtt로 바꿔야됨 Att는 각 클래스가 가지고 있는게 좋을듯
                         break;
                     case "RE":
                         ((Timer) currentMode).increase(alarmAtt[attrIndex]); //클래스 내에서 시분 구분해야함
@@ -322,8 +335,13 @@ public class RDMSystem {
                 case "LONG_AD":
                     isSelectMode = !isSelectMode;
                     break;
+                case "MO":
+                    switchCurrentMode();
+                    break;
             }
         }
+//        System.out.println(currentMode.toString());
+        processDisplay();
     }
     public void selectMode() {
         // TODO implement here
@@ -362,14 +380,14 @@ public class RDMSystem {
                 else{
                     returnStr += timeArr[i];
                 }
-                returnStr +=" : ";
+                if(i != timeArr.length-1) returnStr +=" : ";
              }
         }
         else{
             for(int i=0; i<timeArr.length; i++){
 
                 returnStr += timeArr[i];
-                returnStr +=" : ";
+                if(i != timeArr.length-1) returnStr +=" : ";
             }
         }
         return makeHtmlFormat(returnStr);
@@ -420,7 +438,8 @@ public class RDMSystem {
                 else{
                     returnStr += timeArr[i];
                 }
-                returnStr +=" : ";
+
+                if(i != timeArr.length-1) returnStr +=" : ";
             }
         }
         else{
@@ -442,20 +461,50 @@ public class RDMSystem {
     }
 
 
-
+    private Color[] iconDisplay(){
+        Color[] iconColor = new Color[6];
+        int offset = 0;
+        for(int i=0; i<allMode.length; i++){
+            if(isSelectMode){
+                if(i==selectModeIndex){
+                    iconColor[i] = Color.GREEN;
+                } else if(isAvailable[i]){
+                    iconColor[i] = Color.YELLOW;
+                } else {
+                    iconColor[i] = Color.BLACK;
+                }
+            }
+            else {
+                if(!isAvailable[i]) {
+                    offset++;
+                    iconColor[i] = Color.BLACK;
+                    continue;
+                };
+                if(i==modeIndex+offset){
+                    iconColor[i] = Color.GREEN;
+                }else{
+                    iconColor[i] = Color.BLACK;
+                }
+            }
+        }
+        return iconColor;
+    }
     public void processDisplay(){
         if(currentMode instanceof TimeKeeping){
             mainString = makeMainDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
             subString = makeSubDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
+            System.out.println("in Timekeeping");
         }
         else if(currentMode instanceof  Alarm) {
             LocalDateTime time = ((Alarm) currentMode).getStaticTime().getAlarmTime();
             mainString = makeMainDateTimeString(time, attrIndex+3,isSettingMode);
             subString = makeAlarmSubString(((Alarm) currentMode).getIndex(),((Alarm) currentMode).getStaticTime().getIsActivated());
+            System.out.println("in Alarm");
         }
         else if(currentMode instanceof  Timer){
             subString = makeSubDateTimeString(getTimeKeepingTime(),3,isSettingMode);
             mainString = makeMainDateTimeString(((Timer) currentMode).getCurrentTime(),attrIndex);
+            System.out.println("in Timer");
         }
         else if(currentMode instanceof  StopWatch){
             if(isSettingMode){
@@ -465,11 +514,13 @@ public class RDMSystem {
                 mainString = makeMainDateTimeString(((StopWatch) currentMode).getStopwatchTime(),100);
             }
             subString = makeSubDateTimeString(getTimeKeepingTime(),100,isSettingMode);
+            System.out.println("in StopWatch");
         }
         else if(currentMode instanceof WorldTime){
             LocalDateTime curWorldTime = ((WorldTime) currentMode).getWorldTime(getTimeKeepingTime(),"NOW");
             mainString = ((WorldTime) currentMode).getCity() + makeMainDateTimeString(curWorldTime,100,false);
             subString = makeSubDateTimeString(getTimeKeepingTime(),100,false);
+            System.out.println("in WorldTime");
         }
         else if(currentMode instanceof  DecisionMaker){
             if(isSettingMode){
@@ -479,14 +530,24 @@ public class RDMSystem {
                 mainString = makeHtmlFormat(Integer.toString(((DecisionMaker) currentMode).getCase()));
             }
             subString = makeSubDateTimeString(getTimeKeepingTime(),100,false);
+            System.out.println("in DecisionMaker");
         }
+
+        MainScreen.getInstance().display(mainString);
+        SubScreen.getInstance().display(subString);
+        ModeIcon.getInstance().setModeColor(iconDisplay());
+
+//        System.out.println(mainString);
+//        System.out.println(subString);
 
     }
 
     public String getMainString(){
+        MainScreen.getInstance().display(mainString);
         return mainString;
     }
     public  String getSubString(){
+        MainScreen.getInstance().display(subString);
         return subString;
     }
 
@@ -496,15 +557,47 @@ public class RDMSystem {
     public int getModeIndex(){
         return modeIndex;
     }
+    public int getFirstAvaIndex(){
+        for(int i=0;i<isAvailable.length;i++){
+            if(isAvailable[i]) return i;
+        }
+        return 0;
+    }
 
     public LocalDateTime getTimeKeepingTime(){
         return ((TimeKeeping)allMode[0]).getCurrentTime();
     }
 
 
+    public class th3 extends Thread {
+
+        public void run() {
+
+        }
+    }
+//        public static void main(String[] args) {
+//            final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+//            executorService.scheduleAtFixedRate(new Runnable() {
+//                @Override
+//                public void run() {
+//                    myTask();
+//                }
+//            }, 0, 1, TimeUnit.SECONDS);
+//        }
+//
+//        private static void myTask() {
+//
+//        }
 
 
-
-
-
+    public void cd() {
+        java.util.Timer timers = new java.util.Timer();
+        timers.schedule(new TimerTask() {
+            public void run() {
+                System.out.println("=============================================");
+                processDisplay();
+                System.out.println();
+            }
+        }, 0, 5000);
+    }
 }

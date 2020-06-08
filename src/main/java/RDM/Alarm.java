@@ -8,6 +8,7 @@ public class Alarm extends Mode {
 
     public Alarm() {
         for(int i = 0; i < 4; i++){
+            this.alarmList[i] = new StaticTime();
             this.alarmList[i].setAlarmTime(LocalDateTime.MIN);
             this.alarmList[i].setIsActivated(false);
         }
