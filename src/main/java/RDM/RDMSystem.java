@@ -16,6 +16,110 @@ import java.util.concurrent.TimeUnit;
  *
  */
 public class RDMSystem {
+    public Mode[] getAvailableMode() {
+        return availableMode;
+    }
+
+    public void setAvailableMode(Mode[] availableMode) {
+        this.availableMode = availableMode;
+    }
+
+    public boolean[] getIsAvailable() {
+        return isAvailable;
+    }
+
+    public void setIsAvailable(boolean[] isAvailable) {
+        this.isAvailable = isAvailable;
+    }
+
+    public void setAllMode(Mode[] allMode) {
+        this.allMode = allMode;
+    }
+
+    public LocalDateTime getCurrentTime() {
+        return currentTime;
+    }
+
+    public void setCurrentTime(LocalDateTime currentTime) {
+        this.currentTime = currentTime;
+    }
+
+    public void setModeIndex(int modeIndex) {
+        this.modeIndex = modeIndex;
+    }
+
+    public void setSelectModeIndex(int selectModeIndex) {
+        this.selectModeIndex = selectModeIndex;
+    }
+
+    public int getAttrIndex() {
+        return attrIndex;
+    }
+
+    public void setAttrIndex(int attrIndex) {
+        this.attrIndex = attrIndex;
+    }
+
+    public String[] getTimeKeepingAtt() {
+        return timeKeepingAtt;
+    }
+
+    public String[] getAlarmAtt() {
+        return alarmAtt;
+    }
+
+    public boolean isSettingMode() {
+        return isSettingMode;
+    }
+
+    public void setSettingMode(boolean settingMode) {
+        isSettingMode = settingMode;
+    }
+
+    public boolean isStopwatchStart() {
+        return isStopwatchStart;
+    }
+
+    public void setStopwatchStart(boolean stopwatchStart) {
+        isStopwatchStart = stopwatchStart;
+    }
+
+    public boolean isTimerStart() {
+        return isTimerStart;
+    }
+
+    public void setTimerStart(boolean timerStart) {
+        isTimerStart = timerStart;
+    }
+
+    public boolean isSelectMode() {
+        return isSelectMode;
+    }
+
+    public void setSelectMode(boolean selectMode) {
+        isSelectMode = selectMode;
+    }
+
+    public void setBeep(Beep beep) {
+        this.beep = beep;
+    }
+
+    public void setTimeKeepingTime(LocalDateTime timeKeepingTime) {
+        this.timeKeepingTime = timeKeepingTime;
+    }
+
+    public void setMainString(String mainString) {
+        this.mainString = mainString;
+    }
+
+    public void setSubString(String subString) {
+        this.subString = subString;
+    }
+
+    public void setCurrentMode(Mode currentMode) {
+        this.currentMode = currentMode;
+    }
+
     private Mode[] availableMode;
     //add
     private boolean[] isAvailable;
@@ -47,7 +151,6 @@ public class RDMSystem {
     private String mainString;
     private String subString;
     private Mode currentMode;
-    private th3 th = new th3();
     /**
      * Default constructor
      */
@@ -752,4 +855,5 @@ public class RDMSystem {
     public Beep getBeep() {
         return beep;
     }
+
 }
