@@ -416,15 +416,35 @@ public class RDMSystem {
 
     }
 
+    public String getDayofWeek(String dow){
+        switch (dow) {
+            case "MONDAY":
+                return "월";
+            case "THUESDAY":
+                return "화";
+            case "WEDNESDAY":
+                return "수";
+            case "THURSDAY":
+                return "목";
+            case "FRIDAY":
+                return "금";
+            case "SATURDAY":
+                return "토";
+            case "SUNDAY":
+                return "일";
+        }
+        return "MON";
+    }
+
     private String makeHtmlFormat(String str){
         return "<html>"+str+"</html>";
     }
     //final private String[] timeKeepingAtt = {"YEAR", "MONTH", "DAY", "HOUR","MIN"};
 
     private String makeMainDateTimeString(String country, LocalDateTime time, int index, boolean isSettingMode){
-        String hour = Integer.toString(time.getHour());
-        String min = Integer.toString(time.getMinute());
-        String sec = Integer.toString(time.getSecond());
+        String hour = makeTwoStr(Integer.toString(time.getHour()));
+        String min = makeTwoStr(Integer.toString(time.getMinute()));
+        String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
         String returnStr = "";
@@ -451,9 +471,9 @@ public class RDMSystem {
         return makeHtmlFormat(country+" "+returnStr);
     }
     private String makeMainDateTimeString(LocalDateTime time, int index, boolean isSettingMode){
-        String hour = Integer.toString(time.getHour());
-        String min = Integer.toString(time.getMinute());
-        String sec = Integer.toString(time.getSecond());
+        String hour = makeTwoStr(Integer.toString(time.getHour()));
+        String min = makeTwoStr(Integer.toString(time.getMinute()));
+        String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
         String returnStr = "";
@@ -481,9 +501,9 @@ public class RDMSystem {
     }
 
     private String makeMainTimeString(LocalTime time, int index, boolean isSettingMode){
-        String hour = Integer.toString(time.getHour());
-        String min = Integer.toString(time.getMinute());
-        String sec = Integer.toString(time.getSecond());
+        String hour = makeTwoStr(Integer.toString(time.getHour()));
+        String min = makeTwoStr(Integer.toString(time.getMinute()));
+        String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
         String returnStr = "";
@@ -511,9 +531,11 @@ public class RDMSystem {
     }
 
     private String makeSubDateTimeString(LocalDateTime time, int index, boolean isSettingMode){
-        String year = Integer.toString(time.getYear());
-        String month = time.getMonth().toString();
-        String day = time.getDayOfWeek().toString();
+        String year = makeTwoStr(Integer.toString(time.getYear()%100));
+        String month = makeTwoStr(Integer.toString(time.getMonth().getValue()));
+        String day = makeTwoStr(Integer.toString(time.getDayOfMonth()));
+        String dayOfWeek = getDayofWeek(time.getDayOfWeek().toString());
+
         String[] timeArr = new String[]{year, month, day};
 
         String returnStr = "";
@@ -535,13 +557,13 @@ public class RDMSystem {
                 returnStr +=" ";
             }
         }
-        return returnStr;
+        return returnStr + dayOfWeek;
     }
 
     private String makeMainDateTimeString(LocalTime time, int index){
-        String hour = Integer.toString(time.getHour());
-        String min = Integer.toString(time.getMinute());
-        String sec = Integer.toString(time.getSecond());
+        String hour = makeTwoStr(Integer.toString(time.getHour()));
+        String min = makeTwoStr(Integer.toString(time.getMinute()));
+        String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
         String returnStr = "";
@@ -610,6 +632,7 @@ public class RDMSystem {
         if(currentMode instanceof TimeKeeping){
             mainString = makeMainDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
             subString = makeSubDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
+            System.out.println(((TimeKeeping) currentMode).getCurrentTime());
             System.out.println("in Timekeeping");
         }
         else if(currentMode instanceof Alarm) {
@@ -625,7 +648,7 @@ public class RDMSystem {
         }
         else if(currentMode instanceof  StopWatch){
             if(isSettingMode){
-                mainString = ((StopWatch) currentMode).getNowLapTime().toString();
+                mainString = makeTwoStr(((StopWatch) currentMode).getNowLapTime().toString());
             }
             else {
                 mainString = makeMainDateTimeString(((StopWatch) currentMode).getStopwatchTime(),100);
@@ -692,19 +715,14 @@ public class RDMSystem {
 
         }
     }
-//        public static void main(String[] args) {
-//            final ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
-//            executorService.scheduleAtFixedRate(new Runnable() {
-//                @Override
-//                public void run() {
-//                    myTask();
-//                }
-//            }, 0, 1, TimeUnit.SECONDS);
-//        }
-//
-//        private static void myTask() {
-//
-//        }
+
+    public String makeTwoStr(String str)
+    {
+        if(str.length() < 2){
+            return "0" + str;
+        }
+        return str;
+    }
 
 
     public void cd() {
