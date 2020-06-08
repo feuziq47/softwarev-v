@@ -620,7 +620,7 @@ public class RDMSystem {
         }
         else if(currentMode instanceof  Timer){
             subString = makeSubDateTimeString(getTimeKeepingTime(),3,isSettingMode);
-            mainString = makeMainDateTimeString(((Timer) currentMode).getCurrentTime(),attrIndex);
+            mainString = makeMainDateTimeString(((Timer) currentMode).getLeftTime(),attrIndex);
             System.out.println("in Timer");
         }
         else if(currentMode instanceof  StopWatch){

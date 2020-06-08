@@ -137,7 +137,7 @@ public class Timer extends Mode {
             public void run() {
                 if (!leftTime.equals(endTime)) {
                     leftTime = leftTime.minusSeconds(1);
-                    System.out.println(leftTime);
+                    timerCallback.callbackMethod();
                 } else {
                     timer.cancel();
                     timer_callback.callbackMethod();
