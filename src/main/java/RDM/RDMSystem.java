@@ -24,6 +24,10 @@ public class RDMSystem {
         this.availableMode = availableMode;
     }
 
+    public LocalDateTime getTimeKeepingCurrentTime(){
+        return ((TimeKeeping) allMode[0]).getCurrentTime();
+    }
+
     public boolean[] getIsAvailable() {
         return isAvailable;
     }

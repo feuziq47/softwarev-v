@@ -4,6 +4,7 @@ import RDM.RDMSystem;
 import RDM.StopWatch;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.concurrent.TimeUnit;
 
@@ -16,6 +17,15 @@ public class TimeKeepingTest {//
     @Test
     public void setCurrentTime(){
         RDMSystem rdm = new RDMSystem();
+        LocalDateTime testLDT;
+        int temp = 0;
+        boolean tmp1 = false;
         rdm.decodeButtonInput("Long Mo");
+        tmp1 = rdm.isSettingMode();
+
+        rdm.decodeButtonInput("RE");
+        testLDT = LocalDateTime.now();
+        temp = rdm.getTimeKeepingCurrentTime() - testLDT.getYear()
+
     }
 }
