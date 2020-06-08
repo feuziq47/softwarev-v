@@ -34,6 +34,24 @@ public class RDMSystemTest {//
         assertTrue(rdms.getIsAvailable()[0] == false);
 
     }
+    @Test
+    public void decodeButtonInput() {
+        RDMSystem rdms = new RDMSystem();
+        rdms.decodeButtonInput("LONG_MO");
+        assertTrue(rdms.isSettingMode() == true);
+        rdms.decodeButtonInput("LONG_MO");
+        assertTrue(rdms.isSettingMode() == false);
+
+    }
+
+    @Test
+    public void getDayofWeek() {
+        RDMSystem rdms = new RDMSystem();
+
+        assertTrue(rdms.getDayofWeek("THURSDAY").equals("목"));
+    }
+
+
 
 
 }

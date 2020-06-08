@@ -117,7 +117,18 @@ public class StopWatchTest {//
         assertTrue(lap.getHour() == cur.getHour() &&
                 lap.getMinute() == cur.getMinute() &&
                 lap.getSecond() == cur.getSecond());
+    }
 
+    @Test
+    public void showLapTime() {
+        RDMSystem rdm = new RDMSystem();
+        StopWatch sw = new StopWatch();
+        ((StopWatch)rdm.getAllMode()[1]).startStopwatch();
+        rdm.decodeButtonInput("AD");
+
+    }
+
+    public void switchLapTime(){
 
     }
 

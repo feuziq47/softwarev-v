@@ -2,8 +2,11 @@ package TEST;
 
 import RDM.Alarm;
 import RDM.RDMSystem;
+import RDM.StaticTime;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import RDM.StopWatch;
 
 import java.time.LocalTime;
@@ -67,6 +70,24 @@ public class AlarmTest {
             assertEquals(((Alarm)rdm.getAllMode()[3]).getStaticTime().getAlarmTime(), beforeTime.minusHours(1));
         }
     }
+
+    /**
+     * 알람이 다음 알람으로 제대로 바뀌는 지 확인한다.
+     */
+
+    @Test
+    public void switchAlarm() {
+        RDMSystem rdm = new RDMSystem();
+        Alarm al = new Alarm();
+        if(rdm.getCurrentMode() instanceof Alarm && !rdm.getIsSelectMode()){
+            int beforeIndex = ((Alarm)rdm.getAllMode()[3]).getIndex();
+            rdm.decodeButtonInput("ST");
+            assertEquals(((Alarm)rdm.getAllMode()[3]).getIndex(), beforeIndex+1);
+
+        }
+    }
+
+
     /**
      * Alarm, StaticTime 이 서로 섞여 있어서, 알람 리스트 활용하는 메소드를 만들던지,
      * System에서 Test 하던지 해야 함

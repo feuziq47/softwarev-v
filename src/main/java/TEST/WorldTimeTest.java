@@ -1,7 +1,10 @@
 package TEST;
 
 import RDM.DecisionMaker;
+import RDM.WorldTime;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -13,6 +16,11 @@ public class WorldTimeTest {//
      */
     @Test
     public void chooseCity() {
+        WorldTime wt = new WorldTime();
+        wt.upIndex();
+        assertTrue(wt.getCity().equals("SYD"));
+        wt.downIndex();
+        assertTrue(wt.getCity().equals("NYC"));
     }
 
     /**
@@ -21,5 +29,10 @@ public class WorldTimeTest {//
      */
     @Test
     public void calculateCurrentTimeOfThatCity() {
+//        WorldTime wt = new WorldTime();
+//        wt.upIndex();
+//        assertTrue(wt.getTimeDifference());
+//        wt.downIndex();
+//        assertTrue(wt.getCity().equals("NYC"));
     }
 }
