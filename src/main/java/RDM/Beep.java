@@ -49,6 +49,13 @@ public class Beep extends Thread {
         }
     }
 
+    public void activateBeep() {
+        // TODO implement here
+        Thread bp = new Thread(this);
+        activated = true;
+        bp.start();
+    }
+
     /**
      * @return
      */
