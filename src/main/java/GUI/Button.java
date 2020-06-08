@@ -1,4 +1,6 @@
 package GUI;
+import RDM.RDMSystem;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -8,20 +10,23 @@ import java.awt.event.MouseListener;
 
 
 public class Button extends JLabel {
-    private Button t;
-    private ActionListener eventClick;
-    private ActionListener eventClickHold;
+//    private Button t;
+//    private ActionListener eventClick;
+//    private ActionListener eventClickHold;
     private int holdTime;
     private boolean shape = true;
     private String name;
+    private RDMSystem rdms;
 
     public Button(){
         this.setLayout(null);
         this.setBackground(Color.white);
-        this.t = this;
-        this.holdTime = 1000;
+        //this.t = this;
+        this.holdTime = 800;
         this.addMouseListener(new ML());
         this.name = "no name";
+        //this.setOpaque(true);
+        //rdms = new RDMSystem();
     }
 
     public void setName(String n){
@@ -48,13 +53,13 @@ public class Button extends JLabel {
         g2.fillRoundRect(x, 2, this.getWidth(), this.getHeight() - 4, 15, 15);
     }
 
-    public void setClickListener(ActionListener l){
-        this.eventClick = l;
-    }
-
-    public void setClickHoldListener(ActionListener l){
-        this.eventClickHold = l;
-    }
+//    public void setClickListener(ActionListener l){
+//        this.eventClick = l;
+//    }
+//
+//    public void setClickHoldListener(ActionListener l){
+//        this.eventClickHold = l;
+//    }
 
     class ML implements MouseListener{
         private long mousePressedTime;
@@ -67,23 +72,26 @@ public class Button extends JLabel {
         @Override
         public void mousePressed(MouseEvent e) {
             this.mousePressedTime = System.currentTimeMillis();
-            setBackground(Color.black);
-            repaint();
+            //setBackground(Color.red);
+            //repaint();
         }
 
         @Override
         public void mouseReleased(MouseEvent e) {
             long timeDifference = System.currentTimeMillis() - this.mousePressedTime;
-            int uniqueId = (int) System.currentTimeMillis();
+            //setBackground(Color.black);
+            //int uniqueId = (int) System.currentTimeMillis();
             if(timeDifference >= holdTime) {
-                System.out.println(name + "ClickHold");
+                System.out.println("LONG_"+name);
+                //rdms.decodeButtonInput("LONG_"+name);
 //                if(t.eventClickHold != null){
 //                    String commandName = "ClickHold";
 //                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);
 //                    t.eventClickHold.actionPerformed(event);
 //                }
             } else {
-                System.out.println(name + "Click");
+                System.out.println(name);
+                //rdms.decodeButtonInput(name);
 //                if(t.eventClick != null){
 //                    String commandName = "Click";
 //                    ActionEvent event = new ActionEvent(this, uniqueId, commandName);

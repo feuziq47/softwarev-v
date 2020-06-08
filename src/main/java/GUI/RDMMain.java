@@ -9,12 +9,7 @@ public class RDMMain extends JFrame{
 
 
     private RDMMain(){
-        background panel = new background();
-        panel.setLayout(null);
-        panel.setSize(600, 400);
-        panel.setLocation(50, 40);
-        panel.setBackground(Color.cyan);
-        panel.setOpaque(false);
+        Background panel = Background.getInstance();
 
         int[] btnX = {24, 646, 24, 646};
         int[] btnY = {100, 100, 310, 310};

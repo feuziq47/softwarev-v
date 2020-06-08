@@ -3,9 +3,23 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 
-public class background extends JPanel {
-    public background() {
+public class Background extends JPanel {
+    private Background() {
+        this.setLayout(null);
+        this.setSize(600, 400);
+        this.setLocation(50, 40);
+        //panel.setBackground(Color.cyan);
+        //this.setOpaque(false);
     }
+
+    private static class InnerInstanceClass {
+        private static final Background instance = new Background();
+    }
+
+    public static Background getInstance() {
+        return Background.InnerInstanceClass.instance;
+    }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
 
