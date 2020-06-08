@@ -8,9 +8,6 @@ import java.awt.*;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.TimerTask;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 /**
  *
@@ -122,6 +119,9 @@ public class RDMSystem {
 
     public void setCurrentMode(Mode currentMode) {
         this.currentMode = currentMode;
+    }
+    public boolean getIsSelectMode(){
+        return isSelectMode;
     }
 
     private Mode[] availableMode;
@@ -857,6 +857,8 @@ public class RDMSystem {
     public Beep getBeep() {
         return beep;
     }
+
+
 
 
 }

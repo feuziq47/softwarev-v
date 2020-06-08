@@ -171,6 +171,10 @@ public class Timer extends Mode {
         return leftTime;
     }
 
+    public LocalTime getEndTime() {
+        return endTime;
+    }
+
     public void setCurrentTime(LocalTime currentTime) {
         this.currentTime = currentTime;
     }

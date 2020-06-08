@@ -1,5 +1,6 @@
 package TEST;
 
+import RDM.RDMSystem;
 import RDM.Timer;
 import org.junit.jupiter.api.Test;
 
@@ -68,8 +69,17 @@ public class TimerTest {//
     /**
      * RDMSystem 에서 확인 필요할 듯
      */
+    /**
+     * RDMSystem 에서 확인 필요할 듯
+     * Timer가 종료되면 제대로 Beep음이 울리는 지 Test한다.
+     */
     @Test
     void NotifyTheEndOfTimer(){
-        
+        Timer timer = new Timer();
+        RDMSystem rdm = new RDMSystem();
+        if(timer.getLeftTime().equals(timer.getEndTime())){
+            assertTrue(rdm.getBeep().isActivated());
+        }
     }
+
 }
