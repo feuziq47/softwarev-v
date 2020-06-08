@@ -99,11 +99,26 @@ public class StopWatchTest {//
      * Stopwatch에 표시된 현재 시간이 기록되는지 test한다.
      */
     @Test
-    public void recordLapTime(){
+    public void recordLapTime() throws InterruptedException {
         RDMSystem rdms = new RDMSystem();
         StopWatch sw = (StopWatch)rdms.getAllMode()[1];
         rdms.decodeButtonInput("MO");
         rdms.decodeButtonInput("ST");
+
+        TimeUnit.SECONDS.sleep(3);
+
+        // 랩 타임
+        rdms.decodeButtonInput("AD");
+        //정지
+        rdms.decodeButtonInput("ST");
+
+        LocalTime lap = sw.getLapTime(0);
+        LocalTime cur = sw.getStartTime();
+        assertTrue(lap.getHour() == cur.getHour() &&
+                lap.getMinute() == cur.getMinute() &&
+                lap.getSecond() == cur.getSecond());
+
+
     }
 
 }
