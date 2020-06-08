@@ -7,34 +7,37 @@ import java.util.*;
 public class WorldTime extends Mode {
 
     private String[] city = {"NYC", "SYD", "LAX", "LON"};
-    private int[] timeDifference = {14, 1, 16, 8};
+    private int[] timeDifference = {-14, 1, -16, -8};
     private int index = 0;
+    private LocalDateTime worldTime;
 
     public WorldTime() {
     }
 
+
+
     // LocalDateTime으로 현재 시간을 받고, city로 현재 도시를 받습니다. -> 수정했어
-    public LocalDateTime getWorldTime(LocalDateTime dir, String upOrDown) {
+    public LocalDateTime getWorldTime() {
         // TODO implement here
-        switch(upOrDown){
-            case "UP":
-                if(this.index < 3){
-                    this.index++;
-                } else{
-                    this.index = 0;
-                }
-                break;
-            case "DOWN":
-                if(this.index > 0){
-                    this.index--;
-                } else{
-                    this.index = 3;
-                }
-                break;
-            case "NOW":
-                break;
-        }
-        return dir.plusHours(timeDifference[index]);
+        return worldTime;
+    }
+
+    public void upIndex(){
+        this.index++;
+        this.index %= timeDifference.length;
+    }
+
+    public void downIndex(){
+        this.index++;
+        this.index %= timeDifference.length;
+    }
+
+    public int getTimeDifference(){
+        return this.timeDifference[this.index];
+    }
+
+    public void setCurrentTime(LocalDateTime localDateTime){
+        this.worldTime = localDateTime;
     }
 
     public String getCity() {

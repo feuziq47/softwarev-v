@@ -1,25 +1,36 @@
 package RDM;
 
-import java.util.*;
-import java.awt.Toolkit;
+import java.awt.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  *
  */
-public class Beep extends Thread {
+public class Beep {
 
     /**
      * Default constructor
      */
+    public Timer timer = new java.util.Timer();
+    public TimerTask timerTask;
     public Beep() {
         beepTool = Toolkit.getDefaultToolkit();
-        activated = false;
+        timerTask = new TimerTask() {
+            public void run() {
+                if (activated) {
+                    beepTool.beep();
+                    System.out.println("BEEP");
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 500);
     }
 
     /**
      *  변경사항  : Beep의 Atribute Toolkit이 추가됨.
      */
-    private boolean activated;
+    private boolean activated = false;
     private Toolkit beepTool;
 
     /**
@@ -30,30 +41,9 @@ public class Beep extends Thread {
      * beepd이 작동하는 와중에 deactivateBeep이 작동하면 activated는 false로 변경되고
      * 예외를 던지며 Beep이 종료됨.
      */
-    public void run() {
+    public void beepStart() {
         // TODO implement here
         activated = true;
-        while(true) {
-            beepTool.beep();
-            try {
-                if(activated) {
-                    Thread.sleep(500);
-                }
-                else{
-                    Exception e = new Exception("Stop Signal");
-                    throw e;
-                }
-            } catch(Exception e) {
-                break;
-            }
-        }
-    }
-
-    public void activateBeep() {
-        // TODO implement here
-        Thread bp = new Thread(this);
-        activated = true;
-        bp.start();
     }
 
     /**
@@ -61,6 +51,7 @@ public class Beep extends Thread {
      */
     public void deactivateBeep() {
         // TODO implement here
+        timerTask.cancel();
         activated = false;
     }
 

@@ -1,25 +1,43 @@
 package RDM;
-import java.time.LocalDateTime;
-import java.util.*;
-import java.time.*;
+
+import RDM.Callback;
+
+import java.time.LocalTime;
+import java.util.TimerTask;
+
 /**
  *
  */
-public class StaticTime {
+public class StaticTime{
 
     /**
      * Default constructor
      */
     public StaticTime() {
+        alarmTime = LocalTime.MIN;
+        isActivated = false;
+        this.alarm_callback = null;
+        timer = new java.util.Timer();
+        timerTask = new TimerTask() {
+            public void run() {
+                if (alarmTime.isBefore(LocalTime.now()) && isActivated) {
+                    alarm_callback.callbackMethod();
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 1000);
     }
 
-    private LocalDateTime alarmTime;
+    private LocalTime alarmTime;
     private boolean isActivated;
+    private Callback alarm_callback;
+    private static java.util.Timer timer;
+    private java.util.TimerTask timerTask;
 
     /**
      * @return
      */
-    public LocalDateTime getAlarmTime() {
+    public LocalTime getAlarmTime() {
         // TODO implement here
         return alarmTime;
     }
@@ -28,7 +46,7 @@ public class StaticTime {
      * @param time
      * @return
      */
-    public void setAlarmTime(LocalDateTime time) {
+    public void setAlarmTime(LocalTime time) {
         // TODO implement here
         this.alarmTime = time;
     }
@@ -49,5 +67,11 @@ public class StaticTime {
         // TODO implement here
         this.isActivated = isActivated;
     }
+
+    public void setCallback(Callback callback){
+        this.alarm_callback = callback;
+    }
+
+
 
 }
