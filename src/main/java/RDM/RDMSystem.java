@@ -510,7 +510,7 @@ public class RDMSystem {
         switch (dow) {
             case "MONDAY":
                 return "월";
-            case "THUESDAY":
+            case "TUESDAY":
                 return "화";
             case "WEDNESDAY":
                 return "수";
