@@ -112,7 +112,7 @@ public class StopWatch extends Mode {
         if(lapTime.size() == 10) {
             lapTime.remove(9);
         }
-        lapTime.add(0,LocalTime.from(startTime));
+        lapTime.add(LocalTime.from(startTime));
         lapTime_Callback.callbackMethod();
     }
     /**
@@ -167,4 +167,7 @@ public class StopWatch extends Mode {
     public void setCountUpCallback(StopWatch_Callback stopWatchCallback){ this.stopWatch_Callback = stopWatchCallback; }
 
     public void setLapTimeCallback(LapTime_Callback lapTimeCallback){ this.lapTime_Callback = lapTimeCallback; }
+    public Integer getIndex(){
+        return index;
+    }
 }

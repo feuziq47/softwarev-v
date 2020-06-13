@@ -22,7 +22,7 @@ public class Button extends JLabel {
         this.setLayout(null);
         this.setBackground(Color.white);
         //this.t = this;
-        this.holdTime = 500;
+        this.holdTime = 800;
         this.addMouseListener(new ML());
         this.name = "no name";
         //this.setOpaque(true);

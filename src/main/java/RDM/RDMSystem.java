@@ -527,7 +527,7 @@ public class RDMSystem {
             case "SUNDAY":
                 return "일";
         }
-        return "MON";
+        return "월";
     }
 
     private String makeHtmlFormat(String str){
@@ -722,6 +722,20 @@ public class RDMSystem {
         }
         return iconColor;
     }
+    public String lapTimeString(LocalTime time, int index){
+        String hour = makeTwoStr(Integer.toString(time.getHour()));
+        String min = makeTwoStr(Integer.toString(time.getMinute()));
+        String sec = makeTwoStr(Integer.toString(time.getSecond()));
+        String[] timeArr = new String[]{hour,min,sec};
+
+        String returnStr = "";
+        for(int i=0; i<timeArr.length; i++){
+
+            returnStr += timeArr[i];
+            if(i != timeArr.length-1) returnStr +=" : ";
+        }
+        return Integer.toString(index+1) + ". " + returnStr;
+    }
     public void processDisplay(){
         if(currentMode instanceof TimeKeeping){
             mainString = makeMainDateTimeString(((TimeKeeping) currentMode).getCurrentTime(),attrIndex,isSettingMode);
@@ -745,7 +759,7 @@ public class RDMSystem {
                 if(((StopWatch) currentMode).getNowLapTime() == null){
                     mainString = "no lap time";
                 } else{
-                    mainString = makeTwoStr(((StopWatch) currentMode).getNowLapTime().toString());
+                    mainString = lapTimeString(((StopWatch) currentMode).getNowLapTime(),((StopWatch) currentMode).getIndex());
                 }
             }
             else {
