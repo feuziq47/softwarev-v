@@ -226,7 +226,6 @@ public class RDMSystem {
         ((Timer) allMode[2]).setTimerCallback(timerCallback);
         ((TimeKeeping) allMode[0]).tictok();
 
-        cd();
     }
 
     //현재 사용가능한 모드 체크
@@ -598,23 +597,30 @@ public class RDMSystem {
 
         String returnStr = "";
 
+//        StringBuffer buf = new StringBuffer();
+
 
         if(isSettingMode && index > 2){
             for(int i=0; i<timeArr.length; i++){
                 if(i == index-3){ //3 = Hour, 4 = Min
                     returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+//                    buf.append("<font color='red'>" + timeArr[i] + "</font>");
                 }
                 else{
                     returnStr += timeArr[i];
+//                    buf.append(timeArr[i]);
                 }
                 if(i != timeArr.length-1) returnStr +=" : ";
+//                if(i != timeArr.length-1) buf.append(" : ");
             }
         }
         else{
             for(int i=0; i<timeArr.length; i++){
 
                 returnStr += timeArr[i];
+//                buf.append(timeArr[i]);
                 if(i != timeArr.length-1) returnStr +=" : ";
+//                if(i != timeArr.length-1) buf.append(" : ");
             }
         }
         return makeHtmlFormat(returnStr);
@@ -838,16 +844,7 @@ public class RDMSystem {
     }
 
 
-    public void cd() {
-        java.util.Timer timers = new java.util.Timer();
-        timers.schedule(new TimerTask() {
-            public void run() {
-                System.out.println("=============================================");
-                processDisplay();
-                System.out.println();
-            }
-        }, 0, 5000);
-    }
+
 
 
     public void selectMode(String buttonInput){
