@@ -17,8 +17,8 @@ public class Timer extends Mode {
      * Default constructor
      */
     public Timer() {
-        currentTime = LocalTime.of(0,0,10);
-        leftTime = LocalTime.of(0,0,10);
+        currentTime = LocalTime.of(0,0,0);
+        leftTime = LocalTime.of(0,0,0);
         endTime = LocalTime.of(0,0,0);
         timer_callback = null;
         timer = new java.util.Timer();
