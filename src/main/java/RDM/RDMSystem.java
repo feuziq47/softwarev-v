@@ -189,6 +189,7 @@ public class RDMSystem {
             public void callbackMethod(){
                 if(currentMode instanceof Timer){
                     processDisplay();
+                    ((Timer) currentMode).resetTimer();
                 }
             }
         };
@@ -646,7 +647,7 @@ public class RDMSystem {
                 returnStr +=" ";
             }
         }
-        return returnStr + dayOfWeek;
+        return makeHtmlFormat(returnStr + dayOfWeek);
     }
 
     private String makeMainDateTimeString(LocalTime time, int index){

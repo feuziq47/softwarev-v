@@ -21,6 +21,7 @@ public class SubScreen extends JLabel {
      */
     public void display(String msg){
         this.setText(msg);
+        repaint();
         System.out.println("Sub display call : " + msg);
     }
 
