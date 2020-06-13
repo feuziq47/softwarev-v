@@ -105,9 +105,6 @@ public class RDMSystem {
         this.beep = beep;
     }
 
-    public void setTimeKeepingTime(LocalDateTime timeKeepingTime) {
-        this.timeKeepingTime = timeKeepingTime;
-    }
 
     public void setMainString(String mainString) {
         this.mainString = mainString;
@@ -151,11 +148,10 @@ public class RDMSystem {
     private boolean isSelectMode = false;
     private Beep beep;
 
-    private LocalDateTime timeKeepingTime;
     private String mainString;
     private String subString;
     private Mode currentMode;
-    private th3 th = new th3();
+
     /**
      * Default constructor
      */
@@ -168,7 +164,6 @@ public class RDMSystem {
         this.availableMode = new Mode[4];
         checkAvailableMode();
         this.currentMode = availableMode[modeIndex];
-        this.timeKeepingTime = LocalDateTime.now();
 
         TimeKeeping_Callback timeKeepingCallback = new TimeKeeping_Callback(){
             @Override
@@ -833,12 +828,6 @@ public class RDMSystem {
     }
 
 
-    public class th3 extends Thread {
-
-        public void run() {
-
-        }
-    }
 
     public String makeTwoStr(String str)
     {
