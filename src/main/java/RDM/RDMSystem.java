@@ -215,7 +215,10 @@ public class RDMSystem {
         Callback beep_callback = new Callback() {
             @Override
             public void callbackMethod() {
-                beep.beepStart();
+                if(beep.isActivated()) {}
+                else{
+                    beep.beepStart();
+                }
             }
         };
 
