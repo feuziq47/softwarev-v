@@ -751,9 +751,17 @@ public class RDMSystem {
             System.out.println("in Alarm");
         }
         else if(currentMode instanceof  Timer){
-            subString = makeSubDateTimeString(getTimeKeepingTime(),3,isSettingMode);
-            mainString = makeMainDateTimeString(((Timer) currentMode).getLeftTime(),attrIndex);
-            System.out.println("in Timer");
+            if(isSettingMode) {
+                LocalTime tmptime = ((Timer) currentMode).getCurrentTime();
+                subString = makeSubDateTimeString(getTimeKeepingTime(),3,isSettingMode);
+                mainString = makeMainDateTimeString(tmptime,attrIndex);
+                System.out.println("in Timer");
+            } else {
+                LocalTime tmptime = ((Timer) currentMode).getLeftTime();
+                subString = makeSubDateTimeString(getTimeKeepingTime(), 3, isSettingMode);
+                mainString = makeMainDateTimeString(tmptime, attrIndex);
+                System.out.println("in Timer");
+            }
         }
         else if(currentMode instanceof  StopWatch){
             if(isSettingMode){
