@@ -103,11 +103,8 @@ public class Alarm extends Mode {
         // 현재 알람을 바꿔 줍니다.
         switch(upOrDown){
             case "UP":
-                if(this.index < 3){
-                    this.index++;
-                } else{
-                    this.index = 0;
-                }
+                index++;
+                index %= alarmList.length;
                 break;
             case "DOWN":
                 if(this.index > 0){
