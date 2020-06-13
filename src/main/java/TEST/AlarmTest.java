@@ -105,6 +105,12 @@ public class AlarmTest {
      * }
      */
 
+
+    /**
+     * 특정시간으로 알람을 설정한 다음,
+     * 해당 시간이 되면, 지정된 알림의 isActivated 가 True인지 확인
+     */
+
      @Test
      public void notifyAlarm() throws ParseException, InterruptedException {
         RDMSystem rdms = new RDMSystem();
