@@ -143,7 +143,7 @@ public class Timer extends Mode {
                     timerCallback.callbackMethod();
                 } else {
                     isTimerStart = false;
-                    timer.cancel();
+                    timerTask.cancel();
                     timer_callback.callbackMethod();
 
                 }

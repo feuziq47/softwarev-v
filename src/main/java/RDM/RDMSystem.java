@@ -258,8 +258,10 @@ public class RDMSystem {
 
 
     public void decodeButtonInput(String buttonInput) {
+        System.out.println(beep.isActivated());
         if(beep.isActivated()){
             beep.deactivateBeep();
+            System.out.println(beep.isActivated());
         }
         else {
             if (isSelectMode) {
@@ -433,6 +435,7 @@ public class RDMSystem {
                             break;
                         case "MO":
                             isSettingMode = !isSettingMode;
+                            ((Alarm) currentMode).getStaticTime().setIsAlreadyNotified();
                             attrIndex = 0;
                             break;
                     }
