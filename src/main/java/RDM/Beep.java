@@ -44,6 +44,15 @@ public class Beep {
     public void beepStart() {
         // TODO implement here
         activated = true;
+        timerTask = new TimerTask() {
+            public void run() {
+                if (activated) {
+                    beepTool.beep();
+                    System.out.println("BEEP");
+                }
+            }
+        };
+        timer.scheduleAtFixedRate(timerTask, 0, 500);
     }
 
     /**
