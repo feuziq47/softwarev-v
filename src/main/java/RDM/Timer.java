@@ -11,6 +11,7 @@ import java.util.TimerTask;
 public class Timer extends Mode {
     private Callback timer_callback;
     private Timer_Callback timerCallback;
+    private boolean isTimerStart;
 
     /**
      * Default constructor
@@ -23,6 +24,7 @@ public class Timer extends Mode {
         timer = new java.util.Timer();
         timerTask = null;
         timerCallback = null;
+        isTimerStart = false;
     }
     /**
      * 시간 자료형은 localtime
@@ -126,6 +128,7 @@ public class Timer extends Mode {
      * @return
      */
     public void startTimer() {
+        isTimerStart = true;
         countDown();
     }
 
@@ -139,8 +142,10 @@ public class Timer extends Mode {
                     leftTime = leftTime.minusSeconds(1);
                     timerCallback.callbackMethod();
                 } else {
+                    isTimerStart = false;
                     timer.cancel();
                     timer_callback.callbackMethod();
+
                 }
             }
         };
@@ -151,16 +156,20 @@ public class Timer extends Mode {
      * @return
      */
     public void pauseTimer() {
+
         timerTask.cancel();
+        isTimerStart = false;
     }
 
     /**
      * @return
      */
     public void resetTimer() {
-        if(!leftTime.equals(endTime)){
-            leftTime = currentTime;
-        }
+        leftTime = currentTime;
+        isTimerStart = false;
+//        if(!leftTime.equals(endTime)){
+//            leftTime = currentTime;
+//        }
     }
 
     public LocalTime getCurrentTime() {
@@ -184,4 +193,9 @@ public class Timer extends Mode {
     }
 
     public void setTimerCallback(Timer_Callback timerCallback) { this.timerCallback = timerCallback; }
+
+
+    public boolean isTimerStart() {
+        return isTimerStart;
+    }
 }

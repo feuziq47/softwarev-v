@@ -189,7 +189,6 @@ public class RDMSystem {
             public void callbackMethod(){
                 if(currentMode instanceof Timer){
                     processDisplay();
-                    ((Timer) currentMode).resetTimer();
                 }
             }
         };
@@ -354,15 +353,13 @@ public class RDMSystem {
                     } else if (buttonInput.equals("MO")) {
                         changeCurrentMode();
                     } else if (buttonInput.equals("ST")) {
-                        if (isTimerStart) {
+                        if (((Timer) currentMode).isTimerStart()) {
                             ((Timer) currentMode).pauseTimer();
-                            isTimerStart = !isTimerStart;
                         } else {
                             ((Timer) currentMode).startTimer();
-                            isTimerStart = !isTimerStart;
                         }
-                    } else if (buttonInput.equals("RE") && !isTimerStart) { //중지상태에서만 리셋
-                        isTimerStart = false;
+                    } else if (buttonInput.equals("RE") && !((Timer) currentMode).isTimerStart()) { //중지상태에서만 리셋
+//                        isTimerStart = false;
                         ((Timer) currentMode).resetTimer();
                     } else if (buttonInput.equals("LONG_AD")) {
                         isSelectMode = !isSelectMode;
@@ -510,7 +507,7 @@ public class RDMSystem {
         switch (dow) {
             case "MONDAY":
                 return "월";
-            case "THUESDAY":
+            case "TUESDAY":
                 return "화";
             case "WEDNESDAY":
                 return "수";
