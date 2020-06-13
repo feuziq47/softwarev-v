@@ -154,6 +154,9 @@ public class StopWatch extends Mode {
     }
 
     public LocalTime getNowLapTime(){
+        if(lapTime.isEmpty()){
+            return null;
+        }
         return lapTime.get(index);
     }
 

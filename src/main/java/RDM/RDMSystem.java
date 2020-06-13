@@ -738,7 +738,11 @@ public class RDMSystem {
         }
         else if(currentMode instanceof  StopWatch){
             if(isSettingMode){
-                mainString = makeTwoStr(((StopWatch) currentMode).getNowLapTime().toString());
+                if(((StopWatch) currentMode).getNowLapTime() == null){
+                    mainString = "no lap time";
+                } else{
+                    mainString = makeTwoStr(((StopWatch) currentMode).getNowLapTime().toString());
+                }
             }
             else {
                 mainString = makeMainDateTimeString(((StopWatch) currentMode).getStopwatchTime(),100);
