@@ -30,7 +30,8 @@ public class DecisionMakerTest {
         DecisionMaker dm = new DecisionMaker();
         dm.setCaseNum(10);
         for (int i = 0; i < 100; i++) {
-            int caseNum = dm.getCase();
+            dm.getCase();
+            int caseNum = dm.getRandNum();
             assertTrue(caseNum <= 10 && caseNum >= 0);
         }
 
