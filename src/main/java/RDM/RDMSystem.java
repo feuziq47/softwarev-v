@@ -446,15 +446,19 @@ public class RDMSystem {
                     switch (buttonInput) {
                         case "LONG_MO":  // MO버튼을 길게 눌렀을 때
                             isSettingMode = !isSettingMode;
+                            ((DecisionMaker) currentMode).setIsInitialized(true);
                             return;
                         case "MO":
                             changeCurrentMode();
+                            ((DecisionMaker) currentMode).setIsInitialized(true);
                             break;
                         case "ST":
                             ((DecisionMaker) currentMode).getCase();
+                            ((DecisionMaker) currentMode).setIsInitialized(false);
                             break;
                         case "LONG_AD":
                             isSelectMode = !isSelectMode;
+                            ((DecisionMaker) currentMode).setIsInitialized(true);
                             break;
                     }
                 } else {//세팅모드인 경우
@@ -758,10 +762,13 @@ public class RDMSystem {
         }
         else if(currentMode instanceof  DecisionMaker){
             if(isSettingMode){
-                mainString = makeHtmlFormat(Integer.toString(((DecisionMaker) currentMode).getCaseNum()));
+                mainString = makeHtmlFormat("Limit : " +Integer.toString(((DecisionMaker) currentMode).getCaseNum()));
+            }
+            else if(((DecisionMaker)currentMode).isInitialized()){
+                mainString = makeHtmlFormat("DecisionMaker : "+Integer.toString(((DecisionMaker) currentMode).getCaseNum()));
             }
             else{
-                mainString = makeHtmlFormat(Integer.toString(((DecisionMaker) currentMode).getCase()));
+                mainString = makeHtmlFormat("Case : "+Integer.toString(((DecisionMaker) currentMode).getRandNum()));
             }
             subString = makeSubDateTimeString(getTimeKeepingTime(),100,false);
             System.out.println("in DecisionMaker");

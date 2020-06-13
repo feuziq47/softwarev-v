@@ -17,6 +17,8 @@ public class DecisionMaker extends Mode {
      *
      */
     private int caseNum;
+    private int randNum;
+    private boolean isInitial = true;
 
     /**
      * caseNum의 getter가 추가되었습니다.
@@ -65,13 +67,23 @@ public class DecisionMaker extends Mode {
     /**
      * @return
      */
-    public int getCase() {
+    public void getCase() {
         // TODO implement here
         Random rand = new Random();
-        return rand.nextInt(caseNum);
+        randNum = rand.nextInt(caseNum);
+    }
+
+    public int getRandNum(){
+        return this.randNum;
     }
 
     public void setCaseNum(int caseNum) {
         this.caseNum = caseNum;
+    }
+
+    public boolean isInitialized() { return this.isInitial; }
+
+    public void setIsInitialized(boolean input) {
+        isInitial = input;
     }
 }
