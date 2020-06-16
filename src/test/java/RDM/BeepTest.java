@@ -1,4 +1,4 @@
-package TEST;
+package RDM;
 
 import RDM.Beep;
 import org.junit.jupiter.api.Test;

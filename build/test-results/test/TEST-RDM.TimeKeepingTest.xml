@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RDM.TimeKeepingTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-06-16T04:32:26" hostname="DESKTOP-OHTD014" time="0.017">
+  <properties/>
+  <testcase name="setCurrentTime()" classname="RDM.TimeKeepingTest" time="0.017"/>
+  <system-out><![CDATA[2021-06-16T13:32:26.787184900
+in Timekeeping
+2021-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html><font color='red'>21</font> 06 16 수</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html><font color='red'>21</font> 06 16 수</html>
+Sub display call : <html><font color='red'>20</font> 06 16 화</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html>20 <font color='red'>06</font> 16 화</html>
+2020-07-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html>20 <font color='red'>07</font> 16 목</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html>20 <font color='red'>06</font> 16 화</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html>20 06 <font color='red'>16</font> 화</html>
+2020-06-17T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html>20 06 <font color='red'>17</font> 수</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : 32 : 26</html>
+Sub display call : <html>20 06 <font color='red'>16</font> 화</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html><font color='red'>13</font> : 32 : 26</html>
+Sub display call : <html>20 06 16 화</html>
+2020-06-16T14:32:26.787184900
+in Timekeeping
+Main display call : <html><font color='red'>14</font> : 32 : 26</html>
+Sub display call : <html>20 06 16 화</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html><font color='red'>13</font> : 32 : 26</html>
+Sub display call : <html>20 06 16 화</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : <font color='red'>32</font> : 26</html>
+Sub display call : <html>20 06 16 화</html>
+2020-06-16T13:33:26.787184900
+in Timekeeping
+Main display call : <html>13 : <font color='red'>33</font> : 26</html>
+Sub display call : <html>20 06 16 화</html>
+2020-06-16T13:32:26.787184900
+in Timekeeping
+Main display call : <html>13 : <font color='red'>32</font> : 26</html>
+Sub display call : <html>20 06 16 화</html>
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

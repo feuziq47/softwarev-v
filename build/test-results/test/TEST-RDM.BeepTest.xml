@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="RDM.BeepTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2020-06-16T04:32:14" hostname="DESKTOP-OHTD014" time="0.003">
+  <properties/>
+  <testcase name="activateBeep()" classname="RDM.BeepTest" time="0.001"/>
+  <testcase name="deactivateBeep()" classname="RDM.BeepTest" time="0.002"/>
+  <system-out><![CDATA[BEEP
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

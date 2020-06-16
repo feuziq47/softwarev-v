@@ -1,4 +1,4 @@
-package TEST;
+package RDM;
 
 import RDM.DecisionMaker;
 import RDM.StopWatch;

@@ -1,9 +1,6 @@
-package TEST;
+package RDM;
 
-import RDM.*;
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -13,10 +10,10 @@ import java.time.LocalTime;
 import java.time.ZoneId;
 import java.util.Date;
 import java.util.TimerTask;
-import java.util.concurrent.TimeUnit;
 
-public class AlarmTest {
+import static org.junit.jupiter.api.Assertions.*;
 
+class AlarmTest {
     /**
      * 활성화 비활성화 행위 주체는 System이므로, System에서 Test해야 함
      *
@@ -111,8 +108,8 @@ public class AlarmTest {
      * 해당 시간이 되면, 지정된 알림의 isActivated 가 True인지 확인
      */
 
-     @Test
-     public void notifyAlarm() throws ParseException, InterruptedException {
+    @Test
+    public void notifyAlarm() throws ParseException, InterruptedException {
         RDMSystem rdms = new RDMSystem();
         Alarm alarm = (Alarm)rdms.getAllMode()[3];
         StaticTime st = alarm.getAlarmList(0);
@@ -126,20 +123,20 @@ public class AlarmTest {
         java.util.Timer timer = new java.util.Timer();
 
         TimerTask timerTask = new TimerTask() {
-             public void run() {
-                 assertTrue(beep.isActivated());
-                 timer.cancel();
-             }
+            public void run() {
+                assertTrue(beep.isActivated());
+                timer.cancel();
+            }
         };
 
         timer.schedule(timerTask , date);
 
         long currentMillis = System.currentTimeMillis();
         long givenDateMillis = LocalDateTime.of(2020, 6, 8, 22, 50, 0)
-                 .atZone(ZoneId.systemDefault())
-                 .toInstant()
-                 .toEpochMilli();
+                .atZone(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
 
         Thread.sleep(givenDateMillis - currentMillis);
-     }
+    }
 }
