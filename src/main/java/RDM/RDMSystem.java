@@ -37,6 +37,7 @@ public class RDMSystem {
     final private String[] timeKeepingAtt = {"YEAR", "MONTH", "DAY", "HOUR","MIN"};
     final private String[] alarmAtt = {"HOUR", "MIN", "SEC"};
     final private String LONG_MO = "LONG_MO";
+    final private String LONG_AD = "LONG_AD";
     final private String MO = "MO";
     final private String AD = "AD";
     final private String ST = "ST";
@@ -144,7 +145,7 @@ public class RDMSystem {
     }
 
     //현재 사용가능한 모드 체크
-    public void checkAvailableMode(){
+    final public void checkAvailableMode(){
         int index = 0;
         for(int i=0; i<allMode.length;i++){
             if(!isAvailable[i]) {
@@ -182,11 +183,14 @@ public class RDMSystem {
                         case LONG_MO:
                             isSettingMode = !isSettingMode;
                             this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
+                            break;
                         case MO:
                             changeCurrentMode();
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
+                            break;
+                        default:
                             break;
                     }
                 } else { //세팅모드인 경우
@@ -205,6 +209,8 @@ public class RDMSystem {
                         case MO:
                             isSettingMode = !isSettingMode;
                             attrIndex = 0;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -236,7 +242,7 @@ public class RDMSystem {
                                 ((StopWatch) currentMode).clearStopwatch();
                             }
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             break;
                         case AD:  //진행 중일 때만 기록
@@ -245,17 +251,21 @@ public class RDMSystem {
 
                             }
                             break;
+                        default:
+                            break;
                     }
                 } else {//세팅모드인 경우
                     switch (buttonInput) {
                         case RE:
-                            ((StopWatch) currentMode).getLapTime("up");
+                            ((StopWatch) currentMode).getLaptime("up");
                             break;
                         case ST:
-                            ((StopWatch) currentMode).getLapTime("down");
+                            ((StopWatch) currentMode).getLaptime("down");
                             break;
                         case MO:
                             isSettingMode = !isSettingMode;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -280,8 +290,10 @@ public class RDMSystem {
                                 ((Timer) currentMode).resetTimer();
                             }
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
+                            break;
+                        default:
                             break;
                     }
                 } else {//세팅모드인 경우
@@ -302,6 +314,8 @@ public class RDMSystem {
                             isSettingMode = !isSettingMode;
                             attrIndex = 0;
                             break;
+                        default:
+                            break;
                     }
                 }
             } else if (currentMode instanceof Alarm) {
@@ -319,11 +333,13 @@ public class RDMSystem {
                         case RE:
                             ((Alarm) currentMode).selectAlarm("UP");
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             break;
                         case AD:
                             ((Alarm) currentMode).switchAlarmStatus();
+                            break;
+                        default:
                             break;
                     }
                 } else {//세팅모드인 경우
@@ -347,6 +363,8 @@ public class RDMSystem {
                             ((Alarm) currentMode).getStaticTime().setIsAlreadyNotified();
                             attrIndex = 0;
                             break;
+                        default:
+                            break;
                     }
                 }
 
@@ -368,9 +386,11 @@ public class RDMSystem {
                             ((DecisionMaker) currentMode).getCase();
                             ((DecisionMaker) currentMode).setIsInitialized(false);
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             ((DecisionMaker) currentMode).setIsInitialized(true);
+                            break;
+                        default:
                             break;
                     }
                 } else {//세팅모드인 경우
@@ -388,6 +408,8 @@ public class RDMSystem {
                         case MO:
                             isSettingMode = !isSettingMode;
                             break;
+                        default:
+                            break;
                     }
                 }
             } else if (currentMode instanceof WorldTime) {
@@ -404,7 +426,11 @@ public class RDMSystem {
                     case MO:
                         changeCurrentMode();
                         break;
+                    default:
+                        break;
                 }
+            } else {
+
             }
         }
 //        System.out.println(currentMode.toString());

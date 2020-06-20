@@ -93,7 +93,7 @@ public class StopWatch extends Mode {
      * @param dir
      * @return 반환형 변경 : LocalDateTime - > LocalTime
      */
-    public LocalTime getLapTime(int dir) {
+    public LocalTime getLapTimeTest(int dir) {
         assert dir >= 0 && dir < 10;
         return lapTime.get(dir);
     }
@@ -126,7 +126,7 @@ public class StopWatch extends Mode {
      */
 
 
-    public LocalTime getLapTime(String dir){
+    public LocalTime getLaptime(String dir){
         assert dir.equals("up") || dir.equals("down");
         int size = lapTime.size();
         if(dir.equals("up")){
