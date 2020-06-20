@@ -141,6 +141,12 @@ public class RDMSystem {
 
     final private String[] timeKeepingAtt = {"YEAR", "MONTH", "DAY", "HOUR","MIN"};
     final private String[] alarmAtt = {"HOUR", "MIN", "SEC"};
+    final private String LONG_MO = "LONG_MO";
+    final private String MO = "MO";
+    final private String AD = "AD";
+    final private String ST = "ST";
+    final private String RE = "RE";
+
 
     private boolean isSettingMode;
     private boolean isStopwatchStart = false;
@@ -264,10 +270,10 @@ public class RDMSystem {
                     //displayIcon(currentMode,isSettingMode)
                     //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
-                        case "LONG_MO":
+                        case LONG_MO:
                             isSettingMode = !isSettingMode;
                             this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
-                        case "MO":
+                        case MO:
                             changeCurrentMode();
                             break;
                         case "LONG_AD":
@@ -276,18 +282,18 @@ public class RDMSystem {
                     }
                 } else { //세팅모드인 경우
                     switch (buttonInput) {
-                        case "AD":
+                        case AD:
                             attrIndex++;
                             attrIndex = attrIndex % timeKeepingAtt.length; //분 -> year
 
                             break;
-                        case "RE":
+                        case RE:
                             ((TimeKeeping) currentMode).increase(timeKeepingAtt[attrIndex]);
                             break;
-                        case "ST":
+                        case ST:
                             ((TimeKeeping) currentMode).decrease(timeKeepingAtt[attrIndex]);
                             break;
-                        case "MO":
+                        case MO:
                             isSettingMode = !isSettingMode;
                             attrIndex = 0;
                             break;
@@ -299,15 +305,15 @@ public class RDMSystem {
                     //displayIcon(currentMode,isSettingMode)
                     //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
-                        case "LONG_MO":  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                        case LONG_MO:  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
                             if (isSettingMode == false) {
                                 isSettingMode = !isSettingMode;
                             }
                             break;
-                        case "MO":
+                        case MO:
                             changeCurrentMode();
                             break;
-                        case "ST":
+                        case ST:
                             if (isStopwatchStart) {
                                 ((StopWatch) currentMode).pauseStopwatch();
                                 isStopwatchStart = !isStopwatchStart;
@@ -316,7 +322,7 @@ public class RDMSystem {
                                 isStopwatchStart = !isStopwatchStart;
                             }
                             break;
-                        case "RE":
+                        case RE:
                             if (!isStopwatchStart) {
                                 ((StopWatch) currentMode).clearStopwatch();
                             }
@@ -324,7 +330,7 @@ public class RDMSystem {
                         case "LONG_AD":
                             isSelectMode = !isSelectMode;
                             break;
-                        case "AD":  //진행 중일 때만 기록
+                        case AD:  //진행 중일 때만 기록
                             if (isStopwatchStart) {
                                 ((StopWatch) currentMode).recordLapTime();
 
@@ -333,13 +339,13 @@ public class RDMSystem {
                     }
                 } else {//세팅모드인 경우
                     switch (buttonInput) {
-                        case "RE":
+                        case RE:
                             ((StopWatch) currentMode).getLapTime("up");
                             break;
-                        case "ST":
+                        case ST:
                             ((StopWatch) currentMode).getLapTime("down");
                             break;
-                        case "MO":
+                        case MO:
                             isSettingMode = !isSettingMode;
                             break;
                     }
@@ -347,20 +353,20 @@ public class RDMSystem {
             } else if (currentMode instanceof Timer) {
                 if (!isSettingMode) {  //세팅모드가 아닐 떄
                     switch (buttonInput) {
-                        case "LONG_MO":
+                        case LONG_MO:
                             isSettingMode = !isSettingMode;
                             break;
-                        case "MO":
+                        case MO:
                             changeCurrentMode();
                             break;
-                        case "ST":
+                        case ST:
                             if (((Timer) currentMode).isTimerStart()) {
                                 ((Timer) currentMode).pauseTimer();
                             } else {
                                 ((Timer) currentMode).startTimer();
                             }
                             break;
-                        case "RE":  //중지상태에서만 리셋
+                        case RE:  //중지상태에서만 리셋
                             if (!((Timer) currentMode).isTimerStart()) {
                                 ((Timer) currentMode).resetTimer();
                             }
@@ -372,18 +378,18 @@ public class RDMSystem {
                 } else {//세팅모드인 경우
 
                     switch (buttonInput) {
-                        case "AD":
+                        case AD:
                             attrIndex++;
                             attrIndex = attrIndex % alarmAtt.length; //이부분 TimerAtt로 바꿔야됨 Att는 각 클래스가 가지고 있는게 좋을듯
                             break;
-                        case "RE":
+                        case RE:
                             ((Timer) currentMode).increase(alarmAtt[attrIndex]); //클래스 내에서 시분 구분해야함
 
                             break;
-                        case "ST":
+                        case ST:
                             ((Timer) currentMode).decrease(alarmAtt[attrIndex]);
                             break;
-                        case "MO":
+                        case MO:
                             isSettingMode = !isSettingMode;
                             attrIndex = 0;
                             break;
@@ -392,22 +398,22 @@ public class RDMSystem {
             } else if (currentMode instanceof Alarm) {
                 if (!isSettingMode) {  //세팅모드가 아닐 떄
                     switch (buttonInput) {
-                        case "LONG_MO":  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                        case LONG_MO:  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
                             isSettingMode = !isSettingMode;
                             break;
-                        case "MO":
+                        case MO:
                             changeCurrentMode();
                             break;
-                        case "ST":
+                        case ST:
                             ((Alarm) currentMode).selectAlarm("DOWN");
                             break;
-                        case "RE":
+                        case RE:
                             ((Alarm) currentMode).selectAlarm("UP");
                             break;
                         case "LONG_AD":
                             isSelectMode = !isSelectMode;
                             break;
-                        case "AD":
+                        case AD:
                             ((Alarm) currentMode).switchAlarmStatus();
                             break;
                     }
@@ -417,17 +423,17 @@ public class RDMSystem {
                     //displayIcon(currentMode,isSettingMode)
                     //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
-                        case "AD":
+                        case AD:
                             attrIndex++;
                             attrIndex = attrIndex % alarmAtt.length;
                             break;
-                        case "RE":
+                        case RE:
                             ((Alarm) currentMode).increase(alarmAtt[attrIndex]); //클래스 내에서 시분 구분해야함
                             break;
-                        case "ST":
+                        case ST:
                             ((Alarm) currentMode).decrease(alarmAtt[attrIndex]);
                             break;
-                        case "MO":
+                        case MO:
                             isSettingMode = !isSettingMode;
                             ((Alarm) currentMode).getStaticTime().setIsAlreadyNotified();
                             attrIndex = 0;
@@ -441,15 +447,15 @@ public class RDMSystem {
                     //displayIcon(currentMode,isSettingMode)
                     //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
-                        case "LONG_MO":  // MO버튼을 길게 눌렀을 때
+                        case LONG_MO:  // MO버튼을 길게 눌렀을 때
                             isSettingMode = !isSettingMode;
                             ((DecisionMaker) currentMode).setIsInitialized(true);
                             break;
-                        case "MO":
+                        case MO:
                             changeCurrentMode();
                             ((DecisionMaker) currentMode).setIsInitialized(true);
                             break;
-                        case "ST":
+                        case ST:
                             ((DecisionMaker) currentMode).getCase();
                             ((DecisionMaker) currentMode).setIsInitialized(false);
                             break;
@@ -464,29 +470,29 @@ public class RDMSystem {
                     //displayIcon(currentMode,isSettingMode)
                     //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
-                        case "RE":
+                        case RE:
                             ((DecisionMaker) currentMode).increase();
                             break;
-                        case "ST":
+                        case ST:
                             ((DecisionMaker) currentMode).decrease();
                             break;
-                        case "MO":
+                        case MO:
                             isSettingMode = !isSettingMode;
                             break;
                     }
                 }
             } else if (currentMode instanceof WorldTime) {
                 switch (buttonInput) {
-                    case "RE":
+                    case RE:
                         ((WorldTime) currentMode).upIndex();
                         break;
-                    case "ST":
+                    case ST:
                         ((WorldTime) currentMode).downIndex();
                         break;
-                    case "LONG_AD":
+                    case LONG_MO:
                         isSelectMode = !isSelectMode;
                         break;
-                    case "MO":
+                    case MO:
                         changeCurrentMode();
                         break;
                 }
@@ -853,12 +859,12 @@ public class RDMSystem {
 
 
     public void selectMode(String buttonInput){
-        if (!buttonInput.equals("AD")) {
-            if (buttonInput.equals("ST")) {
+        if (!buttonInput.equals(AD)) {
+            if (buttonInput.equals(ST)) {
                 isAvailable[selectModeIndex] = !isAvailable[selectModeIndex];
                 selectModeIndex += 1;
                 selectModeIndex %= allMode.length;
-            } else if (buttonInput.equals("MO") && checkAvailableModeNum()) { //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
+            } else if (buttonInput.equals(MO) && checkAvailableModeNum()) { //MO를 눌렀을 때 선택한 모드 갯수가 4개일 때만
                 isSelectMode = !isSelectMode;
                 selectModeIndex = 0;
                 checkAvailableMode();
