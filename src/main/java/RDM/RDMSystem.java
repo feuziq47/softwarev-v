@@ -256,10 +256,10 @@ public class RDMSystem {
                 } else {//세팅모드인 경우
                     switch (buttonInput) {
                         case RE:
-                            ((StopWatch) currentMode).getLapTime("up");
+                            ((StopWatch) currentMode).getLaptime("up");
                             break;
                         case ST:
-                            ((StopWatch) currentMode).getLapTime("down");
+                            ((StopWatch) currentMode).getLaptime("down");
                             break;
                         case MO:
                             isSettingMode = !isSettingMode;

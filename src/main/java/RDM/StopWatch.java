@@ -126,7 +126,7 @@ public class StopWatch extends Mode {
      */
 
 
-    public LocalTime getLapTime(String dir){
+    public LocalTime getLaptime(String dir){
         assert dir.equals("up") || dir.equals("down");
         int size = lapTime.size();
         if(dir.equals("up")){
