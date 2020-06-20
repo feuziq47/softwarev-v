@@ -267,7 +267,6 @@ public class RDMSystem {
                         case "LONG_MO":
                             isSettingMode = !isSettingMode;
                             this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
-                            return;
                         case "MO":
                             changeCurrentMode();
                             break;
@@ -304,7 +303,6 @@ public class RDMSystem {
                     //diplayTopRight(currentMode,isSettingMode)
                     if (buttonInput.equals("LONG_MO") && isSettingMode == false) { //일시정지 상태이고, MO버튼을 길게 눌렀을 때
                         isSettingMode = !isSettingMode;
-                        return;
                     } else if (buttonInput.equals("MO")) {
                         changeCurrentMode();
                     } else if (buttonInput.equals("ST")) {
@@ -346,7 +344,6 @@ public class RDMSystem {
                     //diplayTopRight(currentMode,isSettingMode)
                     if (buttonInput.equals("LONG_MO")) {
                         isSettingMode = !isSettingMode;
-                        return;
                     } else if (buttonInput.equals("MO")) {
                         changeCurrentMode();
                     } else if (buttonInput.equals("ST")) {
@@ -392,7 +389,7 @@ public class RDMSystem {
                     switch (buttonInput) {
                         case "LONG_MO":  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
                             isSettingMode = !isSettingMode;
-                            return;
+                            break;
                         case "MO":
                             changeCurrentMode();
                             break;
@@ -442,7 +439,7 @@ public class RDMSystem {
                         case "LONG_MO":  // MO버튼을 길게 눌렀을 때
                             isSettingMode = !isSettingMode;
                             ((DecisionMaker) currentMode).setIsInitialized(true);
-                            return;
+                            break;
                         case "MO":
                             changeCurrentMode();
                             ((DecisionMaker) currentMode).setIsInitialized(true);
@@ -595,35 +592,27 @@ public class RDMSystem {
         String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
-        String returnStr = "";
-
-//        StringBuffer buf = new StringBuffer();
-
+        StringBuffer buf = new StringBuffer();
 
         if(isSettingMode && index > 2){
             for(int i=0; i<timeArr.length; i++){
                 if(i == index-3){ //3 = Hour, 4 = Min
-                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
-//                    buf.append("<font color='red'>" + timeArr[i] + "</font>");
+                    buf.append("<font color='red'>" + timeArr[i] + "</font>");
                 }
                 else{
-                    returnStr += timeArr[i];
-//                    buf.append(timeArr[i]);
+                    buf.append(timeArr[i]);
                 }
-                if(i != timeArr.length-1) returnStr +=" : ";
-//                if(i != timeArr.length-1) buf.append(" : ");
+                if(i != timeArr.length-1) buf.append(" : ");
             }
         }
         else{
             for(int i=0; i<timeArr.length; i++){
 
-                returnStr += timeArr[i];
-//                buf.append(timeArr[i]);
-                if(i != timeArr.length-1) returnStr +=" : ";
-//                if(i != timeArr.length-1) buf.append(" : ");
+                buf.append(timeArr[i]);
+                if(i != timeArr.length-1) buf.append(" : ");
             }
         }
-        return makeHtmlFormat(returnStr);
+        return makeHtmlFormat(buf.toString());
     }
 
     private String makeSubDateTimeString(LocalDateTime time, int index, boolean isSettingMode){
@@ -634,26 +623,33 @@ public class RDMSystem {
 
         String[] timeArr = new String[]{year, month, day};
 
-        String returnStr = "";
+//        String returnStr = "";
+        StringBuffer buf = new StringBuffer();
 
         if(isSettingMode && index <= 2){
             for(int i=0; i<timeArr.length; i++){
                 if(i == index){
-                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+//                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+                    buf.append("<font color='red'>" + timeArr[i] + "</font>");
                 }
                 else{
-                    returnStr += timeArr[i];
+//                    returnStr += timeArr[i];
+                    buf.append(timeArr[i]);
                 }
-                returnStr +=" ";
+//                returnStr +=" ";
+                buf.append(" ");
             }
         }
         else{
             for(int i=0; i<timeArr.length; i++){
-                returnStr += timeArr[i];
-                returnStr +=" ";
+//                returnStr += timeArr[i];
+//                returnStr +=" ";
+                buf.append(timeArr[i]);
+                buf.append(" ");
             }
         }
-        return makeHtmlFormat(returnStr + dayOfWeek);
+        buf.append(dayOfWeek);
+        return makeHtmlFormat(buf.toString());
     }
 
     private String makeMainDateTimeString(LocalTime time, int index){
@@ -662,29 +658,31 @@ public class RDMSystem {
         String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
-        String returnStr = "";
+//        String returnStr = "";
+        StringBuffer buf = new StringBuffer();
+
 
 
         if(isSettingMode){
             for(int i=0; i<timeArr.length; i++){
                 if(i == index){
-                    returnStr += "<font color='red'>" + timeArr[i] + "</font>";
+                    buf.append("<font color='red'>" + timeArr[i] + "</font>");
                 }
                 else{
-                    returnStr += timeArr[i];
+                    buf.append(timeArr[i]);
                 }
 
-                if(i != timeArr.length-1) returnStr +=" : ";
+                if(i != timeArr.length-1) buf.append(" : ");
             }
         }
         else{
             for(int i=0; i<timeArr.length; i++){
 
-                returnStr += timeArr[i];
-                if(i != timeArr.length-1) returnStr +=" : ";
+                buf.append(timeArr[i]);
+                if(i != timeArr.length-1) buf.append(" : ");
             }
         }
-        return makeHtmlFormat(returnStr);
+        return makeHtmlFormat(buf.toString());
     }
 
 
@@ -730,13 +728,15 @@ public class RDMSystem {
         String sec = makeTwoStr(Integer.toString(time.getSecond()));
         String[] timeArr = new String[]{hour,min,sec};
 
-        String returnStr = "";
+        StringBuffer buf = new StringBuffer();
+
         for(int i=0; i<timeArr.length; i++){
 
-            returnStr += timeArr[i];
-            if(i != timeArr.length-1) returnStr +=" : ";
+            buf.append(timeArr[i]);
+
+            if(i != timeArr.length-1) buf.append(" : ");
         }
-        return Integer.toString(index+1) + ". " + returnStr;
+        return Integer.toString(index+1) + ". " + buf.toString();
     }
     public void processDisplay(){
         if(currentMode instanceof TimeKeeping){
