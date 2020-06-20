@@ -32,55 +32,63 @@ public class TimeKeeping extends Mode {
 
     public void increase(String unitName) {
         // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
-        switch(unitName){
-            case "YEAR":
-                this.currentTime = this.currentTime.plusYears(1);
-                break;
-            case "MONTH":
-                this.currentTime = this.currentTime.plusMonths(1);
-                break;
-            case "DAY":
-                this.currentTime = this.currentTime.plusDays(1);
-                break;
-            case "HOUR":
-                this.currentTime = this.currentTime.plusHours(1);
-                break;
-            case "MIN":
-                this.currentTime = this.currentTime.plusMinutes(1);
-                break;
-            case "SEC":
-                this.currentTime = this.currentTime.plusSeconds(1);
-                break;
-            default:
-                System.err.println("Invalid Unit Name");
-                break;
+        if(this.currentTime != LocalDateTime.MAX) {
+            switch (unitName) {
+                case "YEAR":
+                    this.currentTime = this.currentTime.plusYears(1);
+                    break;
+                case "MONTH":
+                    this.currentTime = this.currentTime.plusMonths(1);
+                    break;
+                case "DAY":
+                    this.currentTime = this.currentTime.plusDays(1);
+                    break;
+                case "HOUR":
+                    this.currentTime = this.currentTime.plusHours(1);
+                    break;
+                case "MIN":
+                    this.currentTime = this.currentTime.plusMinutes(1);
+                    break;
+                case "SEC":
+                    this.currentTime = this.currentTime.plusSeconds(1);
+                    break;
+                default:
+                    System.err.println("Invalid Unit Name");
+                    break;
+            }
+        } else {
+            this.currentTime = LocalDateTime.MIN;
         }
     }
 
     public void decrease(String unitName) {
         // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
-        switch(unitName){
-            case "YEAR":
-                this.currentTime = this.currentTime.minusYears(1);
-                break;
-            case "MONTH":
-                this.currentTime = this.currentTime.minusMonths(1);
-                break;
-            case "DAY":
-                this.currentTime = this.currentTime.minusDays(1);
-                break;
-            case "HOUR":
-                this.currentTime = this.currentTime.minusHours(1);
-                break;
-            case "MIN":
-                this.currentTime = this.currentTime.minusMinutes(1);
-                break;
-            case "SEC":
-                this.currentTime = this.currentTime.minusSeconds(1);
-                break;
-            default:
-                System.err.println("Invalid Unit Name");
-                break;
+        if(this.currentTime != LocalDateTime.MIN) {
+            switch (unitName) {
+                case "YEAR":
+                    this.currentTime = this.currentTime.minusYears(1);
+                    break;
+                case "MONTH":
+                    this.currentTime = this.currentTime.minusMonths(1);
+                    break;
+                case "DAY":
+                    this.currentTime = this.currentTime.minusDays(1);
+                    break;
+                case "HOUR":
+                    this.currentTime = this.currentTime.minusHours(1);
+                    break;
+                case "MIN":
+                    this.currentTime = this.currentTime.minusMinutes(1);
+                    break;
+                case "SEC":
+                    this.currentTime = this.currentTime.minusSeconds(1);
+                    break;
+                default:
+                    System.err.println("Invalid Unit Name");
+                    break;
+            }
+        } else {
+            this.currentTime = LocalDateTime.MAX;
         }
     }
     /* 일단 빠집니다.
