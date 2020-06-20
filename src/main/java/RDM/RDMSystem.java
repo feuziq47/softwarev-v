@@ -826,6 +826,19 @@ public class RDMSystem {
     }
 
 
+    public boolean getIsSelectMode() {
+        return isSelectMode;
+    }
 
+    public boolean[] getIsAvailable() {
+        return isAvailable;
+    }
 
+    public boolean isSettingMode() {
+        return isSettingMode;
+    }
+
+    public LocalDateTime getTimeKeepingCurrentTime() {
+        return ((TimeKeeping)allMode[0]).getCurrentTime();
+    }
 }
