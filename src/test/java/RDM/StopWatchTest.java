@@ -112,7 +112,7 @@ public class StopWatchTest {//
         //정지
         rdms.decodeButtonInput("ST");
 
-        LocalTime lap = sw.getLapTime(0);
+        LocalTime lap = sw.getLapTimeTest(0);
         LocalTime cur = sw.getStartTime();
         assertTrue(lap.getHour() == cur.getHour() &&
                 lap.getMinute() == cur.getMinute() &&
