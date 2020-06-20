@@ -144,7 +144,6 @@ public class Timer extends Mode {
                 } else {
                     isTimerStart = false;
                     timerTask.cancel();
-                    //timer = new java.util.Timer();
                     timer_callback.callbackMethod();
 
                 }
