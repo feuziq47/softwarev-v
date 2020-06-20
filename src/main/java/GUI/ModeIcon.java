@@ -14,7 +14,6 @@ public class ModeIcon extends JLabel {
     private Color[] iconColors;
     String path;
 
-    private HashMap<String, BufferedImage> imgs;
 
     private ModeIcon()  {
         this.setSize(300, 45);
@@ -27,7 +26,6 @@ public class ModeIcon extends JLabel {
         this.iconName = new String[]{"0timeKeeping.png", "1stopWatch.png", "2timer.png", "3alarm.png", "4decisionMaker.png", "5worldTime.png"};
         this.path = System.getProperty("user.dir") + "/src/main/java/GUI/icon/";
         this.il = new IconLoader(path);
-        this.imgs = il.getIcons();
     }
 
     private static class InnerInstanceClass {

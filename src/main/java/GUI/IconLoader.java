@@ -60,6 +60,7 @@ public class IconLoader {
                 g.drawLine(w, h, w, h);
             }
         }
+        g.dispose();
         return newImage;
     }
 }
