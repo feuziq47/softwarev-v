@@ -6,6 +6,7 @@ import java.io.IOException;
 
 public class RDMMain extends JFrame{
     private Button[] buttons;
+    private final String[] btnName = {"AD","RE","MO","ST"};
 
 
     private RDMMain(){
@@ -13,7 +14,6 @@ public class RDMMain extends JFrame{
 
         int[] btnX = {24, 646, 24, 646};
         int[] btnY = {100, 100, 310, 310};
-        String[] btnName = {"AD","RE","MO","ST"};
         this.setBackground(Color.black);
         buttons = new Button[4];
         for(int btnIndex = 0;btnIndex<4;btnIndex++){
@@ -60,7 +60,7 @@ public class RDMMain extends JFrame{
         return RDMMain.InnerInstanceClass.instance;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args){
         RDMMain m = RDMMain.getInstance();
     }
 }
