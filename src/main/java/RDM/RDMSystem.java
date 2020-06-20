@@ -144,7 +144,7 @@ public class RDMSystem {
     }
 
     //현재 사용가능한 모드 체크
-    public void checkAvailableMode(){
+    final public void checkAvailableMode(){
         int index = 0;
         for(int i=0; i<allMode.length;i++){
             if(!isAvailable[i]) {
@@ -188,6 +188,8 @@ public class RDMSystem {
                         case "LONG_AD":
                             isSelectMode = !isSelectMode;
                             break;
+                        default:
+                            break;
                     }
                 } else { //세팅모드인 경우
                     switch (buttonInput) {
@@ -205,6 +207,8 @@ public class RDMSystem {
                         case MO:
                             isSettingMode = !isSettingMode;
                             attrIndex = 0;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -245,6 +249,8 @@ public class RDMSystem {
 
                             }
                             break;
+                        default:
+                            break;
                     }
                 } else {//세팅모드인 경우
                     switch (buttonInput) {
@@ -256,6 +262,8 @@ public class RDMSystem {
                             break;
                         case MO:
                             isSettingMode = !isSettingMode;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -283,6 +291,8 @@ public class RDMSystem {
                         case "LONG_AD":
                             isSelectMode = !isSelectMode;
                             break;
+                        default:
+                            break;
                     }
                 } else {//세팅모드인 경우
 
@@ -301,6 +311,8 @@ public class RDMSystem {
                         case MO:
                             isSettingMode = !isSettingMode;
                             attrIndex = 0;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -325,6 +337,8 @@ public class RDMSystem {
                         case AD:
                             ((Alarm) currentMode).switchAlarmStatus();
                             break;
+                        default:
+                            break;
                     }
                 } else {//세팅모드인 경우
 
@@ -346,6 +360,8 @@ public class RDMSystem {
                             isSettingMode = !isSettingMode;
                             ((Alarm) currentMode).getStaticTime().setIsAlreadyNotified();
                             attrIndex = 0;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -372,6 +388,8 @@ public class RDMSystem {
                             isSelectMode = !isSelectMode;
                             ((DecisionMaker) currentMode).setIsInitialized(true);
                             break;
+                        default:
+                            break;
                     }
                 } else {//세팅모드인 경우
 
@@ -387,6 +405,8 @@ public class RDMSystem {
                             break;
                         case MO:
                             isSettingMode = !isSettingMode;
+                            break;
+                        default:
                             break;
                     }
                 }
@@ -404,7 +424,11 @@ public class RDMSystem {
                     case MO:
                         changeCurrentMode();
                         break;
+                    default:
+                        break;
                 }
+            } else {
+
             }
         }
 //        System.out.println(currentMode.toString());
