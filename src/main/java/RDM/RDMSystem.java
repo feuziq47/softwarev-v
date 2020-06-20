@@ -110,7 +110,7 @@ public class RDMSystem {
         Timer_Beep_Callback beep_callback = new Timer_Beep_Callback() {
             @Override
             public void callbackMethod() {
-                if(isAvailable[timerIndex] == true) {
+                if(isAvailable[timerIndex] == true && ((Timer) allMode[timerIndex]).getCurrentTime() != LocalTime.of(0,0,0)) {
                     if (beep.isActivated()) {
                     } else {
                         beep.beepStart();
