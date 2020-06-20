@@ -182,6 +182,7 @@ public class RDMSystem {
                         case LONG_MO:
                             isSettingMode = !isSettingMode;
                             this.currentTime = ((TimeKeeping) currentMode).getCurrentTime();
+                            break;
                         case MO:
                             changeCurrentMode();
                             break;
