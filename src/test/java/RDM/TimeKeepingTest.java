@@ -79,4 +79,13 @@ public class TimeKeepingTest {//
 
         assertTrue(tmp1 && tmp2 && tmp3 && tmp4 && tmp5 && tmp6 && tmp7 && tmp8 && tmp9 && tmp10 && tmp11);
     }
+
+    @Test
+    public void setCurrentTimeValidTime(){
+        TimeKeeping tk = new TimeKeeping();
+        tk.setCurrentTimeTest(LocalDateTime.MAX);
+        tk.increase("YEAR");
+        assertTrue(tk.getCurrentTime() == LocalDateTime.MIN);
+
+    }
 }

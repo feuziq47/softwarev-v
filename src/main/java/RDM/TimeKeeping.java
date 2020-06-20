@@ -14,6 +14,9 @@ public class TimeKeeping extends Mode {
         this.timeKeeping_Callback = null;
     }
 
+    public void setCurrentTimeTest(LocalDateTime ldt){
+        this.currentTime = ldt;
+    }
     //시간이 흐르는 것을 실제로 표현하기 위해 tictok()이라는 함수를 새롭게 추가하였습니다.
     public void tictok() {
         TimerTask tmp = new TimerTask() {
