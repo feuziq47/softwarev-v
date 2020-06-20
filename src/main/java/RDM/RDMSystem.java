@@ -26,7 +26,10 @@ public class RDMSystem {
     private LocalDateTime currentTime;
 
 
-
+    final private int timeKeepingIndex = 0;
+    final private int stopwatchIndex = 1;
+    final private int timerIndex = 2;
+    final private int alarmIndex = 3;
     private int modeIndex;
     private int selectModeIndex = 0;
     private int attrIndex = 0; //각 클래스의 attr인덱스 ex Year,Month
@@ -104,25 +107,39 @@ public class RDMSystem {
             }
         };
 
-        Callback beep_callback = new Callback() {
+        Timer_Beep_Callback beep_callback = new Timer_Beep_Callback() {
             @Override
             public void callbackMethod() {
-                if(beep.isActivated()) {}
-                else{
-                    beep.beepStart();
+                if(isAvailable[timerIndex] == true && ((Timer) allMode[timerIndex]).getCurrentTime() != LocalTime.of(0,0,0)) {
+                    if (beep.isActivated()) {
+                    } else {
+                        beep.beepStart();
+                    }
                 }
             }
         };
 
-        ((Timer)allMode[2]).setCallback(beep_callback);
+        Alarm_Beep_Callback alarm_beep_callback = new Alarm_Beep_Callback() {
+            @Override
+            public void callbackMethod() {
+                if(isAvailable[alarmIndex] == true) {
+                    if (beep.isActivated()) {
+                    } else {
+                        beep.beepStart();
+                    }
+                }
+            }
+        };
+
+        ((Timer)allMode[timerIndex]).setCallback(beep_callback);
         for(int i = 0; i < 4; i++){
-            ((Alarm)allMode[3]).getAlarmList(i).setCallback(beep_callback);
+            ((Alarm)allMode[alarmIndex]).getAlarmList(i).setCallback(alarm_beep_callback);
         }
-        ((TimeKeeping) allMode[0]).setCallback(timeKeepingCallback);
-        ((StopWatch) allMode[1]).setCountUpCallback(stopWatchCallback);
-        ((StopWatch) allMode[1]).setLapTimeCallback(lapTimeCallback);
-        ((Timer) allMode[2]).setTimerCallback(timerCallback);
-        ((TimeKeeping) allMode[0]).tictok();
+        ((TimeKeeping) allMode[timeKeepingIndex]).setCallback(timeKeepingCallback);
+        ((StopWatch) allMode[stopwatchIndex]).setCountUpCallback(stopWatchCallback);
+        ((StopWatch) allMode[stopwatchIndex]).setLapTimeCallback(lapTimeCallback);
+        ((Timer) allMode[timerIndex]).setTimerCallback(timerCallback);
+        ((TimeKeeping) allMode[timeKeepingIndex]).tictok();
 
     }
 
