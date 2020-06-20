@@ -9,7 +9,7 @@ import java.util.TimerTask;
  *
  */
 public class Timer extends Mode {
-    private Callback timer_callback;
+    private Timer_Beep_Callback timer_beep_callback;
     private Timer_Callback timerCallback;
     private boolean isTimerStart;
 
@@ -20,7 +20,7 @@ public class Timer extends Mode {
         currentTime = LocalTime.of(0,0,0);
         leftTime = LocalTime.of(0,0,0);
         endTime = LocalTime.of(0,0,0);
-        timer_callback = null;
+        timer_beep_callback = null;
         timer = new java.util.Timer();
         timerTask = null;
         timerCallback = null;
@@ -55,8 +55,8 @@ public class Timer extends Mode {
     private static java.util.Timer timer;
     private java.util.TimerTask timerTask;
 
-    public void setCallback(Callback callback){
-        this.timer_callback = callback;
+    public void setCallback(Timer_Beep_Callback callback){
+        this.timer_beep_callback = callback;
     }
     /*
     public void editTimer() {
@@ -144,8 +144,7 @@ public class Timer extends Mode {
                 } else {
                     isTimerStart = false;
                     timerTask.cancel();
-                    timer_callback.callbackMethod();
-
+                    timer_beep_callback.callbackMethod();
                 }
             }
         };
