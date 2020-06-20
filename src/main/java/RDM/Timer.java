@@ -71,19 +71,23 @@ public class Timer extends Mode {
     public void increase(String unitName) {
         // TODO implement here
         // 현재 시간을 수정할 때, 수정 하려는 유닛 이름에 맞춰서 시간을 수정해줍니다.
-        switch(unitName){
-            case "HOUR":
-                this.currentTime = this.currentTime.plusHours(1);
-                break;
-            case "MIN":
-                this.currentTime = this.currentTime.plusMinutes(1);
-                break;
-            case "SEC":
-                this.currentTime = this.currentTime.plusSeconds(1);
-                break;
-            default:
-                System.err.println("Invalid Unit Name");
-                break;
+        if(this.currentTime != LocalTime.MAX) {
+            switch (unitName) {
+                case "HOUR":
+                    this.currentTime = this.currentTime.plusHours(1);
+                    break;
+                case "MIN":
+                    this.currentTime = this.currentTime.plusMinutes(1);
+                    break;
+                case "SEC":
+                    this.currentTime = this.currentTime.plusSeconds(1);
+                    break;
+                default:
+                    System.err.println("Invalid Unit Name");
+                    break;
+            }
+        } else {
+            this.currentTime = LocalTime.MIN;
         }
         leftTime = currentTime;
         System.out.println(currentTime);
@@ -94,19 +98,23 @@ public class Timer extends Mode {
      */
     public void decrease(String unitName) {
         // TODO implement here
-        switch(unitName){
-            case "HOUR":
-                this.currentTime = this.currentTime.minusHours(1);
-                break;
-            case "MIN":
-                this.currentTime = this.currentTime.minusMinutes(1);
-                break;
-            case "SEC":
-                this.currentTime = this.currentTime.minusSeconds(1);
-                break;
-            default:
-                System.err.println("Invalid Unit Name");
-                break;
+        if(this.currentTime != LocalTime.MIN) {
+            switch (unitName) {
+                case "HOUR":
+                    this.currentTime = this.currentTime.minusHours(1);
+                    break;
+                case "MIN":
+                    this.currentTime = this.currentTime.minusMinutes(1);
+                    break;
+                case "SEC":
+                    this.currentTime = this.currentTime.minusSeconds(1);
+                    break;
+                default:
+                    System.err.println("Invalid Unit Name");
+                    break;
+            }
+        } else {
+            this.currentTime = LocalTime.MAX;
         }
         leftTime = currentTime;
         System.out.println(currentTime);

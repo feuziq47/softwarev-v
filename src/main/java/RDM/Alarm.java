@@ -1,5 +1,6 @@
 package RDM;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class Alarm extends Mode {
 
@@ -46,38 +47,46 @@ public class Alarm extends Mode {
     // 세팅할 때 유닛을 증가 또는 감소시키려면 유닛이 시간인지 분인지 초인지를 알아야 하므로 인자를 추가했습니다. - 이정우
     public void increase(String unitName) {
         // 현재 깜빡이는 유닛을 증가시킨다.
-        switch(unitName){
-            case "HOUR":
-                this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusHours(1));
-                break;
-            case "MIN":
-                this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusMinutes(1));
-                break;
-            case "SEC":
-                this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusSeconds(1));
-                break;
-            default:
-                System.err.println("Invalid Unit Name");
-                break;
+        if(this.alarmList[this.index].getAlarmTime() != LocalTime.MAX) {
+            switch (unitName) {
+                case "HOUR":
+                    this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusHours(1));
+                    break;
+                case "MIN":
+                    this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusMinutes(1));
+                    break;
+                case "SEC":
+                    this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().plusSeconds(1));
+                    break;
+                default:
+                    System.err.println("Invalid Unit Name");
+                    break;
+            }
+        } else {
+            this.alarmList[this.index].setAlarmTime(LocalTime.MIN);
         }
         System.out.println(this.index + " : " + this.alarmList[this.index].getAlarmTime());
     }
 
     public void decrease(String unitName) {
         // 현재 깜빡이는 유닛을 감소시킨다.
-        switch(unitName){
-            case "HOUR":
-                this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusHours(1));
-                break;
-            case "MIN":
-                this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusMinutes(1));
-                break;
-            case "SEC":
-                this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusSeconds(1));
-                break;
-            default:
-                System.err.println("Invalid Unit Name");
-                break;
+        if(this.alarmList[this.index].getAlarmTime() != LocalTime.MIN) {
+            switch (unitName) {
+                case "HOUR":
+                    this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusHours(1));
+                    break;
+                case "MIN":
+                    this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusMinutes(1));
+                    break;
+                case "SEC":
+                    this.alarmList[this.index].setAlarmTime(this.alarmList[this.index].getAlarmTime().minusSeconds(1));
+                    break;
+                default:
+                    System.err.println("Invalid Unit Name");
+                    break;
+            }
+        } else {
+            this.alarmList[this.index].setAlarmTime(LocalTime.MAX);
         }
         System.out.println(this.index + ":" + this.alarmList[this.index].getAlarmTime());
     }
