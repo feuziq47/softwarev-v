@@ -37,6 +37,7 @@ public class RDMSystem {
     final private String[] timeKeepingAtt = {"YEAR", "MONTH", "DAY", "HOUR","MIN"};
     final private String[] alarmAtt = {"HOUR", "MIN", "SEC"};
     final private String LONG_MO = "LONG_MO";
+    final private String LONG_AD = "LONG_AD";
     final private String MO = "MO";
     final private String AD = "AD";
     final private String ST = "ST";
@@ -186,7 +187,7 @@ public class RDMSystem {
                         case MO:
                             changeCurrentMode();
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             break;
                         default:
@@ -241,7 +242,7 @@ public class RDMSystem {
                                 ((StopWatch) currentMode).clearStopwatch();
                             }
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             break;
                         case AD:  //진행 중일 때만 기록
@@ -289,7 +290,7 @@ public class RDMSystem {
                                 ((Timer) currentMode).resetTimer();
                             }
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             break;
                         default:
@@ -332,7 +333,7 @@ public class RDMSystem {
                         case RE:
                             ((Alarm) currentMode).selectAlarm("UP");
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             break;
                         case AD:
@@ -385,7 +386,7 @@ public class RDMSystem {
                             ((DecisionMaker) currentMode).getCase();
                             ((DecisionMaker) currentMode).setIsInitialized(false);
                             break;
-                        case "LONG_AD":
+                        case LONG_AD:
                             isSelectMode = !isSelectMode;
                             ((DecisionMaker) currentMode).setIsInitialized(true);
                             break;
