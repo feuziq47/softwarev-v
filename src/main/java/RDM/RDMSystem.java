@@ -275,9 +275,6 @@ public class RDMSystem {
                             break;
                     }
                 } else { //세팅모드인 경우
-                    //blinkDisplayMain(timeKeepingAtt[attrIndex]
-                    //displayIcon(currentMode,isSettingMode)
-                    //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
                         case "AD":
                             attrIndex++;
@@ -301,30 +298,40 @@ public class RDMSystem {
                     //displayMain(currentMode,isSettingMode)
                     //displayIcon(currentMode,isSettingMode)
                     //diplayTopRight(currentMode,isSettingMode)
-                    if (buttonInput.equals("LONG_MO") && isSettingMode == false) { //일시정지 상태이고, MO버튼을 길게 눌렀을 때
-                        isSettingMode = !isSettingMode;
-                    } else if (buttonInput.equals("MO")) {
-                        changeCurrentMode();
-                    } else if (buttonInput.equals("ST")) {
-                        if (isStopwatchStart) {
-                            ((StopWatch) currentMode).pauseStopwatch();
-                            isStopwatchStart = !isStopwatchStart;
-                        } else {
-                            ((StopWatch) currentMode).startStopwatch();
-                            isStopwatchStart = !isStopwatchStart;
-                        }
-                    } else if (buttonInput.equals("RE") && !isStopwatchStart) {
-                        ((StopWatch) currentMode).clearStopwatch();
-                    } else if (buttonInput.equals("LONG_AD")) {
-                        isSelectMode = !isSelectMode;
-                    } else if (buttonInput.equals("AD") && isStopwatchStart) { //진행 중일 때만 기록
-                        ((StopWatch) currentMode).recordLapTime();
+                    switch (buttonInput) {
+                        case "LONG_MO":  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
+                            if (isSettingMode == false) {
+                                isSettingMode = !isSettingMode;
+                            }
+                            break;
+                        case "MO":
+                            changeCurrentMode();
+                            break;
+                        case "ST":
+                            if (isStopwatchStart) {
+                                ((StopWatch) currentMode).pauseStopwatch();
+                                isStopwatchStart = !isStopwatchStart;
+                            } else {
+                                ((StopWatch) currentMode).startStopwatch();
+                                isStopwatchStart = !isStopwatchStart;
+                            }
+                            break;
+                        case "RE":
+                            if (!isStopwatchStart) {
+                                ((StopWatch) currentMode).clearStopwatch();
+                            }
+                            break;
+                        case "LONG_AD":
+                            isSelectMode = !isSelectMode;
+                            break;
+                        case "AD":  //진행 중일 때만 기록
+                            if (isStopwatchStart) {
+                                ((StopWatch) currentMode).recordLapTime();
+
+                            }
+                            break;
                     }
                 } else {//세팅모드인 경우
-
-                    //blinkDisplayMain(timeKeepingAtt[attrIndex]
-                    //displayIcon(currentMode,isSettingMode)
-                    //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
                         case "RE":
                             ((StopWatch) currentMode).getLaptime("up");
@@ -339,30 +346,31 @@ public class RDMSystem {
                 }
             } else if (currentMode instanceof Timer) {
                 if (!isSettingMode) {  //세팅모드가 아닐 떄
-                    //displayMain(currentMode,isSettingMode)
-                    //displayIcon(currentMode,isSettingMode)
-                    //diplayTopRight(currentMode,isSettingMode)
-                    if (buttonInput.equals("LONG_MO")) {
-                        isSettingMode = !isSettingMode;
-                    } else if (buttonInput.equals("MO")) {
-                        changeCurrentMode();
-                    } else if (buttonInput.equals("ST")) {
-                        if (((Timer) currentMode).isTimerStart()) {
-                            ((Timer) currentMode).pauseTimer();
-                        } else {
-                            ((Timer) currentMode).startTimer();
-                        }
-                    } else if (buttonInput.equals("RE") && !((Timer) currentMode).isTimerStart()) { //중지상태에서만 리셋
-//                        isTimerStart = false;
-                        ((Timer) currentMode).resetTimer();
-                    } else if (buttonInput.equals("LONG_AD")) {
-                        isSelectMode = !isSelectMode;
+                    switch (buttonInput) {
+                        case "LONG_MO":
+                            isSettingMode = !isSettingMode;
+                            break;
+                        case "MO":
+                            changeCurrentMode();
+                            break;
+                        case "ST":
+                            if (((Timer) currentMode).isTimerStart()) {
+                                ((Timer) currentMode).pauseTimer();
+                            } else {
+                                ((Timer) currentMode).startTimer();
+                            }
+                            break;
+                        case "RE":  //중지상태에서만 리셋
+                            if (!((Timer) currentMode).isTimerStart()) {
+                                ((Timer) currentMode).resetTimer();
+                            }
+                            break;
+                        case "LONG_AD":
+                            isSelectMode = !isSelectMode;
+                            break;
                     }
                 } else {//세팅모드인 경우
 
-                    //blinkDisplayMain(timeKeepingAtt[attrIndex]
-                    //displayIcon(currentMode,isSettingMode)
-                    //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
                         case "AD":
                             attrIndex++;
@@ -383,9 +391,6 @@ public class RDMSystem {
                 }
             } else if (currentMode instanceof Alarm) {
                 if (!isSettingMode) {  //세팅모드가 아닐 떄
-                    //displayMain(currentMode,isSettingMode)
-                    //displayIcon(currentMode,isSettingMode)
-                    //diplayTopRight(currentMode,isSettingMode)
                     switch (buttonInput) {
                         case "LONG_MO":  //일시정지 상태이고, MO버튼을 길게 눌렀을 때
                             isSettingMode = !isSettingMode;
