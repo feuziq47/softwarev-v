@@ -41,7 +41,7 @@ public class StaticTime{
     private boolean alreadyNotified;
     private LocalTime alarmTime;
     private boolean isActivated;
-    private Callback alarm_callback;
+    private Alarm_Beep_Callback alarm_callback;
     private static java.util.Timer timer;
     private java.util.TimerTask timerTask;
 
@@ -91,7 +91,7 @@ public class StaticTime{
         this.isActivated = isActivated;
     }
 
-    public void setCallback(Callback callback){
+    public void setCallback(Alarm_Beep_Callback callback){
         this.alarm_callback = callback;
     }
 
